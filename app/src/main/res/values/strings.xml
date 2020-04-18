@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">火山药馆</string>
+    <string name="title_user">用户</string>
+    <string name="title_manage">管理</string>
+    <string name="title_notifications">提醒</string>
+    <string name="login_username">用户名</string>
+    <string name="login_user_pass">密码</string>
+    <string name="login_bt_login">登 录</string>
+    <string name="login_forget_password">忘记密码</string>
+    <string name="login_register">用户注册</string>
+    <string name="login_introduction">登录即代表阅读并同意</string>
+    <string name="login_service_protocol">服务协议</string>
+    <string name="user_alarm">一 键 求 救</string>
+    <string name="user_exit">退 出</string>
+    <string name="user_age">年 龄 :</string>
+    <string name="user_account">监护人账号切换</string>
+    <string name="user_sex">性 别 :</string>
+    <string name="user_name">姓 名 :</string>
+    <string name="user_address">住 址 :</string>
+    <string name="user_emergency_contact">紧急联系人 :</string>
+    <string name="user_medical_history">病 史 :</string>
+    <string name="user_allergy">过敏史 :</string>
+    <string name="user_blood_type">血 型 :</string>
+    <string name="action_settings">Settings</string>
+</resources>
