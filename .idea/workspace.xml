@@ -28,7 +28,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="6.3Android10" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="dc3fad09" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -59,10 +59,53 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+            <state relative-caret-position="234">
+              <caret line="23" column="52" lean-forward="true" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+              <folding>
+                <element signature="e#932#2350#0" />
+                <element signature="e#1646#1665#0" expanded="true" />
+                <element signature="e#1719#1737#0" expanded="true" />
+                <element signature="e#2070#2088#0" expanded="true" />
+                <element signature="e#2223#3336#0" />
+                <element signature="e#2913#2931#0" expanded="true" />
+                <element signature="e#3162#3180#0" expanded="true" />
+                <element signature="e#3448#4565#0" />
+                <element signature="e#4189#4207#0" expanded="true" />
+                <element signature="e#4388#4406#0" expanded="true" />
+                <element signature="e#4627#5762#0" />
+                <element signature="e#5326#5344#0" expanded="true" />
+                <element signature="e#5563#5581#0" expanded="true" />
+                <element signature="e#5801#6942#0" />
+                <element signature="e#6389#6407#0" expanded="true" />
+                <element signature="e#6577#6595#0" expanded="true" />
+                <element signature="e#6897#8216#0" />
+                <element signature="e#7512#7530#0" expanded="true" />
+                <element signature="e#7830#7848#0" expanded="true" />
+                <element signature="e#8118#9268#0" />
+                <element signature="e#8710#8728#0" expanded="true" />
+                <element signature="e#9031#9049#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/dividers.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="233">
+              <caret line="356" column="56" selection-start-line="356" selection-start-column="56" selection-end-line="356" selection-end-column="56" />
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
@@ -108,7 +151,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/ManageViewModel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/AddNotificationActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/add_notification.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_blank.xml" />
@@ -124,14 +166,16 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_manage.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/navigation/mobile_navigation.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/dividers.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="255" />
-    <option name="y" value="477" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="505" />
+    <option name="y" value="107" />
     <option name="width" value="1401" />
     <option name="height" value="1002" />
   </component>
@@ -166,6 +210,18 @@
               <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
@@ -289,10 +345,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="255" y="477" width="1401" height="1002" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5024311" side_tool="true" weight="0.1391258" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49756888" visible="true" weight="0.13870247" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49756888" visible="true" weight="0.09914712" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -300,21 +356,21 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.3286334" />
       <window_info anchor="bottom" id="Logcat" order="1" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.33179724" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.31236443" />
       <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32936078" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32995737" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info active="true" anchor="right" id="Preview" order="4" visible="true" weight="0.46159583" />
+      <window_info active="true" anchor="right" id="Preview" order="4" visible="true" weight="0.32995737" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
     </layout>
   </component>
@@ -330,13 +386,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
           <caret line="2" column="29" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bt_emer_shape.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -409,14 +458,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/add_notification.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_add_notification.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/setting_menu.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -535,10 +576,10 @@
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
+        <state relative-caret-position="186">
+          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
@@ -551,10 +592,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/divers.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/bt_emer_shape.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        <state relative-caret-position="25">
+          <caret line="1" column="7" lean-forward="true" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="356" column="56" selection-start-line="356" selection-start-column="56" selection-end-line="356" selection-end-column="56" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/dividers.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="23" column="52" lean-forward="true" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+          <folding>
+            <element signature="e#932#2350#0" />
+            <element signature="e#1646#1665#0" expanded="true" />
+            <element signature="e#1719#1737#0" expanded="true" />
+            <element signature="e#2070#2088#0" expanded="true" />
+            <element signature="e#2223#3336#0" />
+            <element signature="e#2913#2931#0" expanded="true" />
+            <element signature="e#3162#3180#0" expanded="true" />
+            <element signature="e#3448#4565#0" />
+            <element signature="e#4189#4207#0" expanded="true" />
+            <element signature="e#4388#4406#0" expanded="true" />
+            <element signature="e#4627#5762#0" />
+            <element signature="e#5326#5344#0" expanded="true" />
+            <element signature="e#5563#5581#0" expanded="true" />
+            <element signature="e#5801#6942#0" />
+            <element signature="e#6389#6407#0" expanded="true" />
+            <element signature="e#6577#6595#0" expanded="true" />
+            <element signature="e#6897#8216#0" />
+            <element signature="e#7512#7530#0" expanded="true" />
+            <element signature="e#7830#7848#0" expanded="true" />
+            <element signature="e#8118#9268#0" />
+            <element signature="e#8710#8728#0" expanded="true" />
+            <element signature="e#9031#9049#0" expanded="true" />
+          </folding>
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
