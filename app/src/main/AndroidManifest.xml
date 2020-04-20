@@ -8,9 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNotificationActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="添加新提醒"/>
+        <activity android:name=".RegisterActivity"
+            android:label="注册新用户"
+            android:parentActivityName=".LoginActivity"></activity>
+        <activity
+            android:name=".ui.notifications.AddNotificationActivity"
+            android:label="添加新提醒"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".MainActivity" />

@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.volcano.holsansys.ui.notifications.AddNotificationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
