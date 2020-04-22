@@ -26,11 +26,6 @@ public class NotificationsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        /*root.findViewById(R.id.add_bt).setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Navigation.findNavController(root).navigate(R.id.addNotificationFragment);
-            }
-        });*/
 
         //提醒界面数据更新
         mContext =getActivity();

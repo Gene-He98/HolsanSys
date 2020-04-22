@@ -7,20 +7,74 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp">
 
-        <!--病人属性界面-->
-        <ScrollView
+        <!-- 用户显示界面 -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/user_information"
+            android:visibility="visible"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/listview_shape"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_above="@id/me_bt_emer">
+            android:layout_marginBottom="5dp"
+            android:layout_above="@id/me_bt_emer"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="您好，尊敬的用户"
+                    android:textSize="@dimen/word_size"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="何谨灿"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/user_id"
+                    android:textSize="30sp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您的家人当前状态如下："
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/word_size"/>
+
+            <ListView
+                android:id="@+id/listView_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- 病人属性界面 -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/patients_information"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/listview_shape"
+            android:visibility="gone"
+            android:layout_above="@id/me_bt_emer"
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -212,33 +266,10 @@
 
         </ScrollView>
 
-        <!--紧急按钮-->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="150dp"
+        <!-- 紧急按钮 -->
+        <include
             android:id="@+id/me_bt_emer"
-            android:background="@drawable/bt_emer_shape"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:layout_marginTop="5dp">
-
-            <ImageView
-                android:id="@+id/me_emer_pic"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_alert_black_24dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_below="@+id/me_emer_pic"
-                android:text="@string/user_alarm"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp" />
-        </RelativeLayout>
+            layout="@layout/emergency_button"/>
 
     </RelativeLayout>
 

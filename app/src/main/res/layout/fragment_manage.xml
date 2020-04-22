@@ -6,16 +6,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp">
 
         <!--除紧急按钮外界面-->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/manage_scroll"
-            android:layout_above="@id/me_bt_emer"
+            android:background="@drawable/listview_shape"
+            android:layout_above="@id/manage_bt_emer"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp">
 
             <!--单项提醒计划-->
             <LinearLayout
@@ -60,13 +65,13 @@
                             android:padding="8dp"
                             android:layout_width="1dp"
                             android:text="服药计划1"
-                            android:textSize="30sp"
+                            android:textSize="20sp"
                             android:gravity="center"/>
                         <TextView
                             android:padding="8dp"
                             android:layout_width="1dp"
                             android:text="已服用"
-                            android:textSize="30sp"
+                            android:textSize="20sp"
                             android:gravity="center"/>
                     </TableRow>
                     <TableRow
@@ -107,46 +112,11 @@
 
         </ScrollView>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:id="@+id/add_bt"
-            android:src="@drawable/ic_add_circle_black_24dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="160dp"
-            android:layout_marginStart="100dp"
-            android:onClick="Add_Notification"/>
 
         <!--紧急按钮-->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="150dp"
-            android:id="@+id/me_bt_emer"
-            android:background="@drawable/bt_emer_shape"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:layout_marginTop="5dp">
-
-            <ImageView
-                android:id="@+id/me_emer_pic"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_alert_black_24dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_below="@+id/me_emer_pic"
-                android:text="@string/user_alarm"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp" />
-        </RelativeLayout>
+        <include
+            android:id="@+id/manage_bt_emer"
+            layout="@layout/emergency_button"/>
 
     </RelativeLayout>
 

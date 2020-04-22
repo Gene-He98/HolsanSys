@@ -39,14 +39,27 @@ public class NotificationListAdapter extends BaseAdapter {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_notification,parent,false);
-            TextView time_notification = convertView.findViewById(R.id.time_notification);
-            TextView remark_notification = convertView.findViewById(R.id.remark_notification);
-            Switch switch_notification = convertView.findViewById(R.id.switch_notification);
-            time_notification.setText(mData.get(position).getTime());
-            remark_notification.setText(mData.get(position).getRemark());
-            switch_notification.setChecked(mData.get(position).getSwitch());
+            ViewHolder holder = null;
+            if(convertView == null){
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_notification,parent,false);
+                holder = new ViewHolder();
+                holder.time_notification = convertView.findViewById(R.id.time_notification);
+                holder.remark_notification = convertView.findViewById(R.id.remark_notification);
+                holder.switch_notification = convertView.findViewById(R.id.switch_notification);
+                convertView.setTag(holder);   //将Holder存储到convertView中
+            }else{
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.time_notification.setText(mData.get(position).getTime());
+            holder.remark_notification.setText(mData.get(position).getRemark());
+            holder.switch_notification.setChecked(mData.get(position).getSwitch());
             return convertView;
         }
+
+    static class ViewHolder{
+        TextView time_notification;
+        TextView remark_notification;
+        Switch switch_notification;
+    }
 
 }

@@ -6,49 +6,39 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp">
 
         <!--提醒展示listView-->
         <ListView
             android:id="@+id/listView_notification"
             android:background="@drawable/listview_shape"
-            android:layout_above="@id/me_bt_emer"
+            android:layout_above="@id/notification_bt_emer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/add_bt"
+            android:src="@drawable/ic_add_circle_black_24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="160dp"
+            android:layout_marginStart="100dp"
+            android:onClick="Add_Notification"/>
 
         <!--紧急按钮-->
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="150dp"
-            android:id="@+id/me_bt_emer"
-            android:background="@drawable/bt_emer_shape"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:layout_marginTop="5dp">
-
-            <ImageView
-                android:id="@+id/me_emer_pic"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_alert_black_24dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_below="@+id/me_emer_pic"
-                android:text="@string/user_alarm"
-                android:textColor="#FFFFFF"
-                android:textSize="25sp" />
-        </RelativeLayout>
+        <include
+            android:id="@+id/notification_bt_emer"
+            layout="@layout/emergency_button"/>
 
     </RelativeLayout>
 
