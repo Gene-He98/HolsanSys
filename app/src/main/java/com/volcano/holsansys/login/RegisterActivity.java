@@ -1,14 +1,15 @@
-package com.volcano.holsansys;
+package com.volcano.holsansys.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.volcano.holsansys.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        phone=LoginActivity.phone;
+        phone= LoginActivity.phone;
         username=(EditText)findViewById(R.id.user_name);
         user_pass=(EditText)findViewById(R.id.user_pass);
         user_pass_again=(EditText)findViewById(R.id.user_pass_again);

@@ -7,16 +7,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterActivity"
+        <activity android:name=".login.RegisterActivity"
             android:label="注册新用户"
-            android:parentActivityName=".LoginActivity"></activity>
+            android:parentActivityName=".login.LoginActivity"></activity>
         <activity
             android:name=".ui.notifications.AddNotificationActivity"
             android:label="添加新提醒"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"

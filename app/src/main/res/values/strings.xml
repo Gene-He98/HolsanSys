@@ -3,7 +3,7 @@
     <string name="title_user">用户</string>
     <string name="title_manage">管理</string>
     <string name="title_notifications">提醒</string>
-    <string name="login_username">用户名</string>
+    <string name="login_username">手机号/用户名</string>
     <string name="login_user_pass">密码</string>
     <string name="login_bt_login">登 录</string>
     <string name="login_forget_password">忘记密码</string>

@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.volcano.holsansys.login.LoginActivity;
 import com.volcano.holsansys.ui.notifications.AddNotificationActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent =new Intent(MainActivity.this,LoginActivity.class);
+                Intent intent =new Intent(MainActivity.this, LoginActivity.class);
                 Bundle bundle = new Bundle();
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 200); //两个参数：第一个是意图对象，第二个是请求码requestCode
