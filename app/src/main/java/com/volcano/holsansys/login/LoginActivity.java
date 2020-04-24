@@ -13,11 +13,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mob.MobSDK;
 import com.volcano.holsansys.MainActivity;
 import com.volcano.holsansys.R;
 import com.volcano.holsansys.tools.MD5;
+import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -40,15 +46,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void Admin_Click(View view) {
         progress_login =findViewById(R.id.progress_login);
-        Login();
-    }
-
-    private void Login() {
         tv_username = findViewById(R.id.user_name_login);
         tv_user_pass = findViewById(R.id.user_pass_login);
+
         String myUserID=tv_username.getText().toString();
         String myPassword=(new MD5()).EncryptToMD5(tv_user_pass.getText().toString());
-        if(myUserID.equals("")||myPassword.equals("d41d8cd98f00b204e9800998ecf8427e")){
+        if(myUserID.equals("")||tv_user_pass.getText().toString().equals("")){
             if (mToast == null) {
                 mToast=Toast.makeText(LoginActivity.this,
                         "请输入完整的用户名密码！",Toast.LENGTH_SHORT);
@@ -62,12 +65,13 @@ public class LoginActivity extends AppCompatActivity {
             }
             mToast.show();
         }else {
-            String[] myParamsArr={myUserID, myPassword};
+            String[] myParamsArr={"UserLogin",myUserID, myPassword};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
         }
     }
 
+    //后台执行登录查询功能
     class VerifyTask extends AsyncTask<String, Integer, String> {
         @Override
         protected void onPreExecute()
@@ -77,22 +81,19 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        //String..., it denotes a list with alterable number of params, and the type of the params are String
         protected String doInBackground(String... myParams)
         {
             String myResult="";
 
+
             try
             {
-                myResult = (new UserLoginVerification()).ConnectingWebService("UserLogin"
-                        ,myParams[0],myParams[1]);
-                System.out.println("myResult"+myResult);
+                myResult = (new WebServiceAPI()).ConnectingWebService(myParams);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
-            //Assigning the returned result to method onPostExecute()
             return myResult;
         }
 
@@ -103,14 +104,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        //this method can modify UI in main thread
         protected void onPostExecute(String myResult)
         {
             //Showing the returned result from WebService
-            /*Gson myGson = new Gson();
-            List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
-            System.out.println("myList"+myList);*/
 
+
+            //查询结果若为空，则登录失败，否则登录成功
             if(myResult.equals("[]")){
                 MainActivity.admin_flag=false;
                 if (mToast == null) {
@@ -130,31 +129,23 @@ public class LoginActivity extends AppCompatActivity {
                 tv_user_pass.setText("");
             }
             else {
-                MainActivity.admin_flag=true;
-                setResult(30); //设置返回数据
-                progress_login.setVisibility(View.GONE);
-                LoginActivity.this.finish();
+                Gson myGson = new Gson();
+                List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
+                try {
+                    Map<String,String> myMap=myList.get(0);
+                    String myUserID=myMap.get("UserID");
+                    String myUserName=myMap.get("UserName");
+                    MainActivity.admin_flag=true;
+                    Intent data = new Intent();
+                    data.putExtra("userID", myUserID);
+                    data.putExtra("userName", myUserName);
+                    setResult(30, data); //设置返回数据
+                    progress_login.setVisibility(View.GONE);
+                    LoginActivity.this.finish();
+
+                }
+                    catch (Exception ex){}
             }
-
-            /*try
-            {
-                Map<String,String> myMap=myList.get(0);
-            String myUserID=myMap.get("UserID");
-            String myUserName=myMap.get("UserName");
-            String myUserAuthorityIDStr=myMap.get("UserAuthorityIDStr");
-
-            //Jump from page UserLogin to page MainPage
-            Intent myIntent=new Intent(LoginActivity.this, MainActivity.class);
-            myIntent.putExtra("UserID", myUserID);
-            myIntent.putExtra("UserName", myUserName);
-            myIntent.putExtra("UserAuthorityIDStr",myUserAuthorityIDStr);
-            startActivity(myIntent);
-
-
-        }
-            catch (Exception ex){}*/
-
-
         }
     }
 
@@ -162,6 +153,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void text_register(View view) {
+
+        MobSDK.submitPolicyGrantResult(true,null);
+
         RegisterPage page = new RegisterPage();
         //如果使用我们的ui，没有申请模板编号的情况下需传null
         page.setTempCode(null);
@@ -189,9 +183,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String name;
         if(resultCode == 30){  //判断返回码是否是30
-            name = data.getStringExtra("name");
+            name = data.getStringExtra("userName");
             Intent a = new Intent();
-            a.putExtra("name", name);
+            a.putExtra("userName", name);
+            a.putExtra("userID",phone);
             setResult(30, data); //设置返回数据
             this.finish();
         }

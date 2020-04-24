@@ -5,18 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.volcano.holsansys.R;
-import com.volcano.holsansys.ui.notifications.Notification;
-import com.volcano.holsansys.ui.notifications.NotificationListAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +22,7 @@ public class UserFragment extends Fragment {
     private Context mContext;
     private PatientAdapter mAdapter = null;
     private ListView list_user;
+    private LinearLayout foot_view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +31,8 @@ public class UserFragment extends Fragment {
         //提醒界面数据更新
         mContext =getActivity();
         list_user = root.findViewById(R.id.listView_user);
+        foot_view = (LinearLayout) inflater.inflate(R.layout.footview_listview_user, null);//得到尾部的布局
+        list_user.addFooterView(foot_view);//添加尾部
         mData = new LinkedList<>();
         mData.add(new Patient("父亲", "按时服药","街头镇道蓬岩村"));
         mData.add(new Patient("母亲", "21号中午未服药", "街头镇道蓬岩村"));

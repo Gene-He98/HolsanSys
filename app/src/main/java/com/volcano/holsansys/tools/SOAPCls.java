@@ -8,40 +8,37 @@ import java.util.List;
 import java.util.Map;
 
 public class SOAPCls {
-    private String _WebserviceUrl="";   //the url of webservice
-    private boolean _IsDotNet=false;    //true denotes that the webservice accessed is developed by .net
-    private SoapObject _BodyOutObj=null;
+    private String webServiceUrl ="";
+    private boolean isDotNet =false;
+    private SoapObject bodyOutObj =null;
 
     public SOAPCls(String myWebserviceUrl, String myNameSpace, String myMethodName
             , List<Map<String, String>> myParamList, boolean myIsDotNet)
     {
-        _WebserviceUrl=myWebserviceUrl;
-        _IsDotNet=myIsDotNet;
+        webServiceUrl =myWebserviceUrl;
+        isDotNet =myIsDotNet;
 
-        _BodyOutObj = new SoapObject(myNameSpace, myMethodName);
+        bodyOutObj = new SoapObject(myNameSpace, myMethodName);
 
         for(int i=0;i<myParamList.size();i++)
         {
             Map.Entry<String, String> myEntry=myParamList.get(i).entrySet().iterator().next();
 
-            _BodyOutObj.addProperty(myEntry.getKey(), myEntry.getValue());
+            bodyOutObj.addProperty(myEntry.getKey(), myEntry.getValue());
         }
     }
 
     public String ExecuteMethod() throws Exception
     {
-        //Creating a SoapSerializationEnvelope object, and meanwhile specifying the soap version
         SoapSerializationEnvelope myEnvelope = new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
-        myEnvelope.bodyOut = _BodyOutObj;   //sending a request
-        myEnvelope.dotNet = _IsDotNet;
+        myEnvelope.bodyOut = bodyOutObj;
+        myEnvelope.dotNet = isDotNet;
 
-        HttpTransportSE myHttpTransSE = new HttpTransportSE(_WebserviceUrl,10000);
+        HttpTransportSE myHttpTransSE = new HttpTransportSE(webServiceUrl,10000);
         myHttpTransSE.call(null, myEnvelope);
 
-        //Obtaining the returned data
         SoapObject myBodyInObj = (SoapObject) myEnvelope.bodyIn;
 
-        //Obtaining the result we need with json format from the returned data
         String myReturnStr = myBodyInObj.getProperty("return").toString();
 
         return myReturnStr;

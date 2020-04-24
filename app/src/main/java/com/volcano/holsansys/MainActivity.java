@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.volcano.holsansys.login.LoginActivity;
 import com.volcano.holsansys.ui.notifications.AddNotificationActivity;
@@ -21,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static boolean admin_flag;
+    public static String userID;
+    public static String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 200 && resultCode == 30){  //判断返回码是否是30
             setContentView(R.layout.activity_main);
             initial();
+            userID = data.getStringExtra("userID");
+            userName =data.getStringExtra("userName");
+            TextView tv_username=findViewById(R.id.fra_user_name);
+            tv_username.setText(userName);
         }
         if(requestCode == 200 && resultCode == RESULT_CANCELED){
             isAdmin();

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/user_information"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/listview_shape"
@@ -42,9 +42,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="何谨灿"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/user_id"
+                    android:id="@+id/fra_user_name"
                     android:textSize="30sp"/>
 
             </LinearLayout>
