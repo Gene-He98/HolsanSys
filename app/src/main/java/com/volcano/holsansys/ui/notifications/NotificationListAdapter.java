@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Switch;
 import android.widget.TextView;
+
 import com.volcano.holsansys.R;
 
 import java.util.LinkedList;
@@ -45,21 +45,18 @@ public class NotificationListAdapter extends BaseAdapter {
                 holder = new ViewHolder();
                 holder.time_notification = convertView.findViewById(R.id.time_notification);
                 holder.remark_notification = convertView.findViewById(R.id.remark_notification);
-                holder.switch_notification = convertView.findViewById(R.id.switch_notification);
                 convertView.setTag(holder);   //将Holder存储到convertView中
             }else{
                 holder = (ViewHolder) convertView.getTag();
             }
             holder.time_notification.setText(mData.get(position).getTime());
             holder.remark_notification.setText(mData.get(position).getRemark());
-            holder.switch_notification.setChecked(mData.get(position).getSwitch());
             return convertView;
         }
 
     static class ViewHolder{
         TextView time_notification;
         TextView remark_notification;
-        Switch switch_notification;
     }
 
 }

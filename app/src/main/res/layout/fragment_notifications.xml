@@ -31,13 +31,14 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="100dp"
-            android:layout_marginBottom="160dp"
+            android:layout_marginBottom="50dp"
             android:layout_marginStart="100dp"
-            android:onClick="Add_Notification"/>
+            android:onClick="addNotificationBt"/>
 
         <!--紧急按钮-->
         <include
             android:id="@+id/notification_bt_emer"
+            android:visibility="gone"
             layout="@layout/emergency_button"/>
 
     </RelativeLayout>

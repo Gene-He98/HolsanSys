@@ -4,7 +4,7 @@
 
     <corners android:radius="10dip" />
 
-    <stroke android:width = "2dp" android:color="#1ED39C"/>
+    <stroke android:width = "2dp" android:color="#D5542B"/>
 
     <!-- listView里面的文字与边界的间隔 -->
     <padding

@@ -4,13 +4,10 @@ public class Notification {
 
         private String time_notification;
         private String remark_notification;
-        private boolean switch_notification;
 
-        public Notification(String time_notification, String remark_notification,
-                            boolean switch_notification) {
+        public Notification(String time_notification, String remark_notification) {
             this.time_notification = time_notification;
             this.remark_notification = remark_notification;
-            this.switch_notification = switch_notification;
         }
 
         public String getTime() {
@@ -21,9 +18,6 @@ public class Notification {
             return remark_notification;
         }
 
-        public boolean getSwitch() {
-            return switch_notification;
-        }
 
         public void setTime(String time_notification) {
             this.time_notification = time_notification;
@@ -32,9 +26,4 @@ public class Notification {
         public void setRemark(String remark_notification) {
             this.remark_notification = remark_notification;
         }
-
-        public void setSwitch(boolean switch_notification) {
-            this.switch_notification = switch_notification;
-        }
-
 }

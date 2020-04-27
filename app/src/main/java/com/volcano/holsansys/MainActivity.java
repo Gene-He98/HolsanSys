@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,8 +18,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.volcano.holsansys.add.AddNotificationActivity;
+import com.volcano.holsansys.add.AddPatientActivity;
 import com.volcano.holsansys.login.LoginActivity;
-import com.volcano.holsansys.ui.notifications.AddNotificationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,14 +28,11 @@ public class MainActivity extends AppCompatActivity {
     public static boolean admin_flag;
     public static String userID;
     public static String userName;
+    public static String patientName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        //检测本地数据库账号密码自动连接是否成功
-
         // 检查是否登录
         if(!admin_flag){
             isAdmin();
@@ -102,23 +101,31 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 200 && resultCode == 30){  //判断返回码是否是30
-            setContentView(R.layout.activity_main);
-            initial();
             userID = data.getStringExtra("userID");
             userName =data.getStringExtra("userName");
-            TextView tv_username=findViewById(R.id.fra_user_name);
-            tv_username.setText(userName);
-        }
-        if(requestCode == 200 && resultCode == RESULT_CANCELED){
+            setContentView(R.layout.activity_main);
+            initial();
+        }else if(requestCode == 200 && resultCode == 404){
+            this.finish();
+        }else if(requestCode == 200 && resultCode == RESULT_CANCELED){
             isAdmin();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void Add_Notification(View view) {
+    public void addPatientBt(View view) {
+        Intent intent =new Intent(MainActivity.this, AddPatientActivity.class);
+        startActivity(intent);
+    }
+
+    public void addNotificationBt(View view) {
         Intent intent =new Intent(MainActivity.this, AddNotificationActivity.class);
-        Bundle bundle = new Bundle();
-        intent.putExtras(bundle);
-        startActivityForResult(intent, 100); //两个参数：第一个是意图对象，第二个是请求码requestCode
+        intent.putExtra("kind","add");
+        startActivity(intent);
+    }
+
+    public void Back_Main(View view) {
+        ((LinearLayout)findViewById(R.id.user_information)).setVisibility(View.VISIBLE);
+        ((ScrollView)findViewById(R.id.patients_information)).setVisibility(View.GONE);
     }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/dialog_shape"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:background="@drawable/dialog_shape"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="拍照"
+        android:textColor="#A32FB99F"
+        android:textSize="@dimen/word_size"
+        tools:ignore="HardcodedText,RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/dialog_shape"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="相册"
+        android:textColor="#A32FB99F"
+        android:textSize="@dimen/word_size"
+        tools:ignore="HardcodedText,RtlHardcoded" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_shape"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="取消"
+        android:textColor="#A32FB99F"
+        android:textSize="@dimen/word_size"
+        tools:ignore="HardcodedText,RtlHardcoded" />
+</LinearLayout>

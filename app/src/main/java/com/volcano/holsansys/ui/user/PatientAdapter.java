@@ -41,7 +41,7 @@ public class PatientAdapter extends BaseAdapter {
         if(convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.list_item_user,parent,false);
             holder = new PatientAdapter.ViewHolder();
-            holder.name_patient = convertView.findViewById(R.id.name_patient);
+            holder.name_patient = convertView.findViewById(R.id.patientName);
             holder.situation_patient = convertView.findViewById(R.id.situation_patient);
             holder.location_patient = convertView.findViewById(R.id.location_patient);
             convertView.setTag(holder);   //将Holder存储到convertView中

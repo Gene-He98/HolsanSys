@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="200dp"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
             <ProgressBar
                 android:layout_width="100dp"
                 android:layout_height="100dp"/>

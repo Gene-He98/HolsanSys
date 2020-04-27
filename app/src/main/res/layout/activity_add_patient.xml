@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".add.AddPatientActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/add_patients_information"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/listview_shape"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/user_name"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+
+                <EditText
+                    android:id="@+id/add_patient_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/user_age"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:textSize="@dimen/word_size"
+                    android:id="@+id/add_patient_age"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/user_sex"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:textSize="@dimen/word_size"
+                    android:id="@+id/add_patient_sex"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/user_address"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+                <EditText android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:id="@+id/add_patient_address"
+                    android:textSize="@dimen/word_size"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/user_blood_type"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+                <EditText android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:id="@+id/add_patient_blood_type"
+                    android:textSize="@dimen/word_size"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:text="@string/user_medical_history"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+
+                <EditText
+                    android:id="@+id/add_patient_medical_history"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="@string/user_allergy"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+
+                <EditText
+                    android:id="@+id/add_patient_allergy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/editview_shape"
+                    android:layout_weight="8"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/word_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="添    加"
+                    android:textColor="#FFFFFF"
+                    android:onClick="Add_Patient"
+                    android:background="@drawable/bt_register_shape"
+                    android:textSize="@dimen/word_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

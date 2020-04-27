@@ -5,7 +5,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.AddNotificationActivity">
+    tools:context=".add.AddNotificationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progress_add"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在添加"
+            android:textSize="@dimen/word_size"/>
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,22 +57,22 @@
                     android:textSize="@dimen/word_size"/>
 
                 <EditText
+                    android:id="@+id/name_notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/name_plan"
                     android:textSize="@dimen/word_size"/>
 
             </LinearLayout>
 
             <!--提醒类型-->
             <LinearLayout
-                android:id="@+id/date_setting"
+                android:id="@+id/kind_setting"
                 android:layout_below="@id/Line_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/me_attribute_marginStart"
                 android:layout_marginEnd="@dimen/me_attribute_marginStart"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
 
@@ -62,121 +82,19 @@
                     android:text="提醒类型"
                     android:textSize="@dimen/word_size"/>
 
-                <!--提醒设置类型-->
-                <RadioGroup
-                    android:id="@+id/alert_kind"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_marginTop"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="日提醒"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/word_size"/>
-                    <RadioButton
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="周提醒"
-                        android:textSize="@dimen/word_size"/>
-                    <RadioButton
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="特殊提醒"
-                        android:textSize="@dimen/word_size"/>
-                </RadioGroup>
-
-                <!-- 特殊提醒 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_marginTop"
-                    android:id="@+id/special_kind"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    android:gravity="center">
-
-                    <DatePicker
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:calendarViewShown="false"
-                        android:datePickerMode="spinner"/>
-
-                </LinearLayout>
-
                 <!--日提醒设置-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_marginTop"
                     android:id="@+id/day_kind"
                     android:orientation="vertical"
-                    android:visibility="gone"
                     android:gravity="center">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TimePicker
+                        android:id="@+id/day_tp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="早上"
-                            android:textSize="@dimen/word_size"/>
-
-                        <TimePicker
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:timePickerMode="spinner"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="中午"
-                            android:textSize="@dimen/word_size"/>
-
-                        <TimePicker
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:timePickerMode="spinner"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="晚上"
-                            android:textSize="@dimen/word_size"/>
-
-                        <TimePicker
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            android:timePickerMode="spinner"/>
-
-                    </LinearLayout>
+                        android:timePickerMode="spinner"/>
 
                 </LinearLayout>
 
@@ -184,60 +102,96 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_marginTop"
-                    android:id="@+id/week_kind"
-                    android:orientation="vertical"
-                    android:layout_below="@id/alert_kind"
-                    android:visibility="gone"
-                    android:gravity="center">
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="周重复"
+                        android:textSize="@dimen/word_size"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/normal_marginTop"
                         android:orientation="horizontal"
-                        android:gravity="center">
+                        android:background="@drawable/editview_shape">
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_mon"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
                             android:text="一"
-                            android:textSize="@dimen/word_size"/>
+                            android:textAlignment="center"
+                            android:button="@null"/>
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_tue"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
                             android:text="二"
-                            android:textSize="@dimen/word_size"/>
+                            android:layout_marginStart="10dp"
+                            android:textAlignment="center"
+                            android:button="@null" />
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_wed"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
                             android:text="三"
-                            android:textSize="@dimen/word_size"/>
+                            android:layout_marginStart="10dp"
+                            android:textAlignment="center"
+                            android:button="@null" />
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_thu"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
+                            android:layout_marginStart="10dp"
                             android:text="四"
-                            android:textSize="@dimen/word_size"/>
+                            android:textAlignment="center"
+                            android:button="@null" />
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_fri"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
                             android:text="五"
-                            android:textSize="@dimen/word_size"/>
+                            android:layout_marginStart="10dp"
+                            android:textAlignment="center"
+                            android:button="@null" />
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_sat"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
                             android:text="六"
-                            android:textSize="@dimen/word_size"/>
+                            android:layout_marginStart="10dp"
+                            android:textAlignment="center"
+                            android:button="@null" />
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/week_sun"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checkbox_style"
                             android:text="日"
-                            android:textSize="@dimen/word_size"/>
+                            android:textAlignment="center"
+                            android:button="@null" />
 
                     </LinearLayout>
 
@@ -248,14 +202,14 @@
 
             <!--提醒方式-->
             <LinearLayout
-                android:id="@+id/drug_setting"
+                android:id="@+id/way_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/me_attribute_marginStart"
                 android:layout_marginEnd="@dimen/me_attribute_marginStart"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/normal_marginTop"
                 android:orientation="vertical"
-                android:layout_below="@id/date_setting">
+                android:layout_below="@id/kind_setting">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -265,7 +219,7 @@
 
                 <!--提醒方式选择框-->
                 <LinearLayout
-                    android:id="@+id/kind_notification"
+                    android:id="@+id/way_notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/normal_marginTop"
@@ -273,13 +227,7 @@
                     android:gravity="center">
 
                     <CheckBox
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/word_size"
-                        android:layout_weight="1"
-                        android:text="文字提醒"/>
-
-                    <CheckBox
+                        android:id="@+id/way_pic"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/word_size"
@@ -287,44 +235,87 @@
                         android:text="图文提醒"/>
 
                     <CheckBox
+                        android:id="@+id/way_voice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/word_size"
                         android:layout_weight="1"
                         android:text="语音提醒"/>
 
+                    <CheckBox
+                        android:id="@+id/way_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/word_size"
+                        android:layout_weight="1"
+                        android:text="文字提醒"/>
+
                 </LinearLayout>
 
                 <!--文字提醒输入框-->
                 <LinearLayout
+                    android:id="@+id/text_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/normal_marginTop"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:id="@+id/text_ed"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="文字提醒"
+                        android:textAlignment="center"
                         android:textSize="@dimen/word_size"/>
 
                 </LinearLayout>
 
                 <!--图文提醒-->
                 <LinearLayout
+                    android:id="@+id/pic_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/normal_marginTop"
+                    android:background="@drawable/dialog_shape"
+                    android:gravity="center"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
+                    <ImageView
+                        android:id="@+id/add_image"
+                        android:onClick="addImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:src="@drawable/ic_add_pic"/>
+
+                    <EditText
+                        android:id="@+id/add_image_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:hint="图文提醒文字输入"
+                        android:textSize="@dimen/word_size"/>
 
                 </LinearLayout>
 
                 <!--语音提醒-->
                 <LinearLayout
+                    android:id="@+id/voice_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/normal_marginTop"
+                    android:orientation="horizontal"
                     android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/voice_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="请选择语音文件"
+                        android:onClick="addVoiceNotification"
+                        android:gravity="center"
+                        android:textSize="@dimen/word_size"
+                        android:background="@drawable/editview_shape"/>
 
 
                 </LinearLayout>
@@ -334,19 +325,28 @@
 
             <!--铃声设置-->
             <LinearLayout
-                android:id="@+id/ring_setting"
+                android:id="@+id/tinkle_setting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/me_attribute_marginStart"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
-                android:layout_below="@id/drug_setting">
+                android:onClick="addVoice"
+                android:layout_below="@id/way_setting">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="提醒铃声"
+                    android:text="铃声"
                     android:textSize="@dimen/word_size"/>
+
+                <TextView
+                    android:id="@+id/tinkle_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="无"
+                    android:textSize="15dp"/>
 
             </LinearLayout>
 
@@ -359,7 +359,7 @@
                 android:layout_marginEnd="@dimen/me_attribute_marginStart"
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
-                android:layout_below="@id/ring_setting">
+                android:layout_below="@id/tinkle_setting">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -369,6 +369,7 @@
                     android:textSize="@dimen/word_size"/>
 
                 <CheckBox
+                    android:id="@+id/vibrate_cb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -384,9 +385,23 @@
                 android:gravity="center">
 
                 <Button
+                    android:id="@+id/add_notification"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:onClick="addNotification"
+                    android:visibility="visible"
                     android:text="添    加"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/bt_register_shape"
+                    android:textSize="@dimen/word_size" />
+
+                <Button
+                    android:id="@+id/change_notification"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeNotification"
+                    android:visibility="gone"
+                    android:text="修    改"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/bt_register_shape"
                     android:textSize="@dimen/word_size" />

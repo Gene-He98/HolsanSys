@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText user_pass;
     private CheckBox protocol;
     private EditText user_pass_again;
-    private LinearLayout progress_login;
+    private LinearLayout progress_register;
     private Toast mToast=null;
 
     @Override
@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         phone= LoginActivity.phone;
-        progress_login =findViewById(R.id.progress_Register);
+        progress_register =findViewById(R.id.progress_Register);
         protocol=findViewById(R.id.checkbox_protocol);
         username=(EditText)findViewById(R.id.fra_user_name);
         user_pass=(EditText)findViewById(R.id.user_pass);
@@ -73,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            progress_login.setVisibility(View.VISIBLE);
+            progress_register.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent data = new Intent();
                 data.putExtra("userName", username.getText().toString());
                 setResult(30, data); //设置返回数据
-                progress_login.setVisibility(View.GONE);
+                progress_register.setVisibility(View.GONE);
                 RegisterActivity.this.finish();
             }
             else {

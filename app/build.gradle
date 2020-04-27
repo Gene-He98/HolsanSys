@@ -23,23 +23,18 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.blankj:utilcodex:1.28.3'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.navigation:navigation-fragment:2.0.0'
-    implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-
-// 在MobSDK的扩展中注册SMSSDK的相关信息
-/*MobSDK {
-    appKey "2ee521d50755e"
-    appSecret "895638259fab68a174363e9bb09e6ef9"
-    SMSSDK {}
-}*/
 MobSDK {
     appKey "2ca77d2451d35"
     appSecret "4b446b0c9905cb901b0f1a821c2db0fe"

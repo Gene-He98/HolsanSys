@@ -38,12 +38,15 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="10dp"
+                android:background="@drawable/listview_shape"
                 android:layout_gravity="center">
                 <ImageView android:layout_width="35dp" android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_person_black_24dp"/>
                 <EditText android:layout_width="280dp" android:layout_height="50dp"
                     android:hint="@string/login_username"
+                    android:textAlignment="center"
+                    android:background="@null"
                     android:selectAllOnFocus="true"
                     android:inputType="text"
                     android:id="@+id/user_name_login"/>
@@ -52,13 +55,16 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="10dp"
+                android:background="@drawable/listview_shape"
                 android:layout_gravity="center">
                 <ImageView android:layout_width="35dp" android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_lock_black_24dp"/>
                 <EditText android:layout_width="280dp" android:layout_height="50dp"
                     android:selectAllOnFocus="true"
+                    android:background="@null"
                     android:hint="@string/login_user_pass"
+                    android:textAlignment="center"
                     android:id="@+id/user_pass_login"
                     android:inputType="textPassword"/>
             </LinearLayout>

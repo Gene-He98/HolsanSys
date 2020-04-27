@@ -12,14 +12,14 @@
     <string name="login_service_protocol">服务协议</string>
     <string name="user_alarm">一 键 求 救</string>
     <string name="user_exit">退 出</string>
-    <string name="user_age">年 龄 :</string>
+    <string name="user_age">年  龄</string>
     <string name="user_account">监护人账号切换</string>
-    <string name="user_sex">性 别 :</string>
-    <string name="user_name">姓 名 :</string>
-    <string name="user_address">住 址 :</string>
+    <string name="user_sex">性  别</string>
+    <string name="user_name">姓  名</string>
+    <string name="user_address">住  址</string>
     <string name="user_emergency_contact">紧急联系人 :</string>
-    <string name="user_medical_history">病 史 :</string>
-    <string name="user_allergy">过敏史 :</string>
-    <string name="user_blood_type">血 型 :</string>
+    <string name="user_medical_history">病  史</string>
+    <string name="user_allergy">过敏史</string>
+    <string name="user_blood_type">血  型</string>
     <string name="action_settings">Settings</string>
 </resources>

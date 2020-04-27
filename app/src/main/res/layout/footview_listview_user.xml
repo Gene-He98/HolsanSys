@@ -12,6 +12,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/bt_emer_shape"
+        android:onClick="addPatientBt"
+        android:focusable="false"
         android:text="添加新监护"
         android:textColor="#FFFFFF"
         android:textSize="22sp" />

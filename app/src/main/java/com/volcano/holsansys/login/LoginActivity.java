@@ -1,5 +1,7 @@
 package com.volcano.holsansys.login;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -127,6 +129,25 @@ public class LoginActivity extends AppCompatActivity {
                 mToast.show();
                 tv_username.setText("");
                 tv_user_pass.setText("");
+            }else if(myResult.equals("登录失败")){
+                AlertDialog.Builder normalDialog = new AlertDialog.Builder(LoginActivity.this);
+                normalDialog.setTitle("网络连接似乎出了问题");
+                normalDialog.setMessage("是否重新尝试？");
+                normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setResult(404);
+                        LoginActivity.this.finish();
+                    }
+                });
+                normalDialog.setCancelable(false);
+                // 显示
+                normalDialog.show();
             }
             else {
                 Gson myGson = new Gson();
@@ -144,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginActivity.this.finish();
 
                 }
-                    catch (Exception ex){}
+                catch (Exception ex){}
             }
         }
     }
