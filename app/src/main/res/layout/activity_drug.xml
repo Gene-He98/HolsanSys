@@ -6,4 +6,81 @@
     android:layout_height="match_parent"
     tools:context=".drug.DrugActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1DFFFFFF"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="430dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/drug_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="什么也不知道,nashi bu jioladshfoangklahdgoiahdlkahdoifyhaogi"
+                    android:gravity="center"
+                    android:textSize="40sp"/>
+
+                <ImageView
+                    android:id="@+id/drug_pic_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/drug"/>
+
+                <TextView
+                    android:id="@+id/drug_pic_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textSize="40sp"
+                    android:text="这种药吃5粒"/>
+
+                <TextView
+                    android:id="@+id/drug_voice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textSize="40sp"
+                    android:text="正在播放语音"/>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/timer_later"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/drug_later_bt_shape"
+            android:text="稍   后"
+            android:textStyle="bold"
+            android:textSize="50sp"/>
+
+        <Button
+            android:id="@+id/timer_now"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/drug_now_bt_shape"
+            android:text="已服药"
+            android:textStyle="bold"
+            android:textSize="50sp"/>
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

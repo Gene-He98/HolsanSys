@@ -4,6 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drug"
     tools:context=".drug.TimerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1DFFFFFF"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/timer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="提醒计划"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="50sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="时间到啦!"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="50sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/timer_later"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/drug_later_bt_shape"
+            android:text="稍   后"
+            android:textStyle="bold"
+            android:textSize="50sp"/>
+
+        <Button
+            android:id="@+id/timer_now"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/drug_now_bt_shape"
+            android:text="现在服药"
+            android:textStyle="bold"
+            android:textSize="50sp"/>
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
