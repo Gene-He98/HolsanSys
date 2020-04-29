@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 写入SD卡的权限：如果你希望保存相机拍照后的照片 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读取SD卡的权限:打开相册选取图片所必须的权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+
 
     <application
         android:allowBackup="true"
@@ -13,9 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true"
+
         android:usesCleartextTraffic="true">
-        <activity android:name=".drug.DrugActivity"></activity>
-        <activity android:name=".drug.TimerActivity" />
+        <activity android:name=".drug.DrugActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".drug.TimerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".add.AddPatientActivity"
             android:label="添加新监护"
@@ -40,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -9,18 +9,28 @@
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/listview_shape"
+        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/if_notification"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="尚未选择监护，请选择后查看"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="@dimen/word_size"
+            android:visibility="gone"/>
 
         <!--提醒展示listView-->
         <ListView
             android:id="@+id/listView_notification"
-            android:background="@drawable/listview_shape"
             android:layout_above="@id/notification_bt_emer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="5dp"/>
+            android:layout_alignParentTop="true"/>
 
         <ImageView
             android:layout_width="100dp"

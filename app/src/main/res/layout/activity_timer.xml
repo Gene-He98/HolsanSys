@@ -16,8 +16,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_height="430dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -44,8 +45,8 @@
         <Button
             android:id="@+id/timer_later"
             android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/drug_later_bt_shape"
             android:text="稍   后"
             android:textStyle="bold"
@@ -54,7 +55,7 @@
         <Button
             android:id="@+id/timer_now"
             android:layout_width="300dp"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/drug_now_bt_shape"
             android:text="现在服药"

@@ -34,30 +34,33 @@ public class UserFragment extends Fragment {
     private LinearLayout foot_view;
     private TextView userName;
     private View root;
+    private LinearLayout userContent;
+    private ScrollView patientContent;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_user, container, false);
-
-        userName=root.findViewById(R.id.fra_user_name);
-        userName.setText(MainActivity.userName);
-        list_user = root.findViewById(R.id.listView_user);
-
+        userContent= root.findViewById(R.id.user_information);
+        patientContent= root.findViewById(R.id.patients_information);
         foot_view = (LinearLayout) inflater.inflate(R.layout.footview_listview_user, null);//得到尾部的布局
-        list_user.addFooterView(foot_view);//添加尾部
-        list_user.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivity.patientName=(String)((TextView)view.findViewById(R.id.patientName)).getText();
-                updatePatient(MainActivity.patientName);
-                ((LinearLayout)root.findViewById(R.id.user_information)).setVisibility(View.GONE);
-                ((ScrollView)root.findViewById(R.id.patients_information)).setVisibility(View.VISIBLE);
-            }
-        });
         mContext =getActivity();
-
-        //提醒界面数据更新
-        updateUser();
+        if(MainActivity.patientName.equals("")){
+            //提醒界面数据更新
+            updateUser();
+        }else {
+            updatePatient(MainActivity.patientName);
+            userContent.setVisibility(View.GONE);
+            patientContent.setVisibility(View.VISIBLE);
+            root.findViewById(R.id.back_main).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.patientName="";
+                    updateUser();
+                    userContent.setVisibility(View.VISIBLE);
+                    patientContent.setVisibility(View.GONE);
+                }
+            });
+        }
         return root;
     }
 
@@ -68,6 +71,20 @@ public class UserFragment extends Fragment {
     }
 
     private void updateUser() {
+        userName=root.findViewById(R.id.fra_user_name);
+        userName.setText(MainActivity.userName);
+        list_user = root.findViewById(R.id.listView_user);
+
+        list_user.addFooterView(foot_view);//添加尾部
+        list_user.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MainActivity.patientName=(String)((TextView)view.findViewById(R.id.patientName)).getText();
+                updatePatient(MainActivity.patientName);
+                userContent.setVisibility(View.GONE);
+                patientContent.setVisibility(View.VISIBLE);
+            }
+        });
         String[] myParamsArr={"UserInfo",MainActivity.userID};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);

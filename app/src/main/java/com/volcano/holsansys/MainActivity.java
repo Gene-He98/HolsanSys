@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean admin_flag;
     public static String userID;
     public static String userName;
-    public static String patientName;
+    public static String patientName="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void Back_Main(View view) {
-        ((LinearLayout)findViewById(R.id.user_information)).setVisibility(View.VISIBLE);
-        ((ScrollView)findViewById(R.id.patients_information)).setVisibility(View.GONE);
+
     }
 }

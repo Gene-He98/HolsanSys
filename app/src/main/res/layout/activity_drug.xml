@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/drug"
     tools:context=".drug.DrugActivity">
 
     <LinearLayout
@@ -21,14 +22,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/drug_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="什么也不知道,nashi bu jioladshfoangklahdgoiahdlkahdoifyhaogi"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:textSize="40sp"/>
 
                 <ImageView
@@ -36,6 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
                     android:src="@drawable/drug"/>
 
                 <TextView
@@ -44,8 +47,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textSize="40sp"
-                    android:text="这种药吃5粒"/>
+                    android:visibility="gone"
+                    android:textSize="40sp"/>
 
                 <TextView
                     android:id="@+id/drug_voice"
@@ -54,7 +57,7 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:textSize="40sp"
-                    android:text="正在播放语音"/>
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
@@ -62,7 +65,7 @@
         </ScrollView>
 
         <Button
-            android:id="@+id/timer_later"
+            android:id="@+id/drug_later"
             android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
@@ -72,7 +75,7 @@
             android:textSize="50sp"/>
 
         <Button
-            android:id="@+id/timer_now"
+            android:id="@+id/drug_now"
             android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_marginTop="20dp"
