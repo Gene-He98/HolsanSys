@@ -8,13 +8,10 @@ public class Patient {
     private String patientBloodType;
     private String patientMedicalHistory;
     private String patientAllergy;
-    private String recentDrugRecord;
     private String location;
 
-    public Patient(String patientName, String situation_patient,
-                   String location_patient) {
+    public Patient(String patientName, String location_patient) {
         this.patientName = patientName;
-        this.recentDrugRecord = situation_patient;
         this.location = location_patient;
     }
 
@@ -28,7 +25,6 @@ public class Patient {
         this.patientBloodType = patientBloodType;
         this.patientMedicalHistory = patientMedicalHistory;
         this.patientAllergy = patientAllergy;
-        this.recentDrugRecord = recentDrugRecord;
         this.location = location;
     }
 
@@ -37,20 +33,12 @@ public class Patient {
         return patientName;
     }
 
-    public String getSituation() {
-        return recentDrugRecord;
-    }
-
     public String getLocation() {
         return location;
     }
 
     public void setName(String name_patient) {
         this.patientName = name_patient;
-    }
-
-    public void setSituation(String situation_patient) {
-        this.recentDrugRecord = situation_patient;
     }
 
     public void setLocaction(String location_patient) {

@@ -68,6 +68,15 @@ public class UserFragment extends Fragment {
         String[] myParamsArr ={"PatientInfo",MainActivity.userID,patientName};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
+        root.findViewById(R.id.back_main).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.patientName="";
+                updateUser();
+                userContent.setVisibility(View.VISIBLE);
+                patientContent.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void updateUser() {
@@ -136,9 +145,8 @@ public class UserFragment extends Fragment {
                             for (int i=0;i<myList.size();i++){
                                 Map<String,String> myMap=myList.get(i);
                                 String patientName = myMap.get("PatientName");
-                                String recentDrugRecord = myMap.get("RecentDrugRecord");
                                 String location = myMap.get("Location");
-                                mData.add(new Patient(patientName, recentDrugRecord,location));
+                                mData.add(new Patient(patientName,location));
                             }
                             mAdapter = new PatientAdapter((LinkedList<Patient>) mData, mContext);
                             list_user.setAdapter(mAdapter);

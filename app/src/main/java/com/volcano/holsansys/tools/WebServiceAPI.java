@@ -32,6 +32,7 @@ public class WebServiceAPI {
                 break;
             case "PatientInfo" :
             case "NotificationInfo" :
+            case "DrugRecordInfo" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myPatientName", webservice[2]));
                 break;
@@ -64,6 +65,12 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myPatientName", webservice[2]));
                 myParamList.add(ParamListInit("myNotificationName", webservice[3]));
+                break;
+            case "DrugRecord" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("myPatientName", webservice[2]));
+                myParamList.add(ParamListInit("myNotificationName", webservice[3]));
+                myParamList.add(ParamListInit("myIfDrug",webservice[4]));
                 break;
         }
 

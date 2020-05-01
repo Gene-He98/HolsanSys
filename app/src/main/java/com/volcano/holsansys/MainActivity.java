@@ -121,8 +121,4 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("kind","add");
         startActivity(intent);
     }
-
-    public void Back_Main(View view) {
-
-    }
 }

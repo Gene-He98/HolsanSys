@@ -23,12 +23,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="最近3日服药情况:"
-            android:textSize="@dimen/word_size"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/situation_patient"
             android:textSize="@dimen/word_size"/>
 

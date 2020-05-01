@@ -49,7 +49,6 @@ public class PatientAdapter extends BaseAdapter {
             holder = (PatientAdapter.ViewHolder) convertView.getTag();
         }
         holder.name_patient.setText(mData.get(position).getName());
-        holder.situation_patient.setText(mData.get(position).getSituation());
         holder.location_patient.setText(mData.get(position).getLocation());
         return convertView;
     }

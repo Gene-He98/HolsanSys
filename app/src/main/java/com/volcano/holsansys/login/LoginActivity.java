@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                 mToast.show();
                 tv_username.setText("");
                 tv_user_pass.setText("");
-            }else if(myResult.equals("登录失败")){
+            }else if(myResult.equals("操作失败")){
                 AlertDialog.Builder normalDialog = new AlertDialog.Builder(LoginActivity.this);
                 normalDialog.setTitle("网络连接似乎出了问题");
                 normalDialog.setMessage("是否重新尝试？");

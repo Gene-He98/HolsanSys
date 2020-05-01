@@ -38,7 +38,6 @@ public class NotificationsFragment extends Fragment {
     private Context mContext;
     private NotificationListAdapter mAdapter = null;
     private ListView list_notification;
-    private Calendar calendar;
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class NotificationsFragment extends Fragment {
         } else {
             mContext = getActivity();
             list_notification = root.findViewById(R.id.listView_notification);
-
+            final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
             list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -62,13 +61,11 @@ public class NotificationsFragment extends Fragment {
                     startActivity(intent);
                 }
             });
-            String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
             return root;
         }
     }
-
     class VerifyTask extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -117,8 +114,6 @@ public class NotificationsFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), TimerActivity.class);
                         intent.putExtra("NotificationName",notificationName);
                         intent.putExtra("TinkleSrc",tinkleSrc);
-
-
                         PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, FLAG_CANCEL_CURRENT);
                         AlarmManager am = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                         Calendar calendar = Calendar.getInstance();

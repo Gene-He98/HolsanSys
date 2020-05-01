@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.volcano.holsansys.MainActivity;
 import com.volcano.holsansys.R;
+import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.io.File;
 
@@ -42,13 +45,28 @@ public class TimerActivity extends AppCompatActivity {
         timerLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentNew = new Intent(TimerActivity.this, TimerActivity.class);
-                intentNew.putExtra("NotificationName",notificationName);
-                intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
-                PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
-                AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
-                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
-                finish();
+                if(DrugActivity.delayTimes==3){
+                    DrugActivity.delayTimes=0;
+                    String[] myParamsArr={"DrugRecord", MainActivity.userID
+                            ,MainActivity.patientName,intent.getStringExtra("NotificationName")
+                            ,"未服药"};
+                    VerifyTask myVerifyTask = new VerifyTask();
+                    myVerifyTask.execute(myParamsArr);
+                }
+                else {
+                    Intent intentNew = new Intent(TimerActivity.this, TimerActivity.class);
+                    intentNew.putExtra("NotificationName",notificationName);
+                    intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
+                    PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                    AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
+                    am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                    String[] myParamsArr={"DrugRecord", MainActivity.userID
+                            ,MainActivity.patientName,notificationName
+                            ,"第"+DrugActivity.delayTimes+"次延迟服药"};
+                    VerifyTask myVerifyTask = new VerifyTask();
+                    myVerifyTask.execute(myParamsArr);
+                    DrugActivity.delayTimes++;
+                }
             }
         });
 
@@ -75,4 +93,41 @@ public class TimerActivity extends AppCompatActivity {
         mediaPlayer.release();
         super.finish();
     }
+
+
+    class VerifyTask extends AsyncTask<String, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... myParams) {
+            String myResult="";
+            try
+            {
+                myResult = (new WebServiceAPI()).ConnectingWebService(myParams);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return myResult;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... myValues)
+        {
+            super.onProgressUpdate(myValues);
+        }
+
+        @Override
+        protected void onPostExecute(String myResult) {
+            if(myResult.equals("[{\"msg\":\"ok\"}]")){
+                finish();
+            }
+        }
+    }
+
+
 }

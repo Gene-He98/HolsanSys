@@ -8,111 +8,30 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/listview_shape"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginTop="5dp">
 
         <!--除紧急按钮外界面-->
-        <ScrollView
+        <TextView
+            android:id="@+id/if_manage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/manage_scroll"
-            android:background="@drawable/listview_shape"
+            android:text="尚未选择监护，请选择后查看"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="@dimen/word_size"
+            android:visibility="gone"/>
+
+        <!--提醒展示listView-->
+        <ListView
+            android:id="@+id/listView_manage"
             android:layout_above="@id/manage_bt_emer"
-            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="5dp">
-
-            <!--单项提醒计划-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="午饭后胃药计划"
-                    android:textSize="50sp"
-                    android:layout_marginTop="30dp"
-                    android:textColor="@android:color/black"/>
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="晚饭后血压药"
-                    android:textSize="50sp"
-                    android:layout_marginTop="30dp"
-                    android:textColor="@android:color/black"/>
-
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="睡前降血压计划"
-                    android:textSize="50sp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"
-                    android:textColor="@android:color/black"/>
-
-                <!--提醒计划反馈表-->
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="*"
-                    android:divider="@drawable/line_h"
-                    android:showDividers="beginning|middle|end"
-                    android:orientation="vertical">
-
-                    <TableRow
-                        android:divider="@drawable/line_h"
-                        android:showDividers="beginning|middle|end"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:padding="8dp"
-                            android:layout_width="1dp"
-                            android:text="服药计划1"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:padding="8dp"
-                            android:layout_width="1dp"
-                            android:text="已服用"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:divider="@drawable/line_h"
-                        android:showDividers="beginning|middle|end">
-                        <TextView
-                            android:padding="8dp"
-                            android:layout_width="1dp"
-                            android:text="服药计划2"
-                            android:textSize="30sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:padding="8dp"
-                            android:layout_width="1dp"
-                            android:text="未服用"
-                            android:textSize="30sp"
-                            android:gravity="center"/>
-                    </TableRow>
-                    <TableRow
-                        android:divider="@drawable/line_h"
-                        android:showDividers="beginning|middle|end">
-                        <TextView
-                            android:padding="8dp"
-                            android:layout_width="1dp"
-                            android:text="服药计划3"
-                            android:textSize="30sp"
-                            android:gravity="center"/>
-                        <TextView
-                            android:padding="8dp"
-                            android:layout_width="1dp"
-                            android:text="未服用"
-                            android:textSize="30sp"
-                            android:gravity="center"/>
-                    </TableRow>
-                </TableLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
-
+            android:layout_alignParentTop="true"/>
 
         <!--紧急按钮-->
         <include

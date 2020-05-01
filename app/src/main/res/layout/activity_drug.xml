@@ -17,7 +17,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="430dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="40dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,11 +52,14 @@
 
                 <TextView
                     android:id="@+id/drug_voice"
-                    android:layout_width="match_parent"
+                    android:background="@drawable/editview_shape"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:textSize="40sp"
+                    android:textSize="@dimen/word_size"
                     android:visibility="gone"/>
 
 
