@@ -1,8 +1,10 @@
 package com.volcano.holsansys.add;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -108,10 +110,10 @@ public class AddNotificationActivity extends AppCompatActivity {
 
         if(intent.getStringExtra("kind").equals("add")){
             findViewById(R.id.add_notification).setVisibility(View.VISIBLE);
-            findViewById(R.id.change_notification).setVisibility(View.GONE);
+            findViewById(R.id.change_ll).setVisibility(View.GONE);
         }else if(intent.getStringExtra("kind").equals("change")){
             findViewById(R.id.add_notification).setVisibility(View.GONE);
-            findViewById(R.id.change_notification).setVisibility(View.VISIBLE);
+            findViewById(R.id.change_ll).setVisibility(View.VISIBLE);
             String[] myParamsArr={"NotificationDetail", MainActivity.userID
                     ,MainActivity.patientName,intent.getStringExtra("NotificationName")};
             VerifyTask myVerifyTask = new VerifyTask();
@@ -268,20 +270,42 @@ public class AddNotificationActivity extends AppCompatActivity {
 
     public void addNotification(View view) {
         if (isReady()){
-            insertNotification();
+            insertOperation();
             this.finish();
         }
     }
 
     public void changeNotification(View view) {
         if(isReady()){
-            deleteNotification();
-            insertNotification();
+            deleteOperation();
+            insertOperation();
             this.finish();
         }
     }
 
-    public void insertNotification(){
+    public void deleteNotification(View view) {
+        AlertDialog.Builder normalDialog = new AlertDialog.Builder(AddNotificationActivity.this);
+        normalDialog.setTitle("删除提醒计划");
+        normalDialog.setMessage("是否确定删除？");
+        normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteOperation();
+                AddNotificationActivity.this.finish();
+            }
+        });
+        normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        normalDialog.setCancelable(false);
+        // 显示
+        normalDialog.show();
+    }
+
+    public void insertOperation(){
         String weekNotification="";
         String notificationWay="";
         if(((CheckBox)findViewById(R.id.week_mon)).isChecked())
@@ -345,7 +369,7 @@ public class AddNotificationActivity extends AppCompatActivity {
         myVerifyTask.execute(myParamsArr);
     }
 
-    private void deleteNotification() {
+    private void deleteOperation() {
         String[] myParamsArr = {"DeleteNotification", MainActivity.userID, MainActivity.patientName
                 , nameNotification.getText().toString()};
         VerifyTask myVerifyTask = new VerifyTask();

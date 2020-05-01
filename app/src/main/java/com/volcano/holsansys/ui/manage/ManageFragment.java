@@ -30,6 +30,7 @@ public class ManageFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.currentView=2;
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
         if (MainActivity.patientName.equals("")) {
             root.findViewById(R.id.if_manage).setVisibility(View.VISIBLE);

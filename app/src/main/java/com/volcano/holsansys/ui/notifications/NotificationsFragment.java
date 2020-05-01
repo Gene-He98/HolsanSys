@@ -41,13 +41,34 @@ public class NotificationsFragment extends Fragment {
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.currentView=1;
         final View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        if (MainActivity.patientName.equals("")) {
-            root.findViewById(R.id.if_notification).setVisibility(View.VISIBLE);
-            (root.findViewById(R.id.add_bt)).setVisibility(View.GONE);
-            (root.findViewById(R.id.listView_notification)).setVisibility(View.GONE);
-            return root;
-        } else {
+        if(MainActivity.mode){
+            if (MainActivity.patientName.equals("")) {
+                root.findViewById(R.id.if_notification).setVisibility(View.VISIBLE);
+                (root.findViewById(R.id.add_bt)).setVisibility(View.GONE);
+                (root.findViewById(R.id.listView_notification)).setVisibility(View.GONE);
+                return root;
+            } else {
+                mContext = getActivity();
+                list_notification = root.findViewById(R.id.listView_notification);
+                final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+                list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getContext(), AddNotificationActivity.class);
+                        intent.putExtra("kind", "change");
+                        intent.putExtra("NotificationName", ((TextView) view
+                                .findViewById(R.id.remark_notification)).getText().toString());
+                        startActivity(intent);
+                    }
+                });
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+                return root;
+            }
+        }else {
+            root.findViewById(R.id.add_bt).setVisibility(View.GONE);
             mContext = getActivity();
             list_notification = root.findViewById(R.id.listView_notification);
             final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
@@ -66,6 +87,7 @@ public class NotificationsFragment extends Fragment {
             return root;
         }
     }
+
     class VerifyTask extends AsyncTask<String, Integer, String> {
 
         @Override

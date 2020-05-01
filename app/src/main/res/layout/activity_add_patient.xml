@@ -213,11 +213,23 @@
                 android:gravity="center">
 
                 <Button
+                    android:id="@+id/add_patient"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="添    加"
                     android:textColor="#FFFFFF"
                     android:onClick="Add_Patient"
+                    android:background="@drawable/bt_register_shape"
+                    android:textSize="@dimen/word_size" />
+
+                <Button
+                    android:id="@+id/change_patient"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="修    改"
+                    android:visibility="gone"
+                    android:textColor="#FFFFFF"
+                    android:onClick="Change_Patient"
                     android:background="@drawable/bt_register_shape"
                     android:textSize="@dimen/word_size" />
 

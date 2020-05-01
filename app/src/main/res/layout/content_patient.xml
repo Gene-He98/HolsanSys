@@ -180,16 +180,44 @@
                 android:textSize="@dimen/word_size" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/back_main"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="返回首页"
-            android:textSize="@dimen/word_size"
-            android:onClick="Back_Main"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/bt_register_shape"/>
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/edit_patient"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="编辑"
+                android:textSize="@dimen/word_size"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bt_register_shape"/>
+
+            <Button
+                android:id="@+id/delete_patient"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="删除"
+                android:textSize="@dimen/word_size"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bt_register_shape"/>
+
+            <Button
+                android:id="@+id/back_main"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="返回首页"
+                android:textSize="@dimen/word_size"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/bt_register_shape"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

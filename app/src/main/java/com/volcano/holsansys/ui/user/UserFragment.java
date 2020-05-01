@@ -1,6 +1,7 @@
 package com.volcano.holsansys.ui.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.volcano.holsansys.MainActivity;
 import com.volcano.holsansys.R;
+import com.volcano.holsansys.add.AddPatientActivity;
 import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.util.LinkedList;
@@ -31,7 +33,6 @@ public class UserFragment extends Fragment {
     private Context mContext;
     private PatientAdapter mAdapter = null;
     private ListView list_user;
-    private LinearLayout foot_view;
     private TextView userName;
     private View root;
     private LinearLayout userContent;
@@ -39,38 +40,57 @@ public class UserFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.currentView=3;
         root = inflater.inflate(R.layout.fragment_user, container, false);
         userContent= root.findViewById(R.id.user_information);
         patientContent= root.findViewById(R.id.patients_information);
-        foot_view = (LinearLayout) inflater.inflate(R.layout.footview_listview_user, null);//得到尾部的布局
         mContext =getActivity();
-        if(MainActivity.patientName.equals("")){
-            //提醒界面数据更新
-            updateUser();
+        if(MainActivity.mode){
+            if(MainActivity.patientName.equals("")){
+                //提醒界面数据更新
+                updateUser();
+            }else {
+                updatePatient();
+                userContent.setVisibility(View.GONE);
+                patientContent.setVisibility(View.VISIBLE);
+            }
         }else {
-            updatePatient(MainActivity.patientName);
+            updatePatient();
             userContent.setVisibility(View.GONE);
             patientContent.setVisibility(View.VISIBLE);
-            root.findViewById(R.id.back_main).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MainActivity.patientName="";
-                    updateUser();
-                    userContent.setVisibility(View.VISIBLE);
-                    patientContent.setVisibility(View.GONE);
-                }
-            });
+            root.findViewById(R.id.edit_patient).setVisibility(View.GONE);
+            root.findViewById(R.id.delete_patient).setVisibility(View.GONE);
+            root.findViewById(R.id.back_main).setVisibility(View.GONE);
         }
+
         return root;
     }
 
-    private void updatePatient(String patientName) {
-        String[] myParamsArr ={"PatientInfo",MainActivity.userID,patientName};
+    private void updatePatient() {
+        String[] myParamsArr ={"PatientInfo",MainActivity.userID,MainActivity.patientName};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
         root.findViewById(R.id.back_main).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.patientName="";
+                updateUser();
+                userContent.setVisibility(View.VISIBLE);
+                patientContent.setVisibility(View.GONE);
+            }
+        });
+        root.findViewById(R.id.edit_patient).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity(), AddPatientActivity.class);
+                intent.putExtra("kind","change");
+                startActivity(intent);
+            }
+        });
+        root.findViewById(R.id.delete_patient).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePatient();
                 MainActivity.patientName="";
                 updateUser();
                 userContent.setVisibility(View.VISIBLE);
@@ -84,12 +104,11 @@ public class UserFragment extends Fragment {
         userName.setText(MainActivity.userName);
         list_user = root.findViewById(R.id.listView_user);
 
-        list_user.addFooterView(foot_view);//添加尾部
         list_user.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainActivity.patientName=(String)((TextView)view.findViewById(R.id.patientName)).getText();
-                updatePatient(MainActivity.patientName);
+                updatePatient();
                 userContent.setVisibility(View.GONE);
                 patientContent.setVisibility(View.VISIBLE);
             }
@@ -99,6 +118,11 @@ public class UserFragment extends Fragment {
         myVerifyTask.execute(myParamsArr);
     }
 
+    private void deletePatient(){
+        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName};
+        VerifyTask myVerifyTask = new VerifyTask();
+        myVerifyTask.execute(myParamsArr);
+    }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
         private int kind=0;
@@ -137,21 +161,26 @@ public class UserFragment extends Fragment {
         {
             switch (kind){
                 case 0 :
-                    if(!myResult.equals("[]")){
-                        Gson myGson = new Gson();
-                        List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
-                        try {
-                            mData = new LinkedList<>();
-                            for (int i=0;i<myList.size();i++){
-                                Map<String,String> myMap=myList.get(i);
-                                String patientName = myMap.get("PatientName");
-                                String location = myMap.get("Location");
-                                mData.add(new Patient(patientName,location));
+                    if(myResult.equals("[{\"msg\":\"ok\"}]")){
+
+                    }
+                    else {
+                        if(!myResult.equals("[]")){
+                            Gson myGson = new Gson();
+                            List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
+                            try {
+                                mData = new LinkedList<>();
+                                for (int i=0;i<myList.size();i++){
+                                    Map<String,String> myMap=myList.get(i);
+                                    String patientName = myMap.get("PatientName");
+                                    String location = myMap.get("Location");
+                                    mData.add(new Patient(patientName,location));
+                                }
+                                mAdapter = new PatientAdapter((LinkedList<Patient>) mData, mContext);
+                                list_user.setAdapter(mAdapter);
                             }
-                            mAdapter = new PatientAdapter((LinkedList<Patient>) mData, mContext);
-                            list_user.setAdapter(mAdapter);
+                            catch (Exception ex){}
                         }
-                        catch (Exception ex){}
                     }
                     break;
                 case 1 :

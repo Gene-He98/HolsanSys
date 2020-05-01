@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -27,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     public static String userID;
     public static String userName;
     public static String patientName="";
+    public static int currentView=3;
+    public static boolean mode =true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,43 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.guardian_item:
-                Toast.makeText(this,"切换管理员账户",Toast.LENGTH_SHORT).show();
+                if(mode) {
+                    mode =false;
+                    switch (currentView){
+                        case 1 :
+                            findViewById(R.id.add_bt).setVisibility(View.GONE);
+                            break;
+                        case 2 :
+                            break;
+                        case 3 :
+                            findViewById(R.id.edit_patient).setVisibility(View.GONE);
+                            findViewById(R.id.delete_patient).setVisibility(View.GONE);
+                            findViewById(R.id.back_main).setVisibility(View.GONE);
+                            break;
+                    }
+                    item.setTitle("切换至管理模式");
+                }
+                else {
+                    mode =true;
+                    switch (currentView){
+                        case 1 :
+                            findViewById(R.id.add_bt).setVisibility(View.VISIBLE);
+                            break;
+                        case 2 :
+                            break;
+                        case 3 :
+                            findViewById(R.id.edit_patient).setVisibility(View.VISIBLE);
+                            findViewById(R.id.delete_patient).setVisibility(View.VISIBLE);
+                            findViewById(R.id.back_main).setVisibility(View.VISIBLE);
+                            break;
+                    }
+                    item.setTitle("切换至日常模式");
+                }
+                break;
+            case R.id.add_patient_item:
+                Intent intent =new Intent(MainActivity.this, AddPatientActivity.class);
+                intent.putExtra("kind","add");
+                startActivity(intent);
                 break;
             case R.id.exit_item:
                 System.exit(1);
@@ -109,11 +146,6 @@ public class MainActivity extends AppCompatActivity {
             isAdmin();
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void addPatientBt(View view) {
-        Intent intent =new Intent(MainActivity.this, AddPatientActivity.class);
-        startActivity(intent);
     }
 
     public void addNotificationBt(View view) {
