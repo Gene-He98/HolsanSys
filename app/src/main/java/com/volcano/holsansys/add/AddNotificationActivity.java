@@ -271,6 +271,7 @@ public class AddNotificationActivity extends AppCompatActivity {
     public void addNotification(View view) {
         if (isReady()){
             insertOperation();
+            MainActivity.addNotification=true;
             this.finish();
         }
     }
@@ -279,6 +280,7 @@ public class AddNotificationActivity extends AppCompatActivity {
         if(isReady()){
             deleteOperation();
             insertOperation();
+            MainActivity.addNotification=true;
             this.finish();
         }
     }
@@ -291,6 +293,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteOperation();
+                MainActivity.addNotification=true;
                 AddNotificationActivity.this.finish();
             }
         });

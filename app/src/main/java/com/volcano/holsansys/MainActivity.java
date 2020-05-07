@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public static String patientName = "";
     public static int currentView = 3;
     public static boolean mode = true;
+    public static boolean addPatientFlag=false;
+    public static boolean addNotification=false;
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
@@ -70,8 +72,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.setting_menu, menu);
+        menu.findItem(R.id.guardian_item).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (mode){
+                    menu.findItem(R.id.add_patient_item).setVisible(false);
+                }else {
+                    menu.findItem(R.id.add_patient_item).setVisible(true);
+                }
+                return false;
+            }
+        });
         return true;
     }
 

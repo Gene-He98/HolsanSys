@@ -61,6 +61,7 @@ public class AddPatientActivity extends AppCompatActivity {
                     patientSex,patientAddress,patientBloodType,patientMedicalHistory,patientAllergy};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
+            MainActivity.addPatientFlag=true;
             AddPatientActivity.this.finish();
         }
     }
@@ -74,6 +75,7 @@ public class AddPatientActivity extends AppCompatActivity {
             }
             deletePatient();
             Add_Patient(view);
+            MainActivity.addPatientFlag=true;
             AddPatientActivity.this.finish();
         }
     }

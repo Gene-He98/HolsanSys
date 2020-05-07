@@ -66,6 +66,22 @@ public class UserFragment extends Fragment {
             root.findViewById(R.id.back_main).setVisibility(View.GONE);
         }
 
+        new Thread() {
+            @Override
+            public void run() {
+                while (true){
+                    if(MainActivity.addPatientFlag){
+                        if(MainActivity.patientName.equals("")){
+                            updateUser();
+                        }else {
+                            updatePatient();
+                        }
+                        MainActivity.addPatientFlag=false;
+                    }
+                }
+            }
+        }.start();
+
         return root;
     }
 

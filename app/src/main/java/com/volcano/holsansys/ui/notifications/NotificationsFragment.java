@@ -43,14 +43,13 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.currentView=1;
         final View root = inflater.inflate(R.layout.fragment_notifications, container, false);
+        mContext = getActivity();
         if(MainActivity.mode){
             if (MainActivity.patientName.equals("")) {
                 root.findViewById(R.id.if_notification).setVisibility(View.VISIBLE);
                 (root.findViewById(R.id.add_bt)).setVisibility(View.GONE);
                 (root.findViewById(R.id.listView_notification)).setVisibility(View.GONE);
-                return root;
             } else {
-                mContext = getActivity();
                 list_notification = root.findViewById(R.id.listView_notification);
                 final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
                 list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,8 +64,33 @@ public class NotificationsFragment extends Fragment {
                 });
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
-                return root;
             }
+            new Thread() {
+                @Override
+                public void run() {
+                    while (true){
+                        if (MainActivity.addNotification){
+                            list_notification = root.findViewById(R.id.listView_notification);
+                            final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+                            list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(getContext(), AddNotificationActivity.class);
+                                    intent.putExtra("kind", "change");
+                                    intent.putExtra("NotificationName", ((TextView) view
+                                            .findViewById(R.id.remark_notification)).getText().toString());
+                                    startActivity(intent);
+                                }
+                            });
+                            VerifyTask myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
+                            MainActivity.addNotification=false;
+                        }
+                    }
+                }
+            }.start();
+            return root;
+
         }else {
             root.findViewById(R.id.add_bt).setVisibility(View.GONE);
             root.findViewById(R.id.notification_bt_emer).setVisibility(View.VISIBLE);
@@ -87,6 +111,7 @@ public class NotificationsFragment extends Fragment {
             myVerifyTask.execute(myParamsArr);
             return root;
         }
+
     }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
@@ -132,11 +157,13 @@ public class NotificationsFragment extends Fragment {
                         String dayNotification = myMap.get("DayNotification");
                         String notificationName = myMap.get("NotificationName");
                         String tinkleSrc =myMap.get("TinkleSrc");
+                        String notificationVibrate=myMap.get("NotificationVibrate");
                         mData.add(new Notification(dayNotification, notificationName));
 
                         Intent intent = new Intent(getActivity(), TimerActivity.class);
                         intent.putExtra("NotificationName",notificationName);
                         intent.putExtra("TinkleSrc",tinkleSrc);
+                        intent.putExtra("NotificationVibrate",notificationVibrate);
                         PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, FLAG_CANCEL_CURRENT);
                         AlarmManager am = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                         Calendar calendar = Calendar.getInstance();

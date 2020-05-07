@@ -8,6 +8,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +34,7 @@ public class TimerActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private String notificationName;
     private Intent intent;
+    private Vibrator vibrator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,9 @@ public class TimerActivity extends AppCompatActivity {
         timerLater=findViewById(R.id.timer_later);
         timerNow=findViewById(R.id.timer_now);
         intent =getIntent();
+        if (vibrator == null) {
+            vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        }
 
         notificationName = intent.getStringExtra("NotificationName");
         Uri mTinkleUri=file2Uri(new File(intent.getStringExtra("TinkleSrc")));
@@ -60,6 +66,7 @@ public class TimerActivity extends AppCompatActivity {
                     Intent intentNew = new Intent(TimerActivity.this, TimerActivity.class);
                     intentNew.putExtra("NotificationName",notificationName);
                     intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
+                    intentNew.putExtra("NotificationVibrate",intent.getStringExtra("NotificationVibrate"));
                     PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
                     AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
                     am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
@@ -86,6 +93,9 @@ public class TimerActivity extends AppCompatActivity {
         });
 
 
+        if(intent.getStringExtra("NotificationVibrate").equals("1")){
+            vibrator.vibrate(VibrationEffect.createWaveform(new long[]{1000, 500, 1000, 500},0));
+        }
         mediaPlayer = MediaPlayer.create(this,mTinkleUri);
         mediaPlayer.start();
 
@@ -93,6 +103,7 @@ public class TimerActivity extends AppCompatActivity {
 
     @Override
     public void finish(){
+        vibrator.cancel();
         mediaPlayer.release();
         super.finish();
     }
