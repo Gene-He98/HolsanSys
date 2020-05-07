@@ -32,11 +32,21 @@ public class ManageFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.currentView=2;
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
-        if (MainActivity.patientName.equals("")) {
-            root.findViewById(R.id.if_manage).setVisibility(View.VISIBLE);
-            (root.findViewById(R.id.listView_manage)).setVisibility(View.GONE);
-            return root;
-        } else {
+        if (MainActivity.mode){
+            if (MainActivity.patientName.equals("")) {
+                root.findViewById(R.id.if_manage).setVisibility(View.VISIBLE);
+                (root.findViewById(R.id.listView_manage)).setVisibility(View.GONE);
+                return root;
+            } else {
+                mContext = getActivity();
+                list_manage = root.findViewById(R.id.listView_manage);
+                String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+                return root;
+            }
+        }else {
+            root.findViewById(R.id.manage_bt_emer).setVisibility(View.VISIBLE);
             mContext = getActivity();
             list_manage = root.findViewById(R.id.listView_manage);
             String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
@@ -44,6 +54,7 @@ public class ManageFragment extends Fragment {
             myVerifyTask.execute(myParamsArr);
             return root;
         }
+
     }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {

@@ -44,13 +44,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    }
-
-    public void Admin_Click(View view) {
         progress_login =findViewById(R.id.progress_login);
         tv_username = findViewById(R.id.user_name_login);
         tv_user_pass = findViewById(R.id.user_pass_login);
+    }
 
+    public void Admin_Click(View view) {
         String myUserID=tv_username.getText().toString();
         String myPassword=(new MD5()).EncryptToMD5(tv_user_pass.getText().toString());
         if(myUserID.equals("")||tv_user_pass.getText().toString().equals("")){
@@ -132,13 +131,15 @@ public class LoginActivity extends AppCompatActivity {
             }else if(myResult.equals("操作失败")){
                 AlertDialog.Builder normalDialog = new AlertDialog.Builder(LoginActivity.this);
                 normalDialog.setTitle("网络连接似乎出了问题");
-                normalDialog.setMessage("是否重新尝试？");
+                normalDialog.setMessage("请检查网络后重新登录!");
                 normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.admin_flag=false;
+                        progress_login.setVisibility(View.GONE);
                     }
                 });
-                normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                normalDialog.setNegativeButton("退出", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         setResult(404);
@@ -171,10 +172,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void text_forget(View view) {
+        MobSDK.submitPolicyGrantResult(true,null);
+
+        RegisterPage page = new RegisterPage();
+        //如果使用我们的ui，没有申请模板编号的情况下需传null
+        page.setTempCode(null);
+        page.setRegisterCallback(new EventHandler() {
+            public void afterEvent(int event, int result, Object data) {
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    // 处理成功的结果
+                    HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
+                    // 手机号码，如“13800138000”
+                    phone = (String) phoneMap.get("phone");
+                    // TODO 利用国家代码和手机号码进行后续的操作
+
+                    Intent intent =new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+                    Bundle bundle = new Bundle();
+                    intent.putExtras(bundle);
+                    startActivityForResult(intent, 100); //两个参数：第一个是意图对象，第二个是请求码requestCode
+                } else{
+                    // TODO 处理错误的结果
+                }
+            }
+        });
+        page.show(LoginActivity.this);
     }
 
     public void text_register(View view) {
-
         MobSDK.submitPolicyGrantResult(true,null);
 
         RegisterPage page = new RegisterPage();
@@ -210,6 +234,9 @@ public class LoginActivity extends AppCompatActivity {
             a.putExtra("userID",phone);
             setResult(30, data); //设置返回数据
             this.finish();
+        }
+        if(resultCode == 40){  //判断返回码是否是30
+            tv_username.setText(phone);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

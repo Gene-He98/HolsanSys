@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class WebServiceAPI {
-    String WebserviceUrl = "http://192.168.43.118:8080/MainAPI?wsdl";
+    String WebserviceUrl = "http://192.168.1.32:8080/MainAPI?wsdl";
     String NameSpace = "http://HolsanSys.com/";
 
     public String ConnectingWebService(String[] webservice)
@@ -19,6 +19,7 @@ public class WebServiceAPI {
 
         switch (webservice[0]){
             case "UserLogin" :
+            case "ForgetPassword" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myPassword", webservice[2]));
                 break;

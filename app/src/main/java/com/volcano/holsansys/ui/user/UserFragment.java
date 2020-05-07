@@ -1,6 +1,8 @@
 package com.volcano.holsansys.ui.user;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,6 +60,7 @@ public class UserFragment extends Fragment {
             updatePatient();
             userContent.setVisibility(View.GONE);
             patientContent.setVisibility(View.VISIBLE);
+            root.findViewById(R.id.me_bt_emer).setVisibility(View.VISIBLE);
             root.findViewById(R.id.edit_patient).setVisibility(View.GONE);
             root.findViewById(R.id.delete_patient).setVisibility(View.GONE);
             root.findViewById(R.id.back_main).setVisibility(View.GONE);
@@ -87,14 +90,31 @@ public class UserFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         root.findViewById(R.id.delete_patient).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePatient();
-                MainActivity.patientName="";
-                updateUser();
-                userContent.setVisibility(View.VISIBLE);
-                patientContent.setVisibility(View.GONE);
+                AlertDialog.Builder normalDialog = new AlertDialog.Builder(getActivity());
+                normalDialog.setTitle("您将要删除此用药人");
+                normalDialog.setMessage("是否确定？");
+                normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletePatient();
+                        MainActivity.patientName="";
+                        updateUser();
+                        userContent.setVisibility(View.VISIBLE);
+                        patientContent.setVisibility(View.GONE);
+                    }
+                });
+                normalDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                normalDialog.setCancelable(false);
+                // 显示
+                normalDialog.show();
             }
         });
     }

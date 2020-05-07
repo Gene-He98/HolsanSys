@@ -69,6 +69,7 @@ public class NotificationsFragment extends Fragment {
             }
         }else {
             root.findViewById(R.id.add_bt).setVisibility(View.GONE);
+            root.findViewById(R.id.notification_bt_emer).setVisibility(View.VISIBLE);
             mContext = getActivity();
             list_notification = root.findViewById(R.id.listView_notification);
             final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};

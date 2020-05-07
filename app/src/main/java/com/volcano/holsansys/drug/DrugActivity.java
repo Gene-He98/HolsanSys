@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class DrugActivity extends AppCompatActivity {
     private Button drugLater;
     private Button drugNow;
     private MediaPlayer mediaPlayer;
+    private Intent intent;
     public static int delayTimes=1;
 
     @Override
@@ -44,7 +46,7 @@ public class DrugActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drug);
         drugLater=findViewById(R.id.drug_later);
         drugNow=findViewById(R.id.drug_now);
-        final Intent intent =getIntent();
+        intent =getIntent();
         String[] myParamsArr={"NotificationDetail", MainActivity.userID
                 ,MainActivity.patientName,intent.getStringExtra("NotificationName")};
         VerifyTask myVerifyTask = new VerifyTask();
@@ -181,4 +183,36 @@ public class DrugActivity extends AppCompatActivity {
             mediaPlayer.release();
         super.finish();
     }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if( (keyCode== KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_HOME )&& event.getAction() == KeyEvent.ACTION_DOWN){
+            if(delayTimes==3){
+                delayTimes=0;
+                String[] myParamsArr={"DrugRecord", MainActivity.userID
+                        ,MainActivity.patientName,intent.getStringExtra("NotificationName")
+                        ,"未服药"};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+            }
+            else {
+                Intent intentNew = new Intent(DrugActivity.this, TimerActivity.class);
+                intentNew.putExtra("NotificationName",intent.getStringExtra("NotificationName"));
+                intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
+                PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                AlarmManager am = (AlarmManager) DrugActivity.this.getSystemService(Context.ALARM_SERVICE);
+                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                String[] myParamsArr={"DrugRecord", MainActivity.userID
+                        ,MainActivity.patientName,intent.getStringExtra("NotificationName")
+                        ,"第"+delayTimes+"次延迟服药"};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+                delayTimes++;
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

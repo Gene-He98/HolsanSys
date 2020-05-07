@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,42 +42,94 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     public void Add_Patient(View view) {
-        String patientName = ((TextView)findViewById(R.id.add_patient_name))
-                .getText().toString();
-        String patientAge = ((TextView)findViewById(R.id.add_patient_age))
-                .getText().toString();
-        String patientSex = ((TextView)findViewById(R.id.add_patient_sex))
-                .getText().toString();
-        String patientAddress = ((TextView)findViewById(R.id.add_patient_address))
-                .getText().toString();
-        String patientBloodType = ((TextView)findViewById(R.id.add_patient_blood_type))
-                        .getText().toString();
-        String patientMedicalHistory = ((TextView)findViewById(R.id.add_patient_medical_history))
-                        .getText().toString();
-        String patientAllergy = ((TextView)findViewById(R.id.add_patient_allergy))
-                        .getText().toString();
-        String[] myParamsArr={"AddPatient",MainActivity.userID,patientName,patientAge,
-                patientSex,patientAddress,patientBloodType,patientMedicalHistory,patientAllergy};
-        VerifyTask myVerifyTask = new VerifyTask();
-        myVerifyTask.execute(myParamsArr);
-        AddPatientActivity.this.finish();
+        if(isReady()){
+            String patientName = ((TextView)findViewById(R.id.add_patient_name))
+                    .getText().toString();
+            String patientAge = ((TextView)findViewById(R.id.add_patient_age))
+                    .getText().toString();
+            String patientSex = ((Spinner)findViewById(R.id.add_patient_sex))
+                    .getSelectedItem().toString();
+            String patientAddress = ((TextView)findViewById(R.id.add_patient_address))
+                    .getText().toString();
+            String patientBloodType = ((Spinner)findViewById(R.id.add_patient_blood_type))
+                    .getSelectedItem().toString();
+            String patientMedicalHistory = ((TextView)findViewById(R.id.add_patient_medical_history))
+                    .getText().toString();
+            String patientAllergy = ((TextView)findViewById(R.id.add_patient_allergy))
+                    .getText().toString();
+            String[] myParamsArr={"AddPatient",MainActivity.userID,patientName,patientAge,
+                    patientSex,patientAddress,patientBloodType,patientMedicalHistory,patientAllergy};
+            VerifyTask myVerifyTask = new VerifyTask();
+            myVerifyTask.execute(myParamsArr);
+            AddPatientActivity.this.finish();
+        }
     }
 
     public void Change_Patient(View view) {
-        String patientName = ((TextView)findViewById(R.id.add_patient_name))
-                .getText().toString();
-        if(!MainActivity.patientName.equals(patientName)){
-            MainActivity.patientName=patientName;
+        if(isReady()){
+            String patientName = ((TextView)findViewById(R.id.add_patient_name))
+                    .getText().toString();
+            if(!MainActivity.patientName.equals(patientName)){
+                MainActivity.patientName=patientName;
+            }
+            deletePatient();
+            Add_Patient(view);
+            AddPatientActivity.this.finish();
         }
-        deletePatient();
-        Add_Patient(view);
-        AddPatientActivity.this.finish();
     }
 
     private void deletePatient(){
         String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
+    }
+
+    private boolean isReady(){
+        if(((TextView)findViewById(R.id.add_patient_name)).getText().toString().equals("")){
+            if (mToast == null) {
+                mToast=Toast.makeText(AddPatientActivity.this,
+                        "请填写用药人姓名！",Toast.LENGTH_SHORT);
+                mToast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+            return false;
+        }
+        else if(((TextView)findViewById(R.id.add_patient_age)).getText().toString().equals("")){
+            if (mToast == null) {
+                mToast=Toast.makeText(AddPatientActivity.this,
+                        "请填写用药人年龄！",Toast.LENGTH_SHORT);
+                mToast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+            return false;
+        }
+        else if(((Spinner)findViewById(R.id.add_patient_sex)).getSelectedItem().equals("")){
+            if (mToast == null) {
+                mToast=Toast.makeText(AddPatientActivity.this,
+                        "请选择用药人性别！",Toast.LENGTH_SHORT);
+                mToast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+            return false;
+        }
+        else if(((Spinner)findViewById(R.id.add_patient_blood_type)).getSelectedItem().equals("")){
+            if (mToast == null) {
+                mToast=Toast.makeText(AddPatientActivity.this,
+                        "请选择用药人血型！",Toast.LENGTH_SHORT);
+                mToast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                mToast.setDuration(Toast.LENGTH_SHORT);
+            }
+            mToast.show();
+            return false;
+        }else
+            return true;
     }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
@@ -120,9 +173,6 @@ public class AddPatientActivity extends AppCompatActivity {
                         mToast=Toast.makeText(AddPatientActivity.this,
                                 "添加失败，请稍后重试！",Toast.LENGTH_SHORT);
                         mToast.setGravity(Gravity.CENTER, 0, 0);
-                        TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
-                        v.setTextColor(Color.RED);     //设置字体颜色
-                        v.setTextSize(20);
                     } else {
                         mToast.setDuration(Toast.LENGTH_SHORT);
                     }

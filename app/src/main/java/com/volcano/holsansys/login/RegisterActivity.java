@@ -36,9 +36,9 @@ public class RegisterActivity extends AppCompatActivity {
         phone= LoginActivity.phone;
         progress_register =findViewById(R.id.progress_Register);
         protocol=findViewById(R.id.checkbox_protocol);
-        username=(EditText)findViewById(R.id.fra_user_name);
-        user_pass=(EditText)findViewById(R.id.user_pass);
-        user_pass_again=(EditText)findViewById(R.id.user_pass_again);
+        username= findViewById(R.id.fra_user_name);
+        user_pass= findViewById(R.id.user_pass);
+        user_pass_again= findViewById(R.id.user_pass_again);
 
     }
 
@@ -48,15 +48,15 @@ public class RegisterActivity extends AppCompatActivity {
             Toast toast= Toast.makeText(RegisterActivity.this, "请将所有内容补充完整", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER,0,0);
             toast.show();
+        }else if (user_pass.getText().length()<8) {
+            Toast toast=Toast.makeText(RegisterActivity.this, "请输入至少8位登录密码", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
         } else if (!user_pass.getText().toString().equals(user_pass_again.getText().toString())) {
             Toast toast=Toast.makeText(RegisterActivity.this, "两次登录密码输入不一致，请重新输入", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER,0,0);
             toast.show();
-        } else if (user_pass.getText().toString().length()!=8 || user_pass_again.getText().toString().length()!=8){
-            Toast toast=Toast.makeText(RegisterActivity.this, "请输入完整8位登录密码", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
-        }  else if (!protocol.isChecked()){
+        } else if (!protocol.isChecked()){
             Toast toast=Toast.makeText(RegisterActivity.this, "请阅读并同意服务协议，才可注册", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER,0,0);
             toast.show();
@@ -100,7 +100,6 @@ public class RegisterActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String myResult)
         {
-            //查询结果为成功，则跳转到主页面
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
                 MainActivity.admin_flag=true;
                 Intent data = new Intent();
@@ -114,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mToast=Toast.makeText(RegisterActivity.this,
                             "注册失败，请稍后重试！",Toast.LENGTH_SHORT);
                     mToast.setGravity(Gravity.CENTER, 0, 0);
-                    TextView v = (TextView) mToast.getView().findViewById(android.R.id.message);
+                    TextView v = mToast.getView().findViewById(android.R.id.message);
                     v.setTextColor(Color.RED);     //设置字体颜色
                     v.setTextSize(20);
                 } else {

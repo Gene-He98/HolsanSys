@@ -8,9 +8,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/listview_shape"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp">
 
         <include layout="@layout/content_user"
             android:visibility="visible"
@@ -19,7 +21,6 @@
             android:id="@+id/user_information"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="5dp"
             android:layout_above="@id/me_bt_emer"/>
 
         <include layout="@layout/content_patient"
@@ -29,7 +30,6 @@
             android:id="@+id/patients_information"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="5dp"
             android:layout_above="@id/me_bt_emer"/>
 
         <!-- 紧急按钮 -->

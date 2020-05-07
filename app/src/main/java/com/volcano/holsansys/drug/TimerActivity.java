@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +30,8 @@ public class TimerActivity extends AppCompatActivity {
     private Button timerNow;
     private Button timerLater;
     private MediaPlayer mediaPlayer;
+    private String notificationName;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,9 @@ public class TimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
         timerLater=findViewById(R.id.timer_later);
         timerNow=findViewById(R.id.timer_now);
-        final Intent intent =getIntent();
+        intent =getIntent();
 
-        final String notificationName = intent.getStringExtra("NotificationName");
+        notificationName = intent.getStringExtra("NotificationName");
         Uri mTinkleUri=file2Uri(new File(intent.getStringExtra("TinkleSrc")));
         ((TextView)findViewById(R.id.timer_name)).setText(notificationName);
         timerLater.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +97,35 @@ public class TimerActivity extends AppCompatActivity {
         super.finish();
     }
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if( (keyCode== KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_HOME )&& event.getAction() == KeyEvent.ACTION_DOWN){
+            if(DrugActivity.delayTimes==3){
+                DrugActivity.delayTimes=0;
+                String[] myParamsArr={"DrugRecord", MainActivity.userID
+                        ,MainActivity.patientName,intent.getStringExtra("NotificationName")
+                        ,"未服药"};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+            }
+            else {
+                Intent intentNew = new Intent(TimerActivity.this, TimerActivity.class);
+                intentNew.putExtra("NotificationName",notificationName);
+                intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
+                PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
+                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                String[] myParamsArr={"DrugRecord", MainActivity.userID
+                        ,MainActivity.patientName,notificationName
+                        ,"第"+DrugActivity.delayTimes+"次延迟服药"};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+                DrugActivity.delayTimes++;
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
         @Override

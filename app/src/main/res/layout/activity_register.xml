@@ -74,7 +74,6 @@
                     android:id="@+id/user_pass"
                     android:hint="请输入至少8位登录密码"
                     android:inputType="textPassword"
-                    android:maxLength="8"
                     />
 
             </LinearLayout>
@@ -93,7 +92,6 @@
                     android:hint="请确定您的登录密码"
                     android:inputType="textPassword"
                     android:id="@+id/user_pass_again"
-                    android:maxLength="8"
                     />
             </LinearLayout>
 

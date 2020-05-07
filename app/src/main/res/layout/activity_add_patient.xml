@@ -72,6 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/editview_shape"
+                    android:inputType="number"
                     android:layout_weight="8"
                     android:textSize="@dimen/word_size"
                     android:id="@+id/add_patient_age"
@@ -94,11 +95,12 @@
                     android:text="@string/user_sex"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/word_size" />
-                <EditText
+                <Spinner
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/editview_shape"
                     android:layout_weight="8"
+                    android:entries="@array/sex"
                     android:textSize="@dimen/word_size"
                     android:id="@+id/add_patient_sex"
                     android:textStyle="bold"
@@ -145,13 +147,16 @@
                     android:text="@string/user_blood_type"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/word_size" />
-                <EditText android:layout_width="0dp"
+
+                <Spinner
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/editview_shape"
                     android:layout_weight="8"
                     android:id="@+id/add_patient_blood_type"
                     android:textSize="@dimen/word_size"
                     android:textStyle="bold"
+                    android:entries="@array/blood_type"
                     android:textColor="@android:color/black"/>
             </LinearLayout>
 
