@@ -1,11 +1,14 @@
 package com.volcano.holsansys;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
@@ -26,9 +29,17 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.volcano.holsansys.add.AddNotificationActivity;
 import com.volcano.holsansys.add.AddPatientActivity;
 import com.volcano.holsansys.login.LoginActivity;
+import com.volcano.holsansys.tools.AlarmReceiver;
+import com.volcano.holsansys.tools.WebServiceAPI;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import static android.Manifest.permission;
 import static android.Manifest.permission_group.LOCATION;
@@ -46,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean mode = true;
     public static boolean addPatientFlag=false;
     public static boolean addNotification=false;
+    private boolean kind;
+
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
@@ -79,8 +92,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (mode){
                     menu.findItem(R.id.add_patient_item).setVisible(false);
+                    addAlarm();
                 }else {
                     menu.findItem(R.id.add_patient_item).setVisible(true);
+                    deleteAlarm();
                 }
                 return false;
             }
@@ -358,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 if (grantResults.length <= 0
                     || grantResults[0] != PackageManager.PERMISSION_GRANTED
-                        || grantResults[3] != PackageManager.PERMISSION_GRANTED){
+                        || grantResults[2] != PackageManager.PERMISSION_GRANTED){
                     AlertDialog.Builder normalDialog = new AlertDialog.Builder(MainActivity.this);
                     normalDialog.setTitle("权限申请");
                     normalDialog.setMessage("在权限中开启获取位置信息权限及短信权限，以保证一键求救功能等的正常使用");
@@ -387,6 +402,89 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
+        }
+    }
+
+    public void addAlarm(){
+        kind=true;
+        String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+        VerifyTask myVerifyTask = new VerifyTask();
+        myVerifyTask.execute(myParamsArr);
+    }
+
+    public void deleteAlarm(){
+        kind=false;
+        String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+        VerifyTask myVerifyTask = new VerifyTask();
+        myVerifyTask.execute(myParamsArr);
+    }
+
+    class VerifyTask extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... myParams)
+        {
+            String myResult="";
+            try
+            {
+                myResult = (new WebServiceAPI()).ConnectingWebService(myParams);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            return myResult;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... myValues)
+        {
+            super.onProgressUpdate(myValues);
+        }
+
+        @Override
+        protected void onPostExecute(String myResult)
+        {
+            if(!myResult.equals("[]")){
+                Gson myGson = new Gson();
+                List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
+                try {
+                    for (int i=0;i<myList.size();i++){
+                        Map<String,String> myMap=myList.get(i);
+                        String dayNotification = myMap.get("DayNotification");
+                        String notificationName = myMap.get("NotificationName");
+                        String tinkleSrc =myMap.get("TinkleSrc");
+                        String notificationVibrate=myMap.get("NotificationVibrate");
+
+                        Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+                        intent.putExtra("NotificationName",notificationName);
+                        intent.putExtra("TinkleSrc",tinkleSrc);
+                        intent.putExtra("NotificationVibrate",notificationVibrate);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+                        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+                        if(kind){
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(System.currentTimeMillis());
+                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dayNotification.split(":")[0]));
+                            calendar.set(Calendar.MINUTE, Integer.parseInt(dayNotification.split(":")[1]));
+                            calendar.set(Calendar.SECOND, 0);
+                            calendar.set(Calendar.MILLISECOND, 0);
+                            //获取系统进程
+                            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                        }else {
+                            am.cancel(pendingIntent);
+                        }
+                    }
+                }
+                catch (Exception ex){}
+            }
         }
     }
 }

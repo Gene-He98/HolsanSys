@@ -23,6 +23,7 @@ import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.io.File;
 
+import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static com.blankj.utilcode.util.BarUtils.transparentStatusBar;
 import static com.blankj.utilcode.util.UriUtils.file2Uri;
@@ -38,6 +39,7 @@ public class TimerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         transparentStatusBar(this);
         setContentView(R.layout.activity_timer);
@@ -69,7 +71,9 @@ public class TimerActivity extends AppCompatActivity {
                     intentNew.putExtra("NotificationVibrate",intent.getStringExtra("NotificationVibrate"));
                     PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
                     AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
-                    am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                    am.set(AlarmManager.RTC_WAKEUP,
+                            System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES
+                            , pendingIntent);
                     String[] myParamsArr={"DrugRecord", MainActivity.userID
                             ,MainActivity.patientName,notificationName
                             ,"第"+DrugActivity.delayTimes+"次延迟服药"};
@@ -125,7 +129,7 @@ public class TimerActivity extends AppCompatActivity {
                 intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
                 PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
                 AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
-                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES, pendingIntent);
                 String[] myParamsArr={"DrugRecord", MainActivity.userID
                         ,MainActivity.patientName,notificationName
                         ,"第"+DrugActivity.delayTimes+"次延迟服药"};

@@ -23,10 +23,13 @@ import java.util.Map;
 
 public class ManageFragment extends Fragment {
 
-    private List<Manage> mData = null;
+    private List<DrugRecord> recordData = null;
+    private List<Medicine> medicineData = null;
     private Context mContext;
-    private ManageListAdapter mAdapter = null;
-    private ListView list_manage;
+    private RecordListAdapter recordAdapter = null;
+    private MedicineListAdapter medicineAdapter = null;
+    private ListView list_record;
+    private ListView list_medicine;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,12 +37,15 @@ public class ManageFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
         if (MainActivity.mode){
             if (MainActivity.patientName.equals("")) {
-                root.findViewById(R.id.if_manage).setVisibility(View.VISIBLE);
-                (root.findViewById(R.id.listView_manage)).setVisibility(View.GONE);
+                mContext = getActivity();
+                list_medicine = root.findViewById(R.id.listView_manage);
+                String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
                 return root;
             } else {
                 mContext = getActivity();
-                list_manage = root.findViewById(R.id.listView_manage);
+                list_record = root.findViewById(R.id.listView_manage);
                 String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
@@ -48,7 +54,7 @@ public class ManageFragment extends Fragment {
         }else {
             root.findViewById(R.id.manage_bt_emer).setVisibility(View.VISIBLE);
             mContext = getActivity();
-            list_manage = root.findViewById(R.id.listView_manage);
+            list_record = root.findViewById(R.id.listView_manage);
             String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
@@ -92,21 +98,39 @@ public class ManageFragment extends Fragment {
             if(!myResult.equals("[]")){
                 Gson myGson = new Gson();
                 List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
-                mData = new LinkedList<>();
-                try {
-                    for (int i=0;i<myList.size();i++){
+                if(MainActivity.patientName.equals("")){
+                    medicineData = new LinkedList<>();
+                    try {
+                        for (int i=0;i<myList.size();i++){
 
-                        Map<String,String> myMap=myList.get(i);
-                        String recordTime = myMap.get("DrugTime");
-                        String recordName = myMap.get("NotificationName");
-                        String recordIf = myMap.get("IfDrug");
-                        mData.add(new Manage(recordTime, recordName, recordIf));
+                            Map<String,String> myMap=myList.get(i);
+                            String medicineName = myMap.get("MedicineName");
+                            String medicineAnotherName = myMap.get("MedicineAnotherName");
+                            String validity = myMap.get("Validity");
+                            medicineData.add(new Medicine(medicineName, medicineAnotherName, validity));
+                        }
+
+                        medicineAdapter = new MedicineListAdapter((LinkedList<Medicine>) medicineData, mContext);
+                        list_medicine.setAdapter(medicineAdapter);
                     }
+                    catch (Exception ex){}
+                }else {
+                    recordData = new LinkedList<>();
+                    try {
+                        for (int i=0;i<myList.size();i++){
 
-                    mAdapter = new ManageListAdapter((LinkedList<Manage>) mData, mContext);
-                    list_manage.setAdapter(mAdapter);
+                            Map<String,String> myMap=myList.get(i);
+                            String recordTime = myMap.get("DrugTime");
+                            String recordName = myMap.get("NotificationName");
+                            String recordIf = myMap.get("IfDrug");
+                            recordData.add(new DrugRecord(recordTime, recordName, recordIf));
+                        }
+
+                        recordAdapter = new RecordListAdapter((LinkedList<DrugRecord>) recordData, mContext);
+                        list_record.setAdapter(recordAdapter);
+                    }
+                    catch (Exception ex){}
                 }
-                catch (Exception ex){}
             }
         }
     }

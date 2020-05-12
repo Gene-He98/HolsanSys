@@ -31,6 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"
             android:layout_alignParentTop="true"/>
 
         <!--紧急按钮-->

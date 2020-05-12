@@ -1,7 +1,6 @@
 package com.volcano.holsansys.add;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -187,8 +186,18 @@ public class AddPatientActivity extends AppCompatActivity {
                     ((TextView)findViewById(R.id.add_patient_age)).setText(myMap.get("PatientAge"));
                     ((TextView)findViewById(R.id.add_patient_address)).setText(myMap.get("PatientAddress"));
                     ((TextView)findViewById(R.id.add_patient_medical_history)).setText(myMap.get("PatientMedicalHistory"));
-                    ((TextView)findViewById(R.id.add_patient_sex)).setText(myMap.get("PatientSex"));
-                    ((TextView)findViewById(R.id.add_patient_blood_type)).setText(myMap.get("PatientBloodType"));
+                    Spinner patientSex= findViewById(R.id.add_patient_sex);
+                    for(int i =1;i<4;i++){
+                        if(patientSex.getItemAtPosition(i).equals(myMap.get("PatientSex"))){
+                            patientSex.setSelection(i);
+                        }
+                    }
+                    Spinner patientBloodType= findViewById(R.id.add_patient_blood_type);
+                    for(int i =1;i<6;i++){
+                        if(patientBloodType.getItemAtPosition(i).equals(myMap.get("PatientBloodType"))){
+                            patientBloodType.setSelection(i);
+                        }
+                    }
                     ((TextView)findViewById(R.id.add_patient_allergy)).setText(myMap.get("PatientAllergy"));
                 }
             }

@@ -26,6 +26,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static com.blankj.utilcode.util.BarUtils.transparentStatusBar;
 import static com.blankj.utilcode.util.FileUtils.getFileName;
@@ -69,7 +70,7 @@ public class DrugActivity extends AppCompatActivity {
                     intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
                     PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
                     AlarmManager am = (AlarmManager) DrugActivity.this.getSystemService(Context.ALARM_SERVICE);
-                    am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                    am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES , pendingIntent);
                     String[] myParamsArr={"DrugRecord", MainActivity.userID
                             ,MainActivity.patientName,intent.getStringExtra("NotificationName")
                             ,"第"+delayTimes+"次延迟服药"};
@@ -201,7 +202,7 @@ public class DrugActivity extends AppCompatActivity {
                 intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
                 PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
                 AlarmManager am = (AlarmManager) DrugActivity.this.getSystemService(Context.ALARM_SERVICE);
-                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
+                am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES, pendingIntent);
                 String[] myParamsArr={"DrugRecord", MainActivity.userID
                         ,MainActivity.patientName,intent.getStringExtra("NotificationName")
                         ,"第"+delayTimes+"次延迟服药"};

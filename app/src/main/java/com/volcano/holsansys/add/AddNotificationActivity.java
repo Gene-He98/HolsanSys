@@ -58,6 +58,7 @@ public class AddNotificationActivity extends AppCompatActivity {
     private Toast mToast = null;
     private EditText nameNotification;
     private TextView addImageText;
+    private int kind;
 
 
     @Override
@@ -271,7 +272,6 @@ public class AddNotificationActivity extends AppCompatActivity {
     public void addNotification(View view) {
         if (isReady()){
             insertOperation();
-            MainActivity.addNotification=true;
             this.finish();
         }
     }
@@ -280,7 +280,6 @@ public class AddNotificationActivity extends AppCompatActivity {
         if(isReady()){
             deleteOperation();
             insertOperation();
-            MainActivity.addNotification=true;
             this.finish();
         }
     }
@@ -309,6 +308,7 @@ public class AddNotificationActivity extends AppCompatActivity {
     }
 
     public void insertOperation(){
+        kind=1;
         String weekNotification="";
         String notificationWay="";
         if(((CheckBox)findViewById(R.id.week_mon)).isChecked())
@@ -373,6 +373,7 @@ public class AddNotificationActivity extends AppCompatActivity {
     }
 
     private void deleteOperation() {
+        kind=2;
         String[] myParamsArr = {"DeleteNotification", MainActivity.userID, MainActivity.patientName
                 , nameNotification.getText().toString()};
         VerifyTask myVerifyTask = new VerifyTask();
@@ -447,6 +448,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             //查询结果为成功，则跳转到主页面
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
                 //AddNotificationActivity.this.finish();
+                MainActivity.addNotification=true;
             }
             else if (myResult.equals("[{\"msg\":\"error\"}]")){
                 if (mToast == null) {
