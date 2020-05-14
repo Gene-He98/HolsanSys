@@ -17,12 +17,17 @@ import android.provider.OpenableColumns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -36,6 +41,8 @@ import com.volcano.holsansys.R;
 import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -45,20 +52,25 @@ import static com.blankj.utilcode.util.UriUtils.uri2File;
 public class AddNotificationActivity extends AppCompatActivity {
     private Dialog dialog;
     private TextView tinkle;
-    private ImageView addImage;
     private Uri mCameraUri;
-    private Uri mAlbumUri;
     private CheckBox wayPic;
     private CheckBox wayVoice;
     private CheckBox wayText;
     private TimePicker dayTp;
-    private boolean imageFlag = false;
     private Uri mVoiceUri;
     private Uri mTinkleUri;
     private Toast mToast = null;
     private EditText nameNotification;
-    private TextView addImageText;
     private int kind;
+    private List<String> picSrc;
+    private static final int IMG_COUNT = 5;
+    private static final String IMG_ADD_TAG = "a";
+    private GridView gridView;
+    private GVAdapter adapter;
+    private EditText picText1;
+    private EditText picText2;
+    private EditText picText3;
+    private EditText picText4;
 
 
     @Override
@@ -66,23 +78,34 @@ public class AddNotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent= getIntent();
         setContentView(R.layout.activity_add_notification);
-        addImage =findViewById(R.id.add_image);
         wayPic=findViewById(R.id.way_pic);
         wayVoice=findViewById(R.id.way_voice);
         wayText=findViewById(R.id.way_text);
         tinkle=findViewById(R.id.tinkle_title);
         dayTp=findViewById(R.id.day_tp);
         nameNotification = findViewById(R.id.name_notification);
-        addImageText = findViewById(R.id.add_image_text);
+        gridView=findViewById(R.id.pic_gv);
+        picText1=findViewById(R.id.add_image_1);
+        picText2=findViewById(R.id.add_image_2);
+        picText3=findViewById(R.id.add_image_3);
+        picText4=findViewById(R.id.add_image_4);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                addImage();
+            }
+        });
 
         dayTp.setIs24HourView(true);
         wayPic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    findViewById(R.id.pic_ll).setVisibility(View.VISIBLE);
+                    findViewById(R.id.way_pic_ll).setVisibility(View.VISIBLE);
                 }else {
-                    findViewById(R.id.pic_ll).setVisibility(View.GONE);
+                    findViewById(R.id.way_pic_ll).setVisibility(View.GONE);
                 }
             }
         });
@@ -110,9 +133,18 @@ public class AddNotificationActivity extends AppCompatActivity {
         });
 
         if(intent.getStringExtra("kind").equals("add")){
+            setTitle("新增提醒计划");
             findViewById(R.id.add_notification).setVisibility(View.VISIBLE);
             findViewById(R.id.change_ll).setVisibility(View.GONE);
+            if (picSrc == null) {
+                picSrc = new ArrayList<>();
+                picSrc.add(IMG_ADD_TAG);
+            }
+            adapter = new GVAdapter();
+            gridView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }else if(intent.getStringExtra("kind").equals("change")){
+            setTitle("编辑提醒计划");
             findViewById(R.id.add_notification).setVisibility(View.GONE);
             findViewById(R.id.change_ll).setVisibility(View.VISIBLE);
             String[] myParamsArr={"NotificationDetail", MainActivity.userID
@@ -123,7 +155,7 @@ public class AddNotificationActivity extends AppCompatActivity {
 
     }
 
-    public void addImage(View view) {
+    public void addImage() {
         dialog = new Dialog(this,R.style.DialogTheme);
         //填充对话框的布局
         View inflate = LayoutInflater.from(this).inflate(R.layout.bottom_dialog, null);
@@ -168,9 +200,7 @@ public class AddNotificationActivity extends AppCompatActivity {
         // 判断是否有相机
         if (captureIntent.resolveActivity(getPackageManager()) != null) {
             Uri photoUri;
-
             photoUri = createImageUri();
-
             mCameraUri = photoUri;
             if (photoUri != null) {
                 captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
@@ -181,9 +211,8 @@ public class AddNotificationActivity extends AppCompatActivity {
     }
 
     private void openSysAlbum() {
-        Intent intent=new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_PICK
+                , android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 2);
     }
 
@@ -197,26 +226,53 @@ public class AddNotificationActivity extends AppCompatActivity {
         }
     }
 
+    private void reDrawLayout(boolean size){
+        LinearLayout picLL = findViewById(R.id.pic_ll);
+        if(size){
+            LinearLayout.LayoutParams timeParams =
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,880);
+            picLL.setLayoutParams(new LinearLayout.LayoutParams(timeParams));
+        }else {
+            LinearLayout.LayoutParams timeParams =
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                            , ViewGroup.LayoutParams.WRAP_CONTENT);
+            picLL.setLayoutParams(new LinearLayout.LayoutParams(timeParams));
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (requestCode){
             case 1 :
                 if(resultCode == RESULT_OK){
-                    addImage.setImageURI(mCameraUri);
-                    mAlbumUri=null;
+                    picSrc.remove(picSrc.size() - 1);
+                    picSrc.add(uri2File(mCameraUri).toPath().toString());
+                    if(picSrc.size()==2){
+                        reDrawLayout(true);
+                    }
+                    if(picSrc.size()!=IMG_COUNT){
+                        picSrc.add(IMG_ADD_TAG);
+                    }
+                    reDrawEdit();
                     dialog.dismiss();
-                    imageFlag=true;
+                    adapter.notifyDataSetChanged();
                 }
                 break;
             case 2 :
                 if (resultCode == RESULT_OK) {
                     //获取选中文件的定位符
-                    mAlbumUri = data.getData();
-                    mCameraUri=null;
-                    addImage.setImageURI(mAlbumUri);
+                    picSrc.remove(picSrc.size() - 1);
+                    picSrc.add(uri2File(data.getData()).toPath().toString());
+                    if(picSrc.size()==2){
+                        reDrawLayout(true);
+                    }
+                    if(picSrc.size()!=IMG_COUNT){
+                        picSrc.add(IMG_ADD_TAG);
+                    }
+                    reDrawEdit();
                     dialog.dismiss();
-                    imageFlag=true;
+                    adapter.notifyDataSetChanged();
                 }
                 break;
             case 3 :
@@ -235,6 +291,41 @@ public class AddNotificationActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void reDrawEdit() {
+        switch (picSrc.size()-1){
+            case 0:
+                findViewById(R.id.add_image_1).setVisibility(View.GONE);
+                findViewById(R.id.add_image_2).setVisibility(View.GONE);
+                findViewById(R.id.add_image_3).setVisibility(View.GONE);
+                findViewById(R.id.add_image_4).setVisibility(View.GONE);
+                break;
+            case 1:
+                findViewById(R.id.add_image_1).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_2).setVisibility(View.GONE);
+                findViewById(R.id.add_image_3).setVisibility(View.GONE);
+                findViewById(R.id.add_image_4).setVisibility(View.GONE);
+                break;
+            case 2:
+                findViewById(R.id.add_image_1).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_2).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_3).setVisibility(View.GONE);
+                findViewById(R.id.add_image_4).setVisibility(View.GONE);
+                break;
+            case 3:
+                findViewById(R.id.add_image_1).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_2).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_3).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_4).setVisibility(View.GONE);
+                break;
+            case 4:
+                findViewById(R.id.add_image_1).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_2).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_3).setVisibility(View.VISIBLE);
+                findViewById(R.id.add_image_4).setVisibility(View.VISIBLE);
+                break;
+        }
     }
 
     public void addVoice(View view) {
@@ -292,7 +383,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteOperation();
-                MainActivity.addNotification=true;
+                MainActivity.addNotificationFlag =true;
                 AddNotificationActivity.this.finish();
             }
         });
@@ -330,7 +421,6 @@ public class AddNotificationActivity extends AppCompatActivity {
             notificationWay += "图文提醒,";
         else {
             mCameraUri=null;
-            addImageText.setText("");
         }
         if(((CheckBox)findViewById(R.id.way_voice)).isChecked())
             notificationWay += "语音提醒,";
@@ -343,14 +433,38 @@ public class AddNotificationActivity extends AppCompatActivity {
             ((EditText)findViewById(R.id.text_ed)).setText("");
         }
 
-        String pictureSrc= "";
+        StringBuilder pictureSrc= new StringBuilder();
+        StringBuilder pictureText= new StringBuilder();
         String voiceSrc="";
         String tinkleSrc="";
 
-        if(mCameraUri != null){
-            pictureSrc=uri2File(mCameraUri).toPath().toString();
-        }else if(mAlbumUri != null)
-            pictureSrc=uri2File(mAlbumUri).toPath().toString();
+        for (int i=0;i<picSrc.size();i++){
+            if(picSrc.get(i).equals(IMG_ADD_TAG)){
+                break;
+            }else {
+                pictureSrc.append(picSrc.get(i)).append(";");
+            }
+        }
+        switch (picSrc.size()-1){
+            case 1:
+                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                break;
+            case 2:
+                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                break;
+            case 3:
+                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                pictureText.append(((EditText)findViewById(R.id.add_image_3)).getText().toString()).append(";");
+                break;
+            case 4:
+                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                pictureText.append(((EditText)findViewById(R.id.add_image_3)).getText().toString()).append(";");
+                pictureText.append(((EditText)findViewById(R.id.add_image_4)).getText().toString());
+                break;
+        }
 
         if(mVoiceUri!=null)
             voiceSrc=uri2File(mVoiceUri).toPath().toString();
@@ -364,7 +478,7 @@ public class AddNotificationActivity extends AppCompatActivity {
 
         String[] myParamsArr={"AddNotification", MainActivity.userID
                 ,nameNotification.getText().toString(),dayTp.getHour()+":"+dayTp.getMinute()
-                ,weekNotification,notificationWay,pictureSrc,addImageText.getText().toString()
+                ,weekNotification,notificationWay, pictureSrc.toString(),pictureText.toString()
                 ,voiceSrc,((EditText)findViewById(R.id.text_ed)).getText().toString()
                 ,tinkleSrc,notificationVibrate,MainActivity.patientName};
 
@@ -391,7 +505,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             toast.setGravity(Gravity.CENTER,0,0);
             toast.show();
         }
-        else if(wayPic.isChecked()&& (!imageFlag || addImageText.getText().toString().equals("")) ){
+        else if(wayPic.isChecked()&& (picSrc.size()==1) ){
             Toast toast=Toast.makeText(this, "请完善图文提醒！", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER,0,0);
             toast.show();
@@ -420,7 +534,7 @@ public class AddNotificationActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            findViewById(R.id.progress_add).setVisibility(View.VISIBLE);
+            findViewById(R.id.progress_add_notification).setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -448,7 +562,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             //查询结果为成功，则跳转到主页面
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
                 //AddNotificationActivity.this.finish();
-                MainActivity.addNotification=true;
+                MainActivity.addNotificationFlag =true;
             }
             else if (myResult.equals("[{\"msg\":\"error\"}]")){
                 if (mToast == null) {
@@ -468,6 +582,8 @@ public class AddNotificationActivity extends AppCompatActivity {
                 Gson myGson = new Gson();
                 List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
                 try {
+                    picSrc = new ArrayList<>();
+                    adapter = new GVAdapter();
                     Map<String,String> myMap=myList.get(0);
                     String detailNotificationName=myMap.get("NotificationName");
                     nameNotification.setText(detailNotificationName);
@@ -514,15 +630,34 @@ public class AddNotificationActivity extends AppCompatActivity {
                                 break;
                         }
                     }
-                    String detailPictureSrc=myMap.get("PictureSrc");
-                    String detailPictureText=myMap.get("PictureText");
-                    if(!detailPictureSrc.equals("")){
-                        mCameraUri=Uri.fromFile(
-                                new File(detailPictureSrc));
-                        addImage.setImageURI(mCameraUri);
-                        addImageText.setText(detailPictureText);
-                        imageFlag=true;
+                    String[] detailPictureSrc=myMap.get("PictureSrc").split(";");
+                    picSrc.addAll(Arrays.asList(detailPictureSrc));
+                    picSrc.add(IMG_ADD_TAG);
+                    gridView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                    String[] detailPictureText=myMap.get("PictureText").split(";");
+                    System.out.println(detailPictureText.length+"");
+                    switch (detailPictureText.length){
+                        case 1:
+                            picText1.setText(detailPictureText[0]);
+                            break;
+                        case 2:
+                            picText1.setText(detailPictureText[0]);
+                            picText2.setText(detailPictureText[1]);
+                            break;
+                        case 3:
+                            picText1.setText(detailPictureText[0]);
+                            picText2.setText(detailPictureText[1]);
+                            picText3.setText(detailPictureText[2]);
+                            break;
+                        case 4:
+                            picText1.setText(detailPictureText[0]);
+                            picText2.setText(detailPictureText[1]);
+                            picText3.setText(detailPictureText[2]);
+                            picText4.setText(detailPictureText[3]);
+                            break;
                     }
+                    reDrawEdit();
                     String detailVoiceSrc=myMap.get("VoiceSrc");
                     if(!detailVoiceSrc.equals("")){
                         mVoiceUri=file2Uri(new File(detailVoiceSrc));
@@ -540,10 +675,91 @@ public class AddNotificationActivity extends AppCompatActivity {
                     String detailNotificationVibrate=myMap.get("NotificationVibrate");
                     if(detailNotificationVibrate.equals("1"))
                         ((CheckBox)findViewById(R.id.vibrate_cb)).setChecked(true);
-                    findViewById(R.id.progress_add).setVisibility(View.GONE);
+                    findViewById(R.id.progress_add_notification).setVisibility(View.GONE);
                 }
                 catch (Exception ex){}
             }
+            findViewById(R.id.progress_add_notification).setVisibility(View.GONE);
         }
     }
+
+    private class GVAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return picSrc.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getApplication()).inflate(R.layout.grid_item_add_pic, parent, false);
+                holder = new ViewHolder();
+                holder.imageView = convertView.findViewById(R.id.addImageImg);
+                holder.checkBox = convertView.findViewById(R.id.main_gridView_item_cb);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            String s = picSrc.get(position);
+            if (!s.equals(IMG_ADD_TAG)) {
+                holder.checkBox.setVisibility(View.VISIBLE);
+                holder.imageView.setImageURI(Uri.fromFile(
+                        new File(s)));
+            } else {
+                holder.checkBox.setVisibility(View.GONE);
+                holder.imageView.setImageResource(R.drawable.ic_photo_upload);
+            }
+            holder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(picSrc.size()==3){
+                        reDrawLayout(false);
+                    }
+                    picSrc.remove(position);
+                    switch (position+1){
+                        case 1:
+                            picText1.setText(picText2.getText());
+                            picText2.setText(picText3.getText());
+                            picText3.setText(picText4.getText());
+                            picText4.setText("");
+                            break;
+                        case 2:
+                            picText2.setText(picText3.getText());
+                            picText3.setText(picText4.getText());
+                            picText4.setText("");
+                            break;
+                        case 3:
+                            picText3.setText(picText4.getText());
+                            picText4.setText("");
+                            break;
+                        case 4:
+                            picText4.setText("");
+                            break;
+                    }
+                    reDrawEdit();
+                    adapter.notifyDataSetChanged();
+                }
+            });
+            return convertView;
+        }
+
+        private class ViewHolder {
+            ImageView imageView;
+            CheckBox checkBox;
+        }
+
+    }
+
 }

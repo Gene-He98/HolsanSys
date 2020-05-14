@@ -1,12 +1,15 @@
 package com.volcano.holsansys.ui.manage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.volcano.holsansys.MainActivity;
 import com.volcano.holsansys.R;
+import com.volcano.holsansys.add.AddMedicineActivity;
 import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.util.LinkedList;
@@ -34,22 +38,33 @@ public class ManageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.currentView=2;
-        View root = inflater.inflate(R.layout.fragment_manage, container, false);
+        final View root = inflater.inflate(R.layout.fragment_manage, container, false);
         if (MainActivity.mode){
             if (MainActivity.patientName.equals("")) {
                 mContext = getActivity();
                 list_medicine = root.findViewById(R.id.listView_manage);
+                list_medicine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getContext(), AddMedicineActivity.class);
+                        intent.putExtra("kind", "change");
+                        String medicineName = ((TextView) view
+                                .findViewById(R.id.medicine_name)).getText().toString();
+                        medicineName=medicineName.replace("【","");
+                        medicineName=medicineName.replace("】","");
+                        intent.putExtra("MedicineName",medicineName);
+                        startActivity(intent);
+                    }
+                });
                 String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
-                return root;
             } else {
                 mContext = getActivity();
                 list_record = root.findViewById(R.id.listView_manage);
                 String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
-                return root;
             }
         }else {
             root.findViewById(R.id.manage_bt_emer).setVisibility(View.VISIBLE);
@@ -58,8 +73,27 @@ public class ManageFragment extends Fragment {
             String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
-            return root;
         }
+
+        new Thread() {
+            @Override
+            public void run() {
+                while (true){
+                    if(MainActivity.addMedicineFlag){
+                        if(MainActivity.patientName.equals("")){
+                            mContext = getActivity();
+                            list_medicine = root.findViewById(R.id.listView_manage);
+                            String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
+                            VerifyTask myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
+                        }
+                        MainActivity.addMedicineFlag =false;
+                    }
+                }
+            }
+        }.start();
+
+        return root;
 
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class WebServiceAPI {
-    String WebserviceUrl = "http://192.168.43.118:8081/MainAPI?wsdl";
+    String WebserviceUrl = "http://192.168.1.8:8081/MainAPI?wsdl";
     String NameSpace = "http://HolsanSys.com/";
 
     public String ConnectingWebService(String[] webservice)
@@ -74,6 +74,20 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("myPatientName", webservice[2]));
                 myParamList.add(ParamListInit("myNotificationName", webservice[3]));
                 myParamList.add(ParamListInit("myIfDrug",webservice[4]));
+                break;
+            case "AddMedicine" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("newMedicineName", webservice[2]));
+                myParamList.add(ParamListInit("newMedicineAnotherName", webservice[3]));
+                myParamList.add(ParamListInit("newUsage",webservice[4]));
+                myParamList.add(ParamListInit("newDosage",webservice[5]));
+                myParamList.add(ParamListInit("newCautions",webservice[6]));
+                myParamList.add(ParamListInit("newValidity",webservice[7]));
+                break;
+            case "DeleteMedicine" :
+            case "MedicineDetail" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("myMedicineName", webservice[2]));
                 break;
         }
 

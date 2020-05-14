@@ -63,7 +63,7 @@ public class NotificationsFragment extends Fragment {
                 @Override
                 public void run() {
                     while (true){
-                        if (MainActivity.addNotification){
+                        if (MainActivity.addNotificationFlag){
                             list_notification = root.findViewById(R.id.listView_notification);
                             final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
                             list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,7 +78,7 @@ public class NotificationsFragment extends Fragment {
                             });
                             VerifyTask myVerifyTask = new VerifyTask();
                             myVerifyTask.execute(myParamsArr);
-                            MainActivity.addNotification=false;
+                            MainActivity.addNotificationFlag =false;
                         }
                     }
                 }

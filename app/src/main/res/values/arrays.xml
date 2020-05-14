@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sex">
-        <item></item>
+        <item>请选择性别</item>
         <item>男</item>
         <item>女</item>
         <item>其他</item>
     </string-array>
 
     <string-array name="blood_type">
-        <item></item>
+        <item>请选择血型</item>
         <item>A</item>
         <item>B</item>
         <item>AB</item>

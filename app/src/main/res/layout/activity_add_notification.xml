@@ -7,26 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".add.AddNotificationActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/progress_add"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="正在添加"
-            android:textSize="@dimen/word_size"/>
-
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -272,28 +252,63 @@
 
                 <!--图文提醒-->
                 <LinearLayout
-                    android:id="@+id/pic_ll"
+                    android:id="@+id/way_pic_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/normal_marginTop"
-                    android:background="@drawable/dialog_shape"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/add_image"
-                        android:onClick="addImage"
+                    <LinearLayout
+                        android:id="@+id/pic_ll"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:src="@drawable/ic_add_pic"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/normal_marginTop"
+                        android:background="@drawable/dialog_shape"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <GridView
+                            android:id="@+id/pic_gv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:numColumns="2" />
+
+                    </LinearLayout>
 
                     <EditText
-                        android:id="@+id/add_image_text"
+                        android:id="@+id/add_image_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAlignment="center"
-                        android:hint="图文提醒文字输入"
+                        android:hint="配图1文字输入"
+                        android:visibility="gone"
+                        android:textSize="@dimen/word_size"/>
+
+                    <EditText
+                        android:id="@+id/add_image_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:hint="配图2文字输入"
+                        android:visibility="gone"
+                        android:textSize="@dimen/word_size"/>
+
+                    <EditText
+                        android:id="@+id/add_image_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:hint="配图3文字输入"
+                        android:visibility="gone"
+                        android:textSize="@dimen/word_size"/>
+
+                    <EditText
+                        android:id="@+id/add_image_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:hint="配图4文字输入"
+                        android:visibility="gone"
                         android:textSize="@dimen/word_size"/>
 
                 </LinearLayout>
@@ -433,5 +448,26 @@
 
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/progress_add_notification"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在添加"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="@dimen/word_size"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

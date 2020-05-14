@@ -59,7 +59,7 @@ public class MedicineListAdapter extends BaseAdapter {
         holder.medicine_another_name.setText("(别名:"+mData.get(position).getMedicineAnotherName()+")");
         holder.validity.setText(mData.get(position).getValidity());
         Date nowDate=getNowDate();
-        SimpleDateFormat formatter = new   SimpleDateFormat   ("yyyy-MM-dd");
+        SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd");
         Date validityDate= null;
         try {
             validityDate = new Date(formatter.parse(mData.get(position).getValidity()).getTime());
@@ -67,6 +67,7 @@ public class MedicineListAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         if(nowDate.after(validityDate)){
+            ((TextView)convertView.findViewById(R.id.if_overdue)).setText("该药品已过期，请勿再服用此药物");
             convertView.findViewById(R.id.if_overdue).setVisibility(View.VISIBLE);
         }
         return convertView;

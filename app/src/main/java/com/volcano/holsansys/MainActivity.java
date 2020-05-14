@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +30,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.volcano.holsansys.add.AddMedicineActivity;
 import com.volcano.holsansys.add.AddNotificationActivity;
 import com.volcano.holsansys.add.AddPatientActivity;
 import com.volcano.holsansys.login.LoginActivity;
@@ -43,6 +43,7 @@ import java.util.Map;
 
 import static android.Manifest.permission;
 import static android.Manifest.permission_group.LOCATION;
+import static android.Manifest.permission_group.PHONE;
 import static android.Manifest.permission_group.SMS;
 import static android.Manifest.permission_group.STORAGE;
 
@@ -56,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     public static int currentView = 3;
     public static boolean mode = true;
     public static boolean addPatientFlag=false;
-    public static boolean addNotification=false;
+    public static boolean addNotificationFlag =false;
+    public static boolean addMedicineFlag =false;
     private boolean kind;
 
     //声明AMapLocationClient类对象
@@ -71,9 +73,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if(checkSelfPermission(STORAGE)==PackageManager.PERMISSION_DENIED
-                ||checkSelfPermission(LOCATION)==PackageManager.PERMISSION_DENIED){
+                ||checkSelfPermission(LOCATION)==PackageManager.PERMISSION_DENIED
+                ||checkSelfPermission(SMS)==PackageManager.PERMISSION_DENIED
+                ||checkSelfPermission(PHONE)==PackageManager.PERMISSION_DENIED){
             requestPermissions(new String[]{permission.WRITE_EXTERNAL_STORAGE
-                    ,permission.ACCESS_FINE_LOCATION,permission.ACCESS_BACKGROUND_LOCATION}
+                    ,permission.ACCESS_FINE_LOCATION,permission.ACCESS_BACKGROUND_LOCATION
+                    ,permission.SEND_SMS,permission.CALL_PHONE}
                     , 1);
         }
         if (!admin_flag) {
@@ -90,11 +95,13 @@ public class MainActivity extends AppCompatActivity {
         menu.findItem(R.id.guardian_item).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (mode){
+                if (!MainActivity.patientName.equals("") && mode){
                     menu.findItem(R.id.add_patient_item).setVisible(false);
+                    menu.findItem(R.id.add_medicine_item).setVisible(false);
                     addAlarm();
                 }else {
                     menu.findItem(R.id.add_patient_item).setVisible(true);
+                    menu.findItem(R.id.add_medicine_item).setVisible(true);
                     deleteAlarm();
                 }
                 return false;
@@ -160,9 +167,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.add_patient_item:
-                Intent intent = new Intent(MainActivity.this, AddPatientActivity.class);
-                intent.putExtra("kind", "add");
-                startActivity(intent);
+                Intent intentPatient = new Intent(MainActivity.this, AddPatientActivity.class);
+                intentPatient.putExtra("kind", "add");
+                startActivity(intentPatient);
+                break;
+            case R.id.add_medicine_item:
+                Intent intentMedicine = new Intent(MainActivity.this, AddMedicineActivity.class);
+                intentMedicine.putExtra("kind", "add");
+                startActivity(intentMedicine);
                 break;
             case R.id.exit_item:
                 System.exit(1);
@@ -241,59 +253,38 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    //紧急求救按钮
     public void emergencyCall(View view) {
         if(checkSelfPermission(LOCATION)==PackageManager.PERMISSION_DENIED
-                ||checkSelfPermission(SMS)==PackageManager.PERMISSION_DENIED){
+                ||checkSelfPermission(SMS)==PackageManager.PERMISSION_DENIED
+                ||checkSelfPermission(PHONE)==PackageManager.PERMISSION_DENIED){
             requestPermissions(new String[]{permission.ACCESS_FINE_LOCATION
-                            ,permission.ACCESS_BACKGROUND_LOCATION,permission.SEND_SMS}
+                            ,permission.ACCESS_BACKGROUND_LOCATION
+                            ,permission.SEND_SMS,permission.CALL_PHONE}
                     , 2);
-            getAddress();
-
-
         }
         else{
             getAddress();
         }
     }
 
+    //获取地址并拨打电话发送信息
     private void getAddress(){
         mLocationListener = new AMapLocationListener(){
             @Override
             public void onLocationChanged(AMapLocation amapLocation) {
                 if (amapLocation != null) {
                     if (amapLocation.getErrorCode() == 0) {
-                        /*amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                        amapLocation.getLatitude();//获取纬度
-                        amapLocation.getLongitude();//获取经度
-                        amapLocation.getAccuracy();//获取精度信息*/
                         SmsManager sms = SmsManager.getDefault();
                         PendingIntent pi = PendingIntent.
                                 getBroadcast(MainActivity.this,0,new Intent(),0);
-                        sms.sendTextMessage(userID,null,patientName+"遇到了紧急情况，我的位置是"+amapLocation.getAddress()+"（火山药馆自动发送）",pi,null);//分别发送每一条短信
+                        sms.sendTextMessage(userID,null,patientName+"遇到了紧急情况，位置是"+amapLocation.getAddress()+"（火山药馆自动发送）",pi,null);
+                        Intent intent = new Intent();               //创建Intent对象
+                        intent.setAction(Intent.ACTION_CALL);      //设置动作为拨打电话
+                        intent.setData(Uri.parse("tel:" + userID));   // 设置要拨打的电话号码
+                        startActivity(intent);
                         mLocationClient.stopLocation();
                         mLocationClient.onDestroy();
-                        /*amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-                        amapLocation.getCountry();//国家信息
-                        amapLocation.getProvince();//省信息
-                        amapLocation.getCity();//城市信息
-                        amapLocation.getDistrict();//城区信息
-                        amapLocation.getStreet();//街道信息
-                        amapLocation.getStreetNum();//街道门牌号信息
-                        amapLocation.getCityCode();//城市编码
-                        amapLocation.getAdCode();//地区编码
-                        amapLocation.getAoiName();//获取当前定位点的AOI信息
-                        amapLocation.getBuildingId();//获取当前室内定位的建筑物Id
-                        amapLocation.getFloor();//获取当前室内定位的楼层
-                        amapLocation.getGpsAccuracyStatus();//获取GPS的当前状态
-                        //获取定位时间
-                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        Date date = new Date(amapLocation.getTime());
-                        df.format(date);*/
-                    }else {
-                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                        Log.e("AmapError","location Error, ErrCode:"
-                                + amapLocation.getErrorCode() + ", errInfo:"
-                                + amapLocation.getErrorInfo());
                     }
                 }
             }
@@ -319,6 +310,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {
         switch (requestCode) {
+            //启动应用时请求权限
             case 1:
                 if (grantResults.length <= 0
                         || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -338,17 +330,18 @@ public class MainActivity extends AppCompatActivity {
                     normalDialog.setNegativeButton("不了", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.exit(0);
                         }
                     });
                     normalDialog.setCancelable(false);
                     // 显示
                     normalDialog.show();
                 }
-                else if (grantResults[1] != PackageManager.PERMISSION_GRANTED ) {
+                else if (grantResults[1] == PackageManager.PERMISSION_DENIED
+                        || grantResults[3]== PackageManager.PERMISSION_DENIED
+                        || grantResults[4]== PackageManager.PERMISSION_DENIED) {
                     AlertDialog.Builder normalDialog = new AlertDialog.Builder(MainActivity.this);
                     normalDialog.setTitle("权限申请");
-                    normalDialog.setMessage("在权限中开启获取位置信息权限，以保证一键求救功能等的正常使用");
+                    normalDialog.setMessage("在权限中开启获取位置信息权限及电话短信权限，以保证一键求救功能等的正常使用");
                     normalDialog.setPositiveButton("去开启", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -362,7 +355,6 @@ public class MainActivity extends AppCompatActivity {
                     normalDialog.setNegativeButton("不了", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.exit(0);
                         }
                     });
                     normalDialog.setCancelable(false);
@@ -370,13 +362,14 @@ public class MainActivity extends AppCompatActivity {
                     normalDialog.show();
                 }
                 break;
+            //紧急求救时的权限申请
             case 2:
                 if (grantResults.length <= 0
                     || grantResults[0] != PackageManager.PERMISSION_GRANTED
                         || grantResults[2] != PackageManager.PERMISSION_GRANTED){
                     AlertDialog.Builder normalDialog = new AlertDialog.Builder(MainActivity.this);
                     normalDialog.setTitle("权限申请");
-                    normalDialog.setMessage("在权限中开启获取位置信息权限及短信权限，以保证一键求救功能等的正常使用");
+                    normalDialog.setMessage("在权限中开启获取位置信息权限及电话短信权限，以保证一键求救功能等的正常使用");
                     normalDialog.setPositiveButton("去开启", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -390,21 +383,19 @@ public class MainActivity extends AppCompatActivity {
                     normalDialog.setNegativeButton("不了", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            System.exit(0);
                         }
                     });
                     normalDialog.setCancelable(false);
                     // 显示
                     normalDialog.show();
-                }
-                else {
-
-                }
+                }else
+                    getAddress();
                 break;
 
         }
     }
 
+    //添加提醒
     public void addAlarm(){
         kind=true;
         String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};

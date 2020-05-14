@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -43,7 +44,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".add.AddPatientActivity"
-            android:label="添加新监护"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".add.AddMedicineActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".login.RegisterActivity"
@@ -54,7 +57,6 @@
             android:parentActivityName=".login.LoginActivity"/>
         <activity
             android:name=".add.AddNotificationActivity"
-            android:label="添加新提醒"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".login.LoginActivity"

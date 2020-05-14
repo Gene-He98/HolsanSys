@@ -71,8 +71,7 @@
                 android:textSize="@dimen/word_size"
                 android:visibility="gone"
                 android:textStyle="bold"
-                android:textColor="#000000"
-                android:text="(已过期，建议立即清理)"/>
+                android:textColor="#000000"/>
 
         </LinearLayout>
 

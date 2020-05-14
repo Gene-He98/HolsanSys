@@ -29,9 +29,11 @@ public class AddPatientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_patient);
         Intent intent= getIntent();
         if(intent.getStringExtra("kind").equals("add")){
+            setTitle("添加新用药人");
             findViewById(R.id.add_patient).setVisibility(View.VISIBLE);
             findViewById(R.id.change_patient).setVisibility(View.GONE);
         }else if(intent.getStringExtra("kind").equals("change")){
+            setTitle("编辑用药人");
             findViewById(R.id.add_patient).setVisibility(View.GONE);
             findViewById(R.id.change_patient).setVisibility(View.VISIBLE);
             String[] myParamsArr={"PatientInfo", MainActivity.userID,MainActivity.patientName};
@@ -56,6 +58,15 @@ public class AddPatientActivity extends AppCompatActivity {
                     .getText().toString();
             String patientAllergy = ((TextView)findViewById(R.id.add_patient_allergy))
                     .getText().toString();
+            if(patientAddress.equals("")){
+                patientAddress="无";
+            }
+            if(patientMedicalHistory.equals("")){
+                patientMedicalHistory="无";
+            }
+            if(patientAllergy.equals("")){
+                patientAllergy="无";
+            }
             String[] myParamsArr={"AddPatient",MainActivity.userID,patientName,patientAge,
                     patientSex,patientAddress,patientBloodType,patientMedicalHistory,patientAllergy};
             VerifyTask myVerifyTask = new VerifyTask();
@@ -69,10 +80,10 @@ public class AddPatientActivity extends AppCompatActivity {
         if(isReady()){
             String patientName = ((TextView)findViewById(R.id.add_patient_name))
                     .getText().toString();
+            deletePatient();
             if(!MainActivity.patientName.equals(patientName)){
                 MainActivity.patientName=patientName;
             }
-            deletePatient();
             Add_Patient(view);
             MainActivity.addPatientFlag=true;
             AddPatientActivity.this.finish();
@@ -108,7 +119,7 @@ public class AddPatientActivity extends AppCompatActivity {
             mToast.show();
             return false;
         }
-        else if(((Spinner)findViewById(R.id.add_patient_sex)).getSelectedItem().equals("")){
+        else if(((Spinner)findViewById(R.id.add_patient_sex)).getSelectedItem().equals("请选择性别")){
             if (mToast == null) {
                 mToast=Toast.makeText(AddPatientActivity.this,
                         "请选择用药人性别！",Toast.LENGTH_SHORT);
@@ -119,12 +130,14 @@ public class AddPatientActivity extends AppCompatActivity {
             mToast.show();
             return false;
         }
-        else if(((Spinner)findViewById(R.id.add_patient_blood_type)).getSelectedItem().equals("")){
+        else if(((Spinner)findViewById(R.id.add_patient_blood_type)).getSelectedItem().equals("请选择血型")){
             if (mToast == null) {
                 mToast=Toast.makeText(AddPatientActivity.this,
                         "请选择用药人血型！",Toast.LENGTH_SHORT);
                 mToast.setGravity(Gravity.CENTER, 0, 0);
             } else {
+                mToast=Toast.makeText(AddPatientActivity.this,
+                        "请选择用药人血型！",Toast.LENGTH_SHORT);
                 mToast.setDuration(Toast.LENGTH_SHORT);
             }
             mToast.show();
