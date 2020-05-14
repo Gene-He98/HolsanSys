@@ -98,6 +98,11 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myMedicineName", webservice[2]));
                 break;
+            case "UpdateLocation" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("myPatientName", webservice[2]));
+                myParamList.add(ParamListInit("newLocation", webservice[3]));
+                break;
         }
 
         try

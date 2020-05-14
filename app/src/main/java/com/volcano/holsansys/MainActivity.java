@@ -23,7 +23,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
@@ -40,6 +39,8 @@ import com.volcano.holsansys.tools.WebServiceAPI;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.Manifest.permission;
 import static android.Manifest.permission_group.LOCATION;
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean addNotificationFlag =false;
     public static boolean addMedicineFlag =false;
     private boolean kind;
+    private Timer timer;
+    private TimerTask alarmTask;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -144,6 +147,11 @@ public class MainActivity extends AppCompatActivity {
                                 findViewById(R.id.back_main).setVisibility(View.GONE);
                                 break;
                         }
+
+                        timer=new Timer();
+                        alarmTask=new AlarmTask();
+                        //30分钟后每30分钟执行该任务一次
+                        timer.schedule(alarmTask,30*60*1000,30*60*1000);
                         item.setTitle("切换至管理模式");
                     } else {
                         mode = true;
@@ -162,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                                 findViewById(R.id.back_main).setVisibility(View.VISIBLE);
                                 break;
                         }
+                        alarmTask.cancel();//取消定时任务
                         item.setTitle("切换至日常模式");
                     }
                 }
@@ -270,25 +279,6 @@ public class MainActivity extends AppCompatActivity {
 
     //获取地址并拨打电话发送信息
     private void getAddress(){
-        mLocationListener = new AMapLocationListener(){
-            @Override
-            public void onLocationChanged(AMapLocation amapLocation) {
-                if (amapLocation != null) {
-                    if (amapLocation.getErrorCode() == 0) {
-                        SmsManager sms = SmsManager.getDefault();
-                        PendingIntent pi = PendingIntent.
-                                getBroadcast(MainActivity.this,0,new Intent(),0);
-                        sms.sendTextMessage(userID,null,patientName+"遇到了紧急情况，位置是"+amapLocation.getAddress()+"（火山药馆自动发送）",pi,null);
-                        Intent intent = new Intent();               //创建Intent对象
-                        intent.setAction(Intent.ACTION_CALL);      //设置动作为拨打电话
-                        intent.setData(Uri.parse("tel:" + userID));   // 设置要拨打的电话号码
-                        startActivity(intent);
-                        mLocationClient.stopLocation();
-                        mLocationClient.onDestroy();
-                    }
-                }
-            }
-        };
         //初始化定位
         mLocationClient = new AMapLocationClient(getApplicationContext());
         //设置定位回调监听
@@ -305,6 +295,18 @@ public class MainActivity extends AppCompatActivity {
         mLocationClient.setLocationOption(mLocationOption);
         //启动定位
         mLocationClient.startLocation();
+        SmsManager sms = SmsManager.getDefault();
+        PendingIntent pi = PendingIntent.
+                getBroadcast(MainActivity.this,0,new Intent(),0);
+        sms.sendTextMessage(userID,null,patientName
+                +"遇到了紧急情况，位置是"+mLocationClient.getLastKnownLocation().getAddress()
+                +"（火山药馆自动发送）",pi,null);
+        Intent intent = new Intent();               //创建Intent对象
+        intent.setAction(Intent.ACTION_CALL);      //设置动作为拨打电话
+        intent.setData(Uri.parse("tel:" + userID));   // 设置要拨打的电话号码
+        startActivity(intent);
+        mLocationClient.stopLocation();
+        mLocationClient.onDestroy();
     }
 
     public void onRequestPermissionsResult(int requestCode,
@@ -442,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String myResult)
         {
-            if(!myResult.equals("[]")){
+            if(!myResult.equals("[]") && !myResult.equals("{\"msg\":\"ok\"}")){
                 Gson myGson = new Gson();
                 List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
                 try {
@@ -476,6 +478,33 @@ public class MainActivity extends AppCompatActivity {
                 }
                 catch (Exception ex){}
             }
+        }
+    }
+
+    class AlarmTask extends TimerTask {
+        @Override
+        public void run() {
+            //初始化定位
+            mLocationClient = new AMapLocationClient(getApplicationContext());
+            //设置定位回调监听
+            mLocationClient.setLocationListener(mLocationListener);
+            //初始化AMapLocationClientOption对象
+            mLocationOption = new AMapLocationClientOption();
+            //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            mLocationOption.setOnceLocation(true);
+            mLocationOption.setOnceLocationLatest(true);
+            //设置是否返回地址信息（默认返回地址信息）
+            mLocationOption.setNeedAddress(true);
+            //给定位客户端对象设置定位参数
+            mLocationClient.setLocationOption(mLocationOption);
+            //启动定位
+            mLocationClient.startLocation();
+            mLocationClient.stopLocation();
+            mLocationClient.onDestroy();
+            String[] myParamsArr = {"UpdateLocation", MainActivity.userID, MainActivity.patientName
+                    ,mLocationClient.getLastKnownLocation().getAddress()};
+            (new WebServiceAPI()).ConnectingWebService(myParamsArr);
         }
     }
 }
