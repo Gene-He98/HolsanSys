@@ -132,38 +132,115 @@ public class DrugActivity extends AppCompatActivity {
                 }.getType());
                 try {
                     Map<String, String> myMap = myList.get(0);
-                    String detailPictureSrc = myMap.get("PictureSrc");
-                    String detailPictureText = myMap.get("PictureText");
+                    String[] detailPictureSrc = myMap.get("PictureSrc").split(";");
+                    String[] detailPictureText = myMap.get("PictureText").split(";");
                     String detailVoiceSrc = myMap.get("VoiceSrc");
                     String detailTextText = myMap.get("TextText");
                     String[] detailNotificationWay = myMap.get("NotificationWay").split(",");
                     for (int i = 0; i < detailNotificationWay.length; i++) {
                         switch (detailNotificationWay[i]) {
                             case "图文提醒":
-                                ImageView pic_iv = findViewById(R.id.drug_pic_iv);
-                                TextView pic_tv = findViewById(R.id.drug_pic_tv);
-                                pic_iv.setVisibility(View.VISIBLE);
-                                pic_iv.setImageURI(Uri.fromFile(
-                                        new File(detailPictureSrc)));
-                                pic_tv.setVisibility(View.VISIBLE);
-                                pic_tv.setText(detailPictureText);
+                                switch (detailPictureSrc.length){
+                                    case 1:
+                                        ImageView pic_iv = findViewById(R.id.drug_pic_iv1);
+                                        TextView pic_tv = findViewById(R.id.drug_pic_tv1);
+                                        pic_iv.setVisibility(View.VISIBLE);
+                                        pic_iv.setImageURI(Uri.fromFile(
+                                                new File(detailPictureSrc[0])));
+                                        pic_tv.setVisibility(View.VISIBLE);
+                                        pic_tv.setText(detailPictureText[0]);
+                                        break;
+                                    case 2:
+                                        findViewById(R.id.drug_pic_iv1).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv1).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_iv2).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv2).setVisibility(View.VISIBLE);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv1))
+                                                .setImageURI(Uri.fromFile(
+                                                new File(detailPictureSrc[0])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv1))
+                                                .setText(detailPictureText[0]);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv2))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[0])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv2))
+                                                .setText(detailPictureText[1]);
+                                        break;
+                                    case 3:
+                                        findViewById(R.id.drug_pic_iv1).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv1).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_iv2).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv2).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_iv3).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv3).setVisibility(View.VISIBLE);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv1))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[0])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv1))
+                                                .setText(detailPictureText[0]);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv2))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[1])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv2))
+                                                .setText(detailPictureText[1]);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv3))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[2])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv3))
+                                                .setText(detailPictureText[2]);
+                                        break;
+                                    case 4:
+                                        findViewById(R.id.drug_pic_iv1).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv1).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_iv2).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv2).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_iv3).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv3).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_iv4).setVisibility(View.VISIBLE);
+                                        findViewById(R.id.drug_pic_tv4).setVisibility(View.VISIBLE);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv1))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[0])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv1))
+                                                .setText(detailPictureText[0]);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv2))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[1])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv2))
+                                                .setText(detailPictureText[1]);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv3))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[2])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv3))
+                                                .setText(detailPictureText[2]);
+                                        ((ImageView)findViewById(R.id.drug_pic_iv4))
+                                                .setImageURI(Uri.fromFile(
+                                                        new File(detailPictureSrc[3])));
+                                        ((TextView)findViewById(R.id.drug_pic_tv4))
+                                                .setText(detailPictureText[3]);
+                                        break;
+                                }
                                 break;
                             case "语音提醒":
                                 TextView voice_tv = findViewById(R.id.drug_voice);
                                 voice_tv.setVisibility(View.VISIBLE);
                                 Uri mVoiceUri = file2Uri(new File(detailVoiceSrc));
                                 mediaPlayer = MediaPlayer.create(DrugActivity.this, mVoiceUri);
-                                mediaPlayer.start();
-                                voice_tv.setText("正在播放：" + getFileName(detailVoiceSrc));
-                                voice_tv.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (mediaPlayer.isPlaying())
-                                            mediaPlayer.pause();
-                                        else
-                                            mediaPlayer.start();
-                                    }
-                                });
+                                if(mediaPlayer!=null){
+                                    mediaPlayer.start();
+                                    voice_tv.setText("正在播放：" + getFileName(detailVoiceSrc));
+                                    voice_tv.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if (mediaPlayer.isPlaying())
+                                                mediaPlayer.pause();
+                                            else
+                                                mediaPlayer.start();
+                                        }
+                                    });
+                                }else {
+                                    voice_tv.setText("本地文件已删除，无法播放");
+                                }
                                 break;
                             case "文字提醒":
                                 TextView text_tv = findViewById(R.id.drug_tv);

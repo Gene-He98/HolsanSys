@@ -155,7 +155,7 @@ public class UserFragment extends Fragment {
     }
 
     private void deletePatient(){
-        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName};
+        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName,"delete"};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }

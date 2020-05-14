@@ -91,7 +91,7 @@ public class AddPatientActivity extends AppCompatActivity {
     }
 
     private void deletePatient(){
-        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName};
+        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName,"change"};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }

@@ -71,12 +71,14 @@ public class AddNotificationActivity extends AppCompatActivity {
     private EditText picText2;
     private EditText picText3;
     private EditText picText4;
+    private String oriNotificationName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent= getIntent();
+        oriNotificationName=intent.getStringExtra("NotificationName");
         setContentView(R.layout.activity_add_notification);
         wayPic=findViewById(R.id.way_pic);
         wayVoice=findViewById(R.id.way_voice);
@@ -148,7 +150,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             findViewById(R.id.add_notification).setVisibility(View.GONE);
             findViewById(R.id.change_ll).setVisibility(View.VISIBLE);
             String[] myParamsArr={"NotificationDetail", MainActivity.userID
-                    ,MainActivity.patientName,intent.getStringExtra("NotificationName")};
+                    ,MainActivity.patientName,oriNotificationName};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
         }
@@ -226,9 +228,9 @@ public class AddNotificationActivity extends AppCompatActivity {
         }
     }
 
-    private void reDrawLayout(boolean size){
+    private void reDrawLayout(boolean flag){
         LinearLayout picLL = findViewById(R.id.pic_ll);
-        if(size){
+        if(flag){
             LinearLayout.LayoutParams timeParams =
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,880);
             picLL.setLayoutParams(new LinearLayout.LayoutParams(timeParams));
@@ -369,7 +371,7 @@ public class AddNotificationActivity extends AppCompatActivity {
 
     public void changeNotification(View view) {
         if(isReady()){
-            deleteOperation();
+            deleteOperation("change");
             insertOperation();
             this.finish();
         }
@@ -382,7 +384,7 @@ public class AddNotificationActivity extends AppCompatActivity {
         normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteOperation();
+                deleteOperation("delete");
                 MainActivity.addNotificationFlag =true;
                 AddNotificationActivity.this.finish();
             }
@@ -447,22 +449,62 @@ public class AddNotificationActivity extends AppCompatActivity {
         }
         switch (picSrc.size()-1){
             case 1:
-                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                if(((EditText)findViewById(R.id.add_image_1)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                }
                 break;
             case 2:
-                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
-                pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                if(((EditText)findViewById(R.id.add_image_1)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                }
+                if(((EditText)findViewById(R.id.add_image_2)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                }
                 break;
             case 3:
-                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
-                pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
-                pictureText.append(((EditText)findViewById(R.id.add_image_3)).getText().toString()).append(";");
+                if(((EditText)findViewById(R.id.add_image_1)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                }
+                if(((EditText)findViewById(R.id.add_image_2)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                }
+                if(((EditText)findViewById(R.id.add_image_3)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_3)).getText().toString()).append(";");
+                }
                 break;
             case 4:
-                pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
-                pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
-                pictureText.append(((EditText)findViewById(R.id.add_image_3)).getText().toString()).append(";");
-                pictureText.append(((EditText)findViewById(R.id.add_image_4)).getText().toString());
+                if(((EditText)findViewById(R.id.add_image_1)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_1)).getText().toString()).append(";");
+                }
+                if(((EditText)findViewById(R.id.add_image_2)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_2)).getText().toString()).append(";");
+                }
+                if(((EditText)findViewById(R.id.add_image_3)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_3)).getText().toString()).append(";");
+                }
+                if(((EditText)findViewById(R.id.add_image_4)).getText().toString().equals("")){
+                    pictureText.append("无文字提醒;");
+                }else {
+                    pictureText.append(((EditText)findViewById(R.id.add_image_4)).getText().toString()).append(";");
+                }
                 break;
         }
 
@@ -476,8 +518,15 @@ public class AddNotificationActivity extends AppCompatActivity {
         if(((CheckBox)findViewById(R.id.vibrate_cb)).isChecked())
             notificationVibrate="1";
 
+        String notificationDayTime;
+        if(dayTp.getMinute()==0){
+            notificationDayTime=dayTp.getHour()+":"+dayTp.getMinute()+"0";
+        }else {
+            notificationDayTime=dayTp.getHour()+":"+dayTp.getMinute();
+        }
+
         String[] myParamsArr={"AddNotification", MainActivity.userID
-                ,nameNotification.getText().toString(),dayTp.getHour()+":"+dayTp.getMinute()
+                ,nameNotification.getText().toString(),notificationDayTime
                 ,weekNotification,notificationWay, pictureSrc.toString(),pictureText.toString()
                 ,voiceSrc,((EditText)findViewById(R.id.text_ed)).getText().toString()
                 ,tinkleSrc,notificationVibrate,MainActivity.patientName};
@@ -486,10 +535,10 @@ public class AddNotificationActivity extends AppCompatActivity {
         myVerifyTask.execute(myParamsArr);
     }
 
-    private void deleteOperation() {
+    private void deleteOperation(String deleteKind) {
         kind=2;
         String[] myParamsArr = {"DeleteNotification", MainActivity.userID, MainActivity.patientName
-                , nameNotification.getText().toString()};
+                , oriNotificationName,deleteKind};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }
@@ -631,12 +680,18 @@ public class AddNotificationActivity extends AppCompatActivity {
                         }
                     }
                     String[] detailPictureSrc=myMap.get("PictureSrc").split(";");
-                    picSrc.addAll(Arrays.asList(detailPictureSrc));
-                    picSrc.add(IMG_ADD_TAG);
+                    if(myMap.get("PictureSrc").equals("")){
+                        picSrc.add(IMG_ADD_TAG);
+                    }else {
+                        picSrc.addAll(Arrays.asList(detailPictureSrc));
+                        picSrc.add(IMG_ADD_TAG);
+                    }
+                    if(picSrc.size()>2){
+                        reDrawLayout(true);
+                    }
                     gridView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     String[] detailPictureText=myMap.get("PictureText").split(";");
-                    System.out.println(detailPictureText.length+"");
                     switch (detailPictureText.length){
                         case 1:
                             picText1.setText(detailPictureText[0]);
@@ -670,6 +725,7 @@ public class AddNotificationActivity extends AppCompatActivity {
                     }
                     String detailTinkleSrc=myMap.get("TinkleSrc");
                     mTinkleUri=file2Uri(new File(detailTinkleSrc));
+                    System.out.println(mTinkleUri);
                     ((TextView) findViewById(R.id.tinkle_title))
                             .setText(getVoiceTitle(mTinkleUri));
                     String detailNotificationVibrate=myMap.get("NotificationVibrate");

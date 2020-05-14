@@ -19,36 +19,26 @@
   </component>
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml" />
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java" description="String detailWeekNotificaction=myMap.get(&quot;WeekNoti..." line="606" />
+    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java" description="String detailWeekNotificaction=myMap.get(&quot;WeekNoti..." line="655" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="282bd527-975f-45cb-b287-561b4c9410af" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/drug_text_shape.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddMedicineActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddMedicineActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddPatientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddPatientActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/DrugActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/DrugActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/TimerActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/TimerActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/WebServiceAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/WebServiceAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/ManageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/ManageFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/MedicineListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/MedicineListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/PatientAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/PatientAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_patient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_patient.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_patient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_patient.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_medicine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_medicine.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_user.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/setting_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/setting_menu.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_drug.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_drug.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,10 +76,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="valueResourceFile" />
         <option value="Class" />
         <option value="layoutResourceFile_vertical" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -113,14 +103,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/Notification.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/drug_now_bt_shape.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/drug_later_bt_shape.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/timer_text_shape.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/AlarmService.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_timer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_drug.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/Patient.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/Manage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/ManageListAdapter.java" />
@@ -137,12 +125,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_notifications.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/LocationUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/emergency_button.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/AlarmReceiver.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/TimerActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/DrugActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/RecordListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/Medicine.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_manage.xml" />
@@ -155,15 +139,21 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_user.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddPatientActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/WebServiceAPI.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/ManageFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_medicine.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddMedicineActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_medicine.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/manage/MedicineListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/drug_text_shape.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_drug.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddMedicineActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddPatientActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/WebServiceAPI.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/TimerActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/DrugActivity.java" />
       </list>
     </option>
   </component>
@@ -180,6 +170,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -210,6 +201,13 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="holsansys" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="drug" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="holsansys" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="tools" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -225,7 +223,7 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="holsansys" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="manage" type="462c0819:PsiDirectoryNode" />
+              <item name="notifications" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
@@ -233,24 +231,18 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="holsansys" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="notifications" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="HolsanSys" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -267,7 +259,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,7 +414,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5024311" side_tool="true" weight="0.1391258" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49756888" visible="true" weight="0.17377399" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49756888" visible="true" weight="0.17377399" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -432,13 +423,13 @@
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" x="22" y="373" width="1876" height="294" id="Run" order="0" sideWeight="0.47334754" weight="0.318872" />
-      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49946696" visible="true" weight="0.3275488" />
+      <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.4989339" visible="true" weight="0.3264642" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.329718" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.329718" />
       <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49946696" weight="0.3286334" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.52665246" side_tool="true" weight="0.318872" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5010661" side_tool="true" weight="0.3264642" />
       <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.4989339" weight="0.329718" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.48687088" weight="0.19848156" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.47974414" weight="0.19848156" />
       <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.329718" />
       <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49946696" weight="0.3286334" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" weight="0.32995737" />
@@ -479,37 +470,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/app/libs/AMap_Location_V4.9.0_20200302.jar!/com/amap/api/location/AMapLocationClient.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4475">
-          <caret line="195" column="16" selection-start-line="195" selection-start-column="16" selection-end-line="195" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15775">
-          <caret line="672" selection-start-line="672" selection-end-line="672" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/MessageQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15075">
-          <caret line="632" selection-start-line="632" selection-end-line="632" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/ThreadLocalWorkSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-          <folding>
-            <element signature="e#2241#2242#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/java/lang/Integer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22225">
@@ -626,29 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/DrugActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="204" column="116" lean-forward="true" selection-start-line="204" selection-start-column="116" selection-end-line="204" selection-end-column="116" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#onCreate#0;class#DrugActivity#0" />
-            <element signature="class#VerifyTask#0;class#DrugActivity#0" />
-            <element signature="method#finish#0;class#DrugActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/TimerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="133" column="64" lean-forward="true" selection-start-line="133" selection-start-column="64" selection-end-line="133" selection-end-column="64" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_record.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
@@ -751,60 +688,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/ImageTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/ImageTool.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
           <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/PatientAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="875">
           <caret line="50" column="75" selection-start-line="50" selection-start-column="75" selection-end-line="50" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="68" column="8" lean-forward="true" selection-start-line="68" selection-start-column="8" selection-end-line="82" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="60" column="49" lean-forward="true" selection-start-line="60" selection-start-column="49" selection-end-line="60" selection-end-column="49" />
-          <folding>
-            <element signature="method#onCreate#0;class#MainActivity#0" />
-            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" />
-            <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" />
-            <element signature="method#initial#0;class#MainActivity#0" />
-            <element signature="method#isAdmin#0;class#MainActivity#0" />
-            <element signature="method#onActivityResult#0;class#MainActivity#0" />
-            <element signature="method#addNotificationBt#0;class#MainActivity#0" />
-            <element signature="method#onKeyDown#0;class#MainActivity#0" />
-            <element signature="method#emergencyCall#0;class#MainActivity#0" />
-            <element signature="method#getAddress#0;class#MainActivity#0" />
-            <element signature="method#onRequestPermissionsResult#0;class#MainActivity#0" />
-            <element signature="method#addAlarm#0;class#MainActivity#0" />
-            <element signature="method#deleteAlarm#0;class#MainActivity#0" />
-            <element signature="class#VerifyTask#0;class#MainActivity#0" />
-            <element signature="method#doInBackground#0;class#VerifyTask#0;class#MainActivity#0" />
-            <element signature="method#onPostExecute#0;class#VerifyTask#0;class#MainActivity#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -819,92 +715,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="479" column="92" lean-forward="true" selection-start-line="479" selection-start-column="92" selection-end-line="479" selection-end-column="92" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#addImage#0;class#AddNotificationActivity#0" />
-            <element signature="method#openSysCamera#0;class#AddNotificationActivity#0" />
-            <element signature="method#openSysAlbum#0;class#AddNotificationActivity#0" />
-            <element signature="method#createImageUri#0;class#AddNotificationActivity#0" />
-            <element signature="method#reDrawLayout#0;class#AddNotificationActivity#0" />
-            <element signature="method#onActivityResult#0;class#AddNotificationActivity#0" />
-            <element signature="method#reDrawEdit#0;class#AddNotificationActivity#0" />
-            <element signature="method#addVoice#0;class#AddNotificationActivity#0" />
-            <element signature="method#addVoiceNotification#0;class#AddNotificationActivity#0" />
-            <element signature="method#getVoiceTitle#0;class#AddNotificationActivity#0" />
-            <element signature="method#addNotification#0;class#AddNotificationActivity#0" />
-            <element signature="method#changeNotification#0;class#AddNotificationActivity#0" />
-            <element signature="method#deleteNotification#0;class#AddNotificationActivity#0" />
-            <element signature="e#16803#18104#0" />
-            <element signature="method#deleteOperation#0;class#AddNotificationActivity#0" />
-            <element signature="method#isReady#0;class#AddNotificationActivity#0" />
-            <element signature="class#VerifyTask#0;class#AddNotificationActivity#0" />
-            <element signature="method#onPreExecute#0;class#VerifyTask#0;class#AddNotificationActivity#0" />
-            <element signature="method#doInBackground#0;class#VerifyTask#0;class#AddNotificationActivity#0" />
-            <element signature="method#onPostExecute#0;class#VerifyTask#0;class#AddNotificationActivity#0" />
-            <element signature="e#21750#21878#1" />
-            <element signature="e#21941#22536#1" />
-            <element signature="e#22553#28190#1" />
-            <element signature="e#23481#24767#1" />
-            <element signature="e#23542#24745#0" />
-            <element signature="e#24927#25452#1" />
-            <element signature="e#25956#26927#0" />
-            <element signature="e#27077#27303#1" />
-            <element signature="e#27419#27530#1" />
-            <element signature="class#GVAdapter#0;class#AddNotificationActivity#0" />
-            <element signature="method#getView#0;class#GVAdapter#0;class#AddNotificationActivity#0" />
-            <element signature="class#ViewHolder#0;class#GVAdapter#0;class#AddNotificationActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddPatientActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="213" column="108" lean-forward="true" selection-start-line="213" selection-start-column="108" selection-end-line="213" selection-end-column="108" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Add_Patient#0;class#AddPatientActivity#0" />
-            <element signature="method#Change_Patient#0;class#AddPatientActivity#0" />
-            <element signature="method#deletePatient#0;class#AddPatientActivity#0" />
-            <element signature="method#isReady#0;class#AddPatientActivity#0" />
-            <element signature="method#doInBackground#0;class#VerifyTask#0;class#AddPatientActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/WebServiceAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="87" column="31" lean-forward="true" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_notification.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="416" column="51" lean-forward="true" selection-start-line="416" selection-start-column="51" selection-end-line="416" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddMedicineActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="186" lean-forward="true" selection-start-line="186" selection-end-line="186" />
-          <folding>
-            <element signature="method#Add_Medicine#0;class#AddMedicineActivity#0" />
-            <element signature="method#Change_Patient#0;class#AddMedicineActivity#0" />
-            <element signature="class#VerifyTask#0;class#AddMedicineActivity#0" />
-            <element signature="method#onPreExecute#0;class#VerifyTask#0;class#AddMedicineActivity#0" />
-            <element signature="method#doInBackground#0;class#VerifyTask#0;class#AddMedicineActivity#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -917,17 +732,6 @@
             <element signature="e#8597#8615#0" expanded="true" />
             <element signature="e#9504#9522#0" expanded="true" />
             <element signature="e#10047#10065#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="132" column="38" selection-start-line="132" selection-start-column="38" selection-end-line="132" selection-end-column="38" />
-          <folding>
-            <element signature="method#doInBackground#0;class#VerifyTask#0;class#NotificationsFragment#0" />
-            <element signature="e#5495#6360#1" />
           </folding>
         </state>
       </provider>
@@ -979,6 +783,175 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="73" column="45" lean-forward="true" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/editview_shape.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="11" column="27" lean-forward="true" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/drug_text_shape.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="59" lean-forward="true" selection-start-line="6" selection-start-column="59" selection-end-line="6" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_drug.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="113" column="39" lean-forward="true" selection-start-line="113" selection-start-column="39" selection-end-line="113" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-286">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="60" column="49" lean-forward="true" selection-start-line="60" selection-start-column="49" selection-end-line="60" selection-end-column="49" />
+          <folding>
+            <element signature="method#onCreate#0;class#MainActivity#0" />
+            <element signature="method#onCreateOptionsMenu#0;class#MainActivity#0" />
+            <element signature="method#onOptionsItemSelected#0;class#MainActivity#0" />
+            <element signature="method#initial#0;class#MainActivity#0" />
+            <element signature="method#isAdmin#0;class#MainActivity#0" />
+            <element signature="method#onActivityResult#0;class#MainActivity#0" />
+            <element signature="method#addNotificationBt#0;class#MainActivity#0" />
+            <element signature="method#onKeyDown#0;class#MainActivity#0" />
+            <element signature="method#emergencyCall#0;class#MainActivity#0" />
+            <element signature="method#getAddress#0;class#MainActivity#0" />
+            <element signature="method#onRequestPermissionsResult#0;class#MainActivity#0" />
+            <element signature="method#addAlarm#0;class#MainActivity#0" />
+            <element signature="method#deleteAlarm#0;class#MainActivity#0" />
+            <element signature="class#VerifyTask#0;class#MainActivity#0" />
+            <element signature="method#doInBackground#0;class#VerifyTask#0;class#MainActivity#0" />
+            <element signature="method#onPostExecute#0;class#VerifyTask#0;class#MainActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddPatientActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Add_Patient#0;class#AddPatientActivity#0" />
+            <element signature="method#isReady#0;class#AddPatientActivity#0" />
+            <element signature="method#doInBackground#0;class#VerifyTask#0;class#AddPatientActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/tools/WebServiceAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="70" column="46" selection-start-line="70" selection-start-column="46" selection-end-line="70" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/notifications/NotificationsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="55" column="46" lean-forward="true" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
+          <folding>
+            <element signature="method#doInBackground#0;class#VerifyTask#0;class#NotificationsFragment#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/ui/user/UserFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="159" column="42" lean-forward="true" selection-start-line="159" selection-start-column="42" selection-end-line="159" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddMedicineActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+          <folding>
+            <element signature="method#onCreate#0;class#AddMedicineActivity#0" />
+            <element signature="method#Add_Medicine#0;class#AddMedicineActivity#0" />
+            <element signature="method#Change_Medicine#0;class#AddMedicineActivity#0" />
+            <element signature="method#Delete_Medicine#0;class#AddMedicineActivity#0" />
+            <element signature="class#VerifyTask#0;class#AddMedicineActivity#0" />
+            <element signature="method#onPreExecute#0;class#VerifyTask#0;class#AddMedicineActivity#0" />
+            <element signature="method#doInBackground#0;class#VerifyTask#0;class#AddMedicineActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/add/AddNotificationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="773" selection-start-line="773" selection-end-line="773" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#onCreate#0;class#AddNotificationActivity#0" />
+            <element signature="method#addImage#0;class#AddNotificationActivity#0" />
+            <element signature="method#openSysCamera#0;class#AddNotificationActivity#0" />
+            <element signature="method#openSysAlbum#0;class#AddNotificationActivity#0" />
+            <element signature="method#createImageUri#0;class#AddNotificationActivity#0" />
+            <element signature="method#reDrawLayout#0;class#AddNotificationActivity#0" />
+            <element signature="method#onActivityResult#0;class#AddNotificationActivity#0" />
+            <element signature="method#reDrawEdit#0;class#AddNotificationActivity#0" />
+            <element signature="method#addVoice#0;class#AddNotificationActivity#0" />
+            <element signature="method#addVoiceNotification#0;class#AddNotificationActivity#0" />
+            <element signature="method#getVoiceTitle#0;class#AddNotificationActivity#0" />
+            <element signature="method#addNotification#0;class#AddNotificationActivity#0" />
+            <element signature="method#changeNotification#0;class#AddNotificationActivity#0" />
+            <element signature="method#deleteNotification#0;class#AddNotificationActivity#0" />
+            <element signature="method#insertOperation#0;class#AddNotificationActivity#0" />
+            <element signature="method#deleteOperation#0;class#AddNotificationActivity#0" />
+            <element signature="method#isReady#0;class#AddNotificationActivity#0" />
+            <element signature="method#onPreExecute#0;class#VerifyTask#0;class#AddNotificationActivity#0" />
+            <element signature="method#doInBackground#0;class#VerifyTask#0;class#AddNotificationActivity#0" />
+            <element signature="class#ViewHolder#0;class#GVAdapter#0;class#AddNotificationActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/TimerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="103" column="30" lean-forward="true" selection-start-line="103" selection-start-column="30" selection-end-line="103" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2015#2409#1" />
+            <element signature="e#2431#3615#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/volcano/holsansys/drug/DrugActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="240" column="39" lean-forward="true" selection-start-line="240" selection-start-column="39" selection-end-line="240" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2016#2397#1" />
+            <element signature="method#doInBackground#0;class#VerifyTask#0;class#DrugActivity#0" />
+            <element signature="e#5801#12294#0" />
+            <element signature="method#finish#0;class#DrugActivity#0" />
+          </folding>
         </state>
       </provider>
     </entry>

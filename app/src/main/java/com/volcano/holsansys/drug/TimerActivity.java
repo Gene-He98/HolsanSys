@@ -101,7 +101,9 @@ public class TimerActivity extends AppCompatActivity {
             vibrator.vibrate(VibrationEffect.createWaveform(new long[]{1000, 500, 1000, 500},0));
         }
         mediaPlayer = MediaPlayer.create(this,mTinkleUri);
-        mediaPlayer.start();
+        if(mediaPlayer!=null){
+            mediaPlayer.start();
+        }
 
     }
 

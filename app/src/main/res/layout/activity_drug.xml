@@ -16,7 +16,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="430dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="40dp">
 
             <LinearLayout
@@ -30,62 +30,128 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:background="@drawable/drug_text_shape"
                     android:visibility="gone"
                     android:textSize="40sp"/>
 
                 <ImageView
-                    android:id="@+id/drug_pic_iv"
+                    android:id="@+id/drug_pic_iv1"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:visibility="gone"
                     android:src="@drawable/drug"/>
 
                 <TextView
-                    android:id="@+id/drug_pic_tv"
+                    android:id="@+id/drug_pic_tv1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
+                    android:background="@drawable/drug_text_shape"
+                    android:visibility="gone"
+                    android:textSize="40sp"/>
+
+                <ImageView
+                    android:id="@+id/drug_pic_iv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:visibility="gone"
+                    android:src="@drawable/drug"/>
+
+                <TextView
+                    android:id="@+id/drug_pic_tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/drug_text_shape"
+                    android:visibility="gone"
+                    android:textSize="40sp"/>
+
+                <ImageView
+                    android:id="@+id/drug_pic_iv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:visibility="gone"
+                    android:src="@drawable/drug"/>
+
+                <TextView
+                    android:id="@+id/drug_pic_tv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/drug_text_shape"
+                    android:visibility="gone"
+                    android:textSize="40sp"/>
+
+                <ImageView
+                    android:id="@+id/drug_pic_iv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:visibility="gone"
+                    android:src="@drawable/drug"/>
+
+                <TextView
+                    android:id="@+id/drug_pic_tv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/drug_text_shape"
                     android:visibility="gone"
                     android:textSize="40sp"/>
 
                 <TextView
                     android:id="@+id/drug_voice"
-                    android:background="@drawable/editview_shape"
-                    android:layout_width="wrap_content"
+                    android:background="@drawable/drug_text_shape"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:textSize="@dimen/word_size"
+                    android:textSize="30dp"
                     android:visibility="gone"/>
+
+
+
+                <Button
+                    android:id="@+id/drug_later"
+                    android:layout_width="300dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/drug_later_bt_shape"
+                    android:text="稍   后"
+                    android:textStyle="bold"
+                    android:textSize="50sp"/>
+
+                <Button
+                    android:id="@+id/drug_now"
+                    android:layout_width="300dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/drug_now_bt_shape"
+                    android:text="已服药"
+                    android:textStyle="bold"
+                    android:textSize="50sp"/>
 
 
             </LinearLayout>
 
         </ScrollView>
-
-        <Button
-            android:id="@+id/drug_later"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/drug_later_bt_shape"
-            android:text="稍   后"
-            android:textStyle="bold"
-            android:textSize="50sp"/>
-
-        <Button
-            android:id="@+id/drug_now"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/drug_now_bt_shape"
-            android:text="已服药"
-            android:textStyle="bold"
-            android:textSize="50sp"/>
 
     </LinearLayout>
 

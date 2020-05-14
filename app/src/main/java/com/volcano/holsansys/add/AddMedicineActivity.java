@@ -1,5 +1,7 @@
 package com.volcano.holsansys.add;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -110,10 +112,28 @@ public class AddMedicineActivity extends AppCompatActivity {
     }
 
     public void Delete_Medicine(View view){
-        String[] myParamsArr ={"DeleteMedicine",MainActivity.userID,oriMedicineName};
-        VerifyTask myVerifyTask = new VerifyTask();
-        myVerifyTask.execute(myParamsArr);
-        AddMedicineActivity.this.finish();
+        AlertDialog.Builder normalDialog = new AlertDialog.Builder(AddMedicineActivity.this);
+        normalDialog.setTitle("删除家居药物");
+        normalDialog.setMessage("是否确定删除？");
+        normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String[] myParamsArr ={"DeleteMedicine",MainActivity.userID,oriMedicineName};
+                VerifyTask myVerifyTask = new VerifyTask();
+                myVerifyTask.execute(myParamsArr);
+                MainActivity.addMedicineFlag=true;
+                AddMedicineActivity.this.finish();
+            }
+        });
+        normalDialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        normalDialog.setCancelable(false);
+        // 显示
+        normalDialog.show();
     }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
