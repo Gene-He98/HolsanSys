@@ -61,7 +61,6 @@ public class AddNotificationActivity extends AppCompatActivity {
     private Uri mTinkleUri;
     private Toast mToast = null;
     private EditText nameNotification;
-    private int kind;
     private List<String> picSrc;
     private static final int IMG_COUNT = 5;
     private static final String IMG_ADD_TAG = "a";
@@ -364,15 +363,14 @@ public class AddNotificationActivity extends AppCompatActivity {
 
     public void addNotification(View view) {
         if (isReady()){
-            insertOperation();
+            insertOperation("add");
             this.finish();
         }
     }
 
     public void changeNotification(View view) {
         if(isReady()){
-            deleteOperation("change");
-            insertOperation();
+            insertOperation("change");
             this.finish();
         }
     }
@@ -384,8 +382,8 @@ public class AddNotificationActivity extends AppCompatActivity {
         normalDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                deleteOperation("delete");
-                MainActivity.addNotificationFlag =true;
+                deleteOperation();
+                MainActivity.refreshNotificationFlag =true;
                 AddNotificationActivity.this.finish();
             }
         });
@@ -400,8 +398,7 @@ public class AddNotificationActivity extends AppCompatActivity {
         normalDialog.show();
     }
 
-    public void insertOperation(){
-        kind=1;
+    public void insertOperation(String kind){
         String weekNotification="";
         String notificationWay="";
         if(((CheckBox)findViewById(R.id.week_mon)).isChecked())
@@ -525,20 +522,29 @@ public class AddNotificationActivity extends AppCompatActivity {
             notificationDayTime=dayTp.getHour()+":"+dayTp.getMinute();
         }
 
-        String[] myParamsArr={"AddNotification", MainActivity.userID
-                ,nameNotification.getText().toString(),notificationDayTime
-                ,weekNotification,notificationWay, pictureSrc.toString(),pictureText.toString()
-                ,voiceSrc,((EditText)findViewById(R.id.text_ed)).getText().toString()
-                ,tinkleSrc,notificationVibrate,MainActivity.patientName};
-
-        VerifyTask myVerifyTask = new VerifyTask();
-        myVerifyTask.execute(myParamsArr);
+        if(kind.equals("add")){
+            String[] myParamsArr={"AddNotification", MainActivity.userID
+                    ,nameNotification.getText().toString(),notificationDayTime
+                    ,weekNotification,notificationWay, pictureSrc.toString(),pictureText.toString()
+                    ,voiceSrc,((EditText)findViewById(R.id.text_ed)).getText().toString()
+                    ,tinkleSrc,notificationVibrate,MainActivity.patientName};
+            VerifyTask myVerifyTask = new VerifyTask();
+            myVerifyTask.execute(myParamsArr);
+        }else {
+            System.out.println(oriNotificationName);
+            String[] myParamsArr={"ChangeNotification", MainActivity.userID
+                    ,nameNotification.getText().toString(),notificationDayTime
+                    ,weekNotification,notificationWay, pictureSrc.toString(),pictureText.toString()
+                    ,voiceSrc,((EditText)findViewById(R.id.text_ed)).getText().toString()
+                    ,tinkleSrc,notificationVibrate,MainActivity.patientName,oriNotificationName};
+            VerifyTask myVerifyTask = new VerifyTask();
+            myVerifyTask.execute(myParamsArr);
+        }
     }
 
-    private void deleteOperation(String deleteKind) {
-        kind=2;
+    private void deleteOperation() {
         String[] myParamsArr = {"DeleteNotification", MainActivity.userID, MainActivity.patientName
-                , oriNotificationName,deleteKind};
+                , oriNotificationName};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }
@@ -611,7 +617,7 @@ public class AddNotificationActivity extends AppCompatActivity {
             //查询结果为成功，则跳转到主页面
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
                 //AddNotificationActivity.this.finish();
-                MainActivity.addNotificationFlag =true;
+                MainActivity.refreshNotificationFlag =true;
             }
             else if (myResult.equals("[{\"msg\":\"error\"}]")){
                 if (mToast == null) {

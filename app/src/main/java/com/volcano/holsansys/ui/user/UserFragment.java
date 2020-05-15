@@ -39,6 +39,7 @@ public class UserFragment extends Fragment {
     private View root;
     private LinearLayout userContent;
     private ScrollView patientContent;
+    private VerifyTask myVerifyTask;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,29 +66,35 @@ public class UserFragment extends Fragment {
             root.findViewById(R.id.delete_patient).setVisibility(View.GONE);
             root.findViewById(R.id.back_main).setVisibility(View.GONE);
         }
-
-        new Thread() {
-            @Override
-            public void run() {
-                while (true){
-                    if(MainActivity.addPatientFlag){
-                        if(MainActivity.patientName.equals("")){
-                            updateUser();
-                        }else {
-                            updatePatient();
+        if(MainActivity.bgThread3==null){
+            MainActivity.bgThread3=new Thread() {
+                @Override
+                public void run() {
+                    while (true){
+                        if(MainActivity.refreshPatientFlag){
+                            if(MainActivity.patientName.equals("")){
+                                String[] myParamsArr={"UserInfo",MainActivity.userID};
+                                myVerifyTask = new VerifyTask();
+                                myVerifyTask.execute(myParamsArr);
+                            }else {
+                                String[] myParamsArr ={"PatientInfo",MainActivity.userID,MainActivity.patientName};
+                                myVerifyTask = new VerifyTask();
+                                myVerifyTask.execute(myParamsArr);
+                            }
+                            MainActivity.refreshPatientFlag =false;
                         }
-                        MainActivity.addPatientFlag=false;
                     }
                 }
-            }
-        }.start();
+            };
+            MainActivity.bgThread3.start();
+        }
 
         return root;
     }
 
     private void updatePatient() {
         String[] myParamsArr ={"PatientInfo",MainActivity.userID,MainActivity.patientName};
-        VerifyTask myVerifyTask = new VerifyTask();
+        myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
         root.findViewById(R.id.back_main).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,13 +157,13 @@ public class UserFragment extends Fragment {
             }
         });
         String[] myParamsArr={"UserInfo",MainActivity.userID};
-        VerifyTask myVerifyTask = new VerifyTask();
+        myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }
 
     private void deletePatient(){
-        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName,"delete"};
-        VerifyTask myVerifyTask = new VerifyTask();
+        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName};
+        myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }
 

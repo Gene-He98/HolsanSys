@@ -59,30 +59,33 @@ public class NotificationsFragment extends Fragment {
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
             }
-            new Thread() {
-                @Override
-                public void run() {
-                    while (true){
-                        if (MainActivity.addNotificationFlag){
-                            list_notification = root.findViewById(R.id.listView_notification);
-                            final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
-                            list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(getContext(), AddNotificationActivity.class);
-                                    intent.putExtra("kind", "change");
-                                    intent.putExtra("NotificationName", ((TextView) view
-                                            .findViewById(R.id.remark_notification)).getText().toString());
-                                    startActivity(intent);
-                                }
-                            });
-                            VerifyTask myVerifyTask = new VerifyTask();
-                            myVerifyTask.execute(myParamsArr);
-                            MainActivity.addNotificationFlag =false;
+            if(MainActivity.bgThread1==null){
+                MainActivity.bgThread1=new Thread() {
+                    @Override
+                    public void run() {
+                        while (true){
+                            if (MainActivity.refreshNotificationFlag){
+                                list_notification = root.findViewById(R.id.listView_notification);
+                                final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+                                list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        Intent intent = new Intent(getContext(), AddNotificationActivity.class);
+                                        intent.putExtra("kind", "change");
+                                        intent.putExtra("NotificationName", ((TextView) view
+                                                .findViewById(R.id.remark_notification)).getText().toString());
+                                        startActivity(intent);
+                                    }
+                                });
+                                VerifyTask myVerifyTask = new VerifyTask();
+                                myVerifyTask.execute(myParamsArr);
+                                MainActivity.refreshNotificationFlag =false;
+                            }
                         }
                     }
-                }
-            }.start();
+                };
+                MainActivity.bgThread1.start();
+            }
             return root;
 
         }else {

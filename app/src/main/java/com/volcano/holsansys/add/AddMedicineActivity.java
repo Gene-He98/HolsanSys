@@ -88,7 +88,7 @@ public class AddMedicineActivity extends AppCompatActivity {
                     medicineUsage,medicineDosage,medicineCautions,medicineValidity};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
-            MainActivity.addMedicineFlag=true;
+            MainActivity.refreshManageFlag =true;
             AddMedicineActivity.this.finish();
         }
     }
@@ -106,7 +106,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         }else {
             Delete_Medicine(view);
             Add_Medicine(view);
-            MainActivity.addPatientFlag=true;
+            MainActivity.refreshPatientFlag =true;
             AddMedicineActivity.this.finish();
         }
     }
@@ -121,7 +121,7 @@ public class AddMedicineActivity extends AppCompatActivity {
                 String[] myParamsArr ={"DeleteMedicine",MainActivity.userID,oriMedicineName};
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
-                MainActivity.addMedicineFlag=true;
+                MainActivity.refreshManageFlag =true;
                 AddMedicineActivity.this.finish();
             }
         });
@@ -167,7 +167,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         protected void onPostExecute(String myResult) {
             //查询结果为成功，则跳转到主页面
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
-                MainActivity.addMedicineFlag =true;
+                MainActivity.refreshManageFlag =true;
             }
             else if (myResult.equals("[{\"msg\":\"error\"}]")){
                 if (mToast == null) {

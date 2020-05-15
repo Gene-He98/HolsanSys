@@ -50,16 +50,18 @@ import static android.Manifest.permission_group.STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static Thread bgThread1;
+    public static Thread bgThread2;
+    public static Thread bgThread3;
     public static boolean admin_flag;
     public static String userID;
     public static String userName;
     public static String patientName = "";
     public static int currentView = 3;
     public static boolean mode = true;
-    public static boolean addPatientFlag=false;
-    public static boolean addNotificationFlag =false;
-    public static boolean addMedicineFlag =false;
+    public static boolean refreshPatientFlag =false;
+    public static boolean refreshNotificationFlag =false;
+    public static boolean refreshManageFlag =false;
     private boolean kind;
     private Timer timer;
     private TimerTask alarmTask;

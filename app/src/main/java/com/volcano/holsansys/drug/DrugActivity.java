@@ -125,6 +125,7 @@ public class DrugActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String myResult) {
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
+                MainActivity.refreshManageFlag=true;
                 finish();
             }else {
                 Gson myGson = new Gson();

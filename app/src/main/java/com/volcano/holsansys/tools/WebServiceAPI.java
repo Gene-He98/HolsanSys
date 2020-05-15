@@ -35,13 +35,9 @@ public class WebServiceAPI {
             case "PatientInfo" :
             case "NotificationInfo" :
             case "DrugRecordInfo" :
-                myParamList.add(ParamListInit("myUserID", webservice[1]));
-                myParamList.add(ParamListInit("myPatientName", webservice[2]));
-                break;
             case "DeletePatient" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myPatientName", webservice[2]));
-                myParamList.add(ParamListInit("deleteKind", webservice[3]));
                 break;
             case "AddPatient" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
@@ -52,6 +48,17 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("newPatientBloodType", webservice[6]));
                 myParamList.add(ParamListInit("newPatientMedicalHistory", webservice[7]));
                 myParamList.add(ParamListInit("newPatientAllergy", webservice[8]));
+                break;
+            case "ChangePatient" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("newPatientName", webservice[2]));
+                myParamList.add(ParamListInit("newPatientAge", webservice[3]));
+                myParamList.add(ParamListInit("newPatientSex", webservice[4]));
+                myParamList.add(ParamListInit("newPatientAddress", webservice[5]));
+                myParamList.add(ParamListInit("newPatientBloodType", webservice[6]));
+                myParamList.add(ParamListInit("newPatientMedicalHistory", webservice[7]));
+                myParamList.add(ParamListInit("newPatientAllergy", webservice[8]));
+                myParamList.add(ParamListInit("oriPatientName", webservice[9]));
                 break;
             case "AddNotification" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
@@ -67,16 +74,26 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("newNotificationVibrate", webservice[11]));
                 myParamList.add(ParamListInit("myPatientName", webservice[12]));
                 break;
-            case "NotificationDetail" :
+            case "ChangeNotification" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
-                myParamList.add(ParamListInit("myPatientName", webservice[2]));
-                myParamList.add(ParamListInit("myNotificationName", webservice[3]));
+                myParamList.add(ParamListInit("newNotificationName", webservice[2]));
+                myParamList.add(ParamListInit("newDayNotification", webservice[3]));
+                myParamList.add(ParamListInit("newWeekNotification", webservice[4]));
+                myParamList.add(ParamListInit("newNotificationWay", webservice[5]));
+                myParamList.add(ParamListInit("newPictureSrc", webservice[6]));
+                myParamList.add(ParamListInit("newPictureText", webservice[7]));
+                myParamList.add(ParamListInit("newVoiceSrc", webservice[8]));
+                myParamList.add(ParamListInit("newTextText", webservice[9]));
+                myParamList.add(ParamListInit("newTinkleSrc", webservice[10]));
+                myParamList.add(ParamListInit("newNotificationVibrate", webservice[11]));
+                myParamList.add(ParamListInit("myPatientName", webservice[12]));
+                myParamList.add(ParamListInit("oriNotificationName", webservice[13]));
                 break;
+            case "NotificationDetail" :
             case "DeleteNotification" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myPatientName", webservice[2]));
                 myParamList.add(ParamListInit("myNotificationName", webservice[3]));
-                myParamList.add(ParamListInit("deleteKind", webservice[4]));
                 break;
             case "DrugRecord" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));

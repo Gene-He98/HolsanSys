@@ -74,24 +74,30 @@ public class ManageFragment extends Fragment {
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
         }
-
-        new Thread() {
-            @Override
-            public void run() {
-                while (true){
-                    if(MainActivity.addMedicineFlag){
-                        if(MainActivity.patientName.equals("")){
-                            mContext = getActivity();
-                            list_medicine = root.findViewById(R.id.listView_manage);
-                            String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
-                            VerifyTask myVerifyTask = new VerifyTask();
-                            myVerifyTask.execute(myParamsArr);
+        if(MainActivity.bgThread2==null){
+            MainActivity.bgThread2=new Thread() {
+                @Override
+                public void run() {
+                    while (true){
+                        if(MainActivity.refreshManageFlag){
+                            if(MainActivity.patientName.equals("")){
+                                mContext = getActivity();
+                                list_medicine = root.findViewById(R.id.listView_manage);
+                                String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
+                                VerifyTask myVerifyTask = new VerifyTask();
+                                myVerifyTask.execute(myParamsArr);
+                            }else {
+                                String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
+                                VerifyTask myVerifyTask = new VerifyTask();
+                                myVerifyTask.execute(myParamsArr);
+                            }
+                            MainActivity.refreshManageFlag =false;
                         }
-                        MainActivity.addMedicineFlag =false;
                     }
                 }
-            }
-        }.start();
+            };
+            MainActivity.bgThread2.start();
+        }
 
         return root;
 

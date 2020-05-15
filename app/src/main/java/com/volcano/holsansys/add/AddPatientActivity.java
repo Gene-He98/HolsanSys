@@ -71,29 +71,46 @@ public class AddPatientActivity extends AppCompatActivity {
                     patientSex,patientAddress,patientBloodType,patientMedicalHistory,patientAllergy};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
-            MainActivity.addPatientFlag=true;
+            MainActivity.refreshPatientFlag =true;
             AddPatientActivity.this.finish();
         }
     }
 
-    public void Change_Patient(View view) {
+    public void Change_Patient(View view){
         if(isReady()){
             String patientName = ((TextView)findViewById(R.id.add_patient_name))
                     .getText().toString();
-            deletePatient();
-            if(!MainActivity.patientName.equals(patientName)){
-                MainActivity.patientName=patientName;
+            String patientAge = ((TextView)findViewById(R.id.add_patient_age))
+                    .getText().toString();
+            String patientSex = ((Spinner)findViewById(R.id.add_patient_sex))
+                    .getSelectedItem().toString();
+            String patientAddress = ((TextView)findViewById(R.id.add_patient_address))
+                    .getText().toString();
+            String patientBloodType = ((Spinner)findViewById(R.id.add_patient_blood_type))
+                    .getSelectedItem().toString();
+            String patientMedicalHistory = ((TextView)findViewById(R.id.add_patient_medical_history))
+                    .getText().toString();
+            String patientAllergy = ((TextView)findViewById(R.id.add_patient_allergy))
+                    .getText().toString();
+            if(patientAddress.equals("")){
+                patientAddress="无";
             }
-            Add_Patient(view);
-            MainActivity.addPatientFlag=true;
+            if(patientMedicalHistory.equals("")){
+                patientMedicalHistory="无";
+            }
+            if(patientAllergy.equals("")){
+                patientAllergy="无";
+            }
+            String[] myParamsArr={"ChangePatient",MainActivity.userID,patientName,patientAge,
+                    patientSex,patientAddress,patientBloodType
+                    ,patientMedicalHistory,patientAllergy,MainActivity.patientName};
+            VerifyTask myVerifyTask = new VerifyTask();
+            myVerifyTask.execute(myParamsArr);
+            MainActivity.patientName=patientName;
+            MainActivity.refreshPatientFlag =true;
+            System.out.println(MainActivity.patientName);
             AddPatientActivity.this.finish();
         }
-    }
-
-    private void deletePatient(){
-        String[] myParamsArr ={"DeletePatient",MainActivity.userID,MainActivity.patientName,"change"};
-        VerifyTask myVerifyTask = new VerifyTask();
-        myVerifyTask.execute(myParamsArr);
     }
 
     private boolean isReady(){
