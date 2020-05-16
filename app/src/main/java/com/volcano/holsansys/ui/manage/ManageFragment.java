@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,12 @@ public class ManageFragment extends Fragment {
                 myVerifyTask.execute(myParamsArr);
             }
         }else {
+            if (MainActivity.textToSpeech != null) {
+                MainActivity.textToSpeech.setPitch(1.0f);
+                MainActivity.textToSpeech.setSpeechRate(1.0f);
+                MainActivity.textToSpeech.speak("用药记录界面"
+                        , TextToSpeech.QUEUE_FLUSH, null);
+            }
             root.findViewById(R.id.manage_bt_emer).setVisibility(View.VISIBLE);
             mContext = getActivity();
             list_record = root.findViewById(R.id.listView_manage);

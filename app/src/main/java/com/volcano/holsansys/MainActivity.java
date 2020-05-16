@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
+import android.speech.tts.TextToSpeech;
 import android.telephony.SmsManager;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -43,6 +44,7 @@ import com.volcano.holsansys.tools.WebServiceAPI;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private TimeCount emerCount;
     private Toast countToast;
     private boolean countFlag=true;
+    public static TextToSpeech textToSpeech; // TTS对象
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -237,6 +240,18 @@ public class MainActivity extends AppCompatActivity {
         v.setTextSize(40);
         v.setTextAppearance(R.style.emerCountStyle);
         countToast.setGravity(Gravity.CENTER, 0, -100);
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = textToSpeech.setLanguage(Locale.CHINA);
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Toast.makeText(MainActivity.this, "数据丢失或不支持", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 
     private void isAdmin() {
@@ -307,9 +322,26 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             if(countFlag){
+                if (textToSpeech != null) {
+                    // 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
+                    textToSpeech.setPitch(1.0f);
+                    //设定语速 ，默认1.0正常语速
+                    textToSpeech.setSpeechRate(1.0f);
+                    textToSpeech.speak("正在紧急求助，再次点击取消"
+                            , TextToSpeech.QUEUE_FLUSH, null);
+                }
                 countFlag=false;
                 emerCount.start();
             }else {
+                if (textToSpeech != null) {
+                    // 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
+                    textToSpeech.setPitch(1.0f);
+                    //设定语速 ，默认1.0正常语速
+                    textToSpeech.setSpeechRate(1.0f);
+                    //朗读，注意这里三个参数的added in API level 4   四个参数的added in API level 21
+                    textToSpeech.speak("取消求救"
+                            , TextToSpeech.QUEUE_FLUSH, null);
+                }
                 countFlag=true;
                 countToast.cancel();
                 emerCount.cancel();
@@ -433,9 +465,27 @@ public class MainActivity extends AppCompatActivity {
                     normalDialog.show();
                 }else{
                     if(countFlag){
+                        if (textToSpeech != null) {
+                            // 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
+                            textToSpeech.setPitch(1.0f);
+                            //设定语速 ，默认1.0正常语速
+                            textToSpeech.setSpeechRate(1.0f);
+                            //朗读，注意这里三个参数的added in API level 4   四个参数的added in API level 21
+                            textToSpeech.speak("正在紧急求助，再次点击取消"
+                                    , TextToSpeech.QUEUE_FLUSH, null);
+                        }
                         countFlag=false;
                         emerCount.start();
                     }else {
+                        if (textToSpeech != null) {
+                            // 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
+                            textToSpeech.setPitch(1.0f);
+                            //设定语速 ，默认1.0正常语速
+                            textToSpeech.setSpeechRate(1.0f);
+                            //朗读，注意这里三个参数的added in API level 4   四个参数的added in API level 21
+                            textToSpeech.speak("取消求救"
+                                    , TextToSpeech.QUEUE_FLUSH, null);
+                        }
                         countFlag=true;
                         countToast.cancel();
                         emerCount.cancel();
@@ -467,6 +517,11 @@ public class MainActivity extends AppCompatActivity {
                 am.cancel(pendingIntentWeekDay);
             }
         }
+        Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent
+                .getBroadcast(MainActivity.this, 88888, intent, 0);
+        am.cancel(pendingIntent);
     }
 
     public void deleteTheAlarm(String notificationName){

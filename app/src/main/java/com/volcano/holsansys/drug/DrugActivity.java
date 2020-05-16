@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +57,12 @@ public class DrugActivity extends AppCompatActivity {
         drugLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(MainActivity.textToSpeech!=null){
+                    MainActivity.textToSpeech.setPitch(1.0f);
+                    MainActivity.textToSpeech.setSpeechRate(1.0f);
+                    MainActivity.textToSpeech.speak("延迟闹钟"
+                            , TextToSpeech.QUEUE_FLUSH, null);
+                }
                 if(delayTimes==3){
                     delayTimes=0;
                     String[] myParamsArr={"DrugRecord", MainActivity.userID
@@ -68,7 +75,7 @@ public class DrugActivity extends AppCompatActivity {
                     Intent intentNew = new Intent(DrugActivity.this, TimerActivity.class);
                     intentNew.putExtra("NotificationName",intent.getStringExtra("NotificationName"));
                     intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
-                    PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 88888, intent, FLAG_CANCEL_CURRENT);
                     AlarmManager am = (AlarmManager) DrugActivity.this.getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES , pendingIntent);
                     String[] myParamsArr={"DrugRecord", MainActivity.userID
@@ -84,6 +91,12 @@ public class DrugActivity extends AppCompatActivity {
         drugNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(MainActivity.textToSpeech!=null){
+                    MainActivity.textToSpeech.setPitch(1.0f);
+                    MainActivity.textToSpeech.setSpeechRate(1.0f);
+                    MainActivity.textToSpeech.speak("确定服药"
+                            , TextToSpeech.QUEUE_FLUSH, null);
+                }
                 delayTimes=0;
                 //发送服药记录给服务器
                 String[] myParamsArr={"DrugRecord", MainActivity.userID
@@ -266,6 +279,12 @@ public class DrugActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if( (keyCode== KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_HOME )&& event.getAction() == KeyEvent.ACTION_DOWN){
+            if(MainActivity.textToSpeech!=null){
+                MainActivity.textToSpeech.setPitch(1.0f);
+                MainActivity.textToSpeech.setSpeechRate(1.0f);
+                MainActivity.textToSpeech.speak("退出，自动延迟闹钟"
+                        , TextToSpeech.QUEUE_FLUSH, null);
+            }
             if(delayTimes==3){
                 delayTimes=0;
                 String[] myParamsArr={"DrugRecord", MainActivity.userID
@@ -278,7 +297,7 @@ public class DrugActivity extends AppCompatActivity {
                 Intent intentNew = new Intent(DrugActivity.this, TimerActivity.class);
                 intentNew.putExtra("NotificationName",intent.getStringExtra("NotificationName"));
                 intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
-                PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(DrugActivity.this, 88888, intent, FLAG_CANCEL_CURRENT);
                 AlarmManager am = (AlarmManager) DrugActivity.this.getSystemService(Context.ALARM_SERVICE);
                 am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES, pendingIntent);
                 String[] myParamsArr={"DrugRecord", MainActivity.userID

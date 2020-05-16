@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,42 +62,16 @@ public class NotificationsFragment extends Fragment {
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
             }
-            Thread refresh=new Thread() {
-                @Override
-                public void run() {
-                    while (ifVisible){
-                        if (MainActivity.refreshNotificationFlag){
-                            String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
-                            VerifyTask myVerifyTask = new VerifyTask();
-                            myVerifyTask.execute(myParamsArr);
-                            MainActivity.refreshNotificationFlag =false;
-                        }
-                        if(MainActivity.mode){
-                            list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Intent intent = new Intent(getContext(), AddNotificationActivity.class);
-                                    intent.putExtra("kind", "change");
-                                    intent.putExtra("NotificationName", ((TextView) view
-                                            .findViewById(R.id.remark_notification)).getText().toString());
-                                    startActivity(intent);
-                                }
-                            });
-                        }else {
-                            list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                }
-                            });
-                        }
-                    }
-                }
-            };
-            refresh.start();
-            return root;
-
-        }else {
+        }
+        else {
+            //语音播报
+            if (MainActivity.textToSpeech != null) {
+                MainActivity.textToSpeech.setPitch(1.0f);
+                MainActivity.textToSpeech.setSpeechRate(1.0f);
+                MainActivity.textToSpeech.speak("提醒计划界面"
+                        , TextToSpeech.QUEUE_FLUSH, null);
+            }
+            //绘制界面
             root.findViewById(R.id.add_bt).setVisibility(View.GONE);
             root.findViewById(R.id.notification_bt_emer).setVisibility(View.VISIBLE);
             mContext = getActivity();
@@ -104,8 +79,42 @@ public class NotificationsFragment extends Fragment {
             final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
-            return root;
         }
+        //UI刷新线程
+        Thread refresh=new Thread() {
+            @Override
+            public void run() {
+                while (ifVisible){
+                    if (MainActivity.refreshNotificationFlag){
+                        String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+                        VerifyTask myVerifyTask = new VerifyTask();
+                        myVerifyTask.execute(myParamsArr);
+                        MainActivity.refreshNotificationFlag =false;
+                    }
+                    if(MainActivity.mode){
+                        list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(getContext(), AddNotificationActivity.class);
+                                intent.putExtra("kind", "change");
+                                intent.putExtra("NotificationName", ((TextView) view
+                                        .findViewById(R.id.remark_notification)).getText().toString());
+                                startActivity(intent);
+                            }
+                        });
+                    }else {
+                        list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            }
+                        });
+                    }
+                }
+            }
+        };
+        refresh.start();
+        return root;
 
     }
 

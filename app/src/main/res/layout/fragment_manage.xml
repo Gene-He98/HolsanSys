@@ -28,6 +28,7 @@
         <ListView
             android:id="@+id/listView_manage"
             android:layout_above="@id/manage_bt_emer"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"

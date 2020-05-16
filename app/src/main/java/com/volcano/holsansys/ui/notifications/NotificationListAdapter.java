@@ -3,6 +3,7 @@ package com.volcano.holsansys.ui.notifications;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,19 @@ public class NotificationListAdapter extends BaseAdapter {
                 myVerifyTask.execute(myParamsArr);
                 MainActivity.refreshNotificationFlag=true;
                 if(!MainActivity.mode){
+                    if(MainActivity.textToSpeech!=null){
+                        if(isChecked){
+                            MainActivity.textToSpeech.setPitch(1.0f);
+                            MainActivity.textToSpeech.setSpeechRate(1.0f);
+                            MainActivity.textToSpeech.speak("开启闹钟"
+                                    , TextToSpeech.QUEUE_FLUSH, null);
+                        }else {
+                            MainActivity.textToSpeech.setPitch(1.0f);
+                            MainActivity.textToSpeech.setSpeechRate(1.0f);
+                            MainActivity.textToSpeech.speak("取消闹钟"
+                                    , TextToSpeech.QUEUE_FLUSH, null);
+                        }
+                    }
                     MainActivity.switchState=isChecked;
                     MainActivity.switchNotification=finalHolder.remark_notification.getText().toString();
                     MainActivity.switchChange=true;

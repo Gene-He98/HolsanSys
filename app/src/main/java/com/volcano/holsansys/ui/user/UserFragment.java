@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,14 @@ public class UserFragment extends Fragment {
                 userContent.setVisibility(View.GONE);
                 patientContent.setVisibility(View.VISIBLE);
             }
-        }else {
+        }
+        else {
+            if (MainActivity.textToSpeech != null) {
+                MainActivity.textToSpeech.setPitch(1.0f);
+                MainActivity.textToSpeech.setSpeechRate(1.0f);
+                MainActivity.textToSpeech.speak("用户界面"
+                        , TextToSpeech.QUEUE_FLUSH, null);
+            }
             updatePatient();
             userContent.setVisibility(View.GONE);
             patientContent.setVisibility(View.VISIBLE);

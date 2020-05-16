@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.speech.tts.TextToSpeech;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -56,6 +57,12 @@ public class TimerActivity extends AppCompatActivity {
         timerLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(MainActivity.textToSpeech!=null){
+                    MainActivity.textToSpeech.setPitch(1.0f);
+                    MainActivity.textToSpeech.setSpeechRate(1.0f);
+                    MainActivity.textToSpeech.speak("延迟闹钟"
+                            , TextToSpeech.QUEUE_FLUSH, null);
+                }
                 if(DrugActivity.delayTimes==3){
                     DrugActivity.delayTimes=0;
                     String[] myParamsArr={"DrugRecord", MainActivity.userID
@@ -69,7 +76,7 @@ public class TimerActivity extends AppCompatActivity {
                     intentNew.putExtra("NotificationName",notificationName);
                     intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
                     intentNew.putExtra("NotificationVibrate",intent.getStringExtra("NotificationVibrate"));
-                    PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 88888, intent, FLAG_CANCEL_CURRENT);
                     AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.RTC_WAKEUP,
                             System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES
@@ -87,6 +94,12 @@ public class TimerActivity extends AppCompatActivity {
         timerNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(MainActivity.textToSpeech!=null){
+                    MainActivity.textToSpeech.setPitch(1.0f);
+                    MainActivity.textToSpeech.setSpeechRate(1.0f);
+                    MainActivity.textToSpeech.speak("现在服药"
+                            , TextToSpeech.QUEUE_FLUSH, null);
+                }
                 Intent intentNew =new Intent(TimerActivity.this,DrugActivity.class);
                 intentNew.putExtra("NotificationName",notificationName);
                 intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
@@ -117,6 +130,12 @@ public class TimerActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if( (keyCode== KeyEvent.KEYCODE_BACK || keyCode==KeyEvent.KEYCODE_HOME )&& event.getAction() == KeyEvent.ACTION_DOWN){
+            if(MainActivity.textToSpeech!=null){
+                MainActivity.textToSpeech.setPitch(1.0f);
+                MainActivity.textToSpeech.setSpeechRate(1.0f);
+                MainActivity.textToSpeech.speak("退出，自动延迟闹钟"
+                        , TextToSpeech.QUEUE_FLUSH, null);
+            }
             if(DrugActivity.delayTimes==3){
                 DrugActivity.delayTimes=0;
                 String[] myParamsArr={"DrugRecord", MainActivity.userID
@@ -129,7 +148,7 @@ public class TimerActivity extends AppCompatActivity {
                 Intent intentNew = new Intent(TimerActivity.this, TimerActivity.class);
                 intentNew.putExtra("NotificationName",notificationName);
                 intentNew.putExtra("TinkleSrc",intent.getStringExtra("TinkleSrc"));
-                PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 0, intent, FLAG_CANCEL_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(TimerActivity.this, 88888, intent, FLAG_CANCEL_CURRENT);
                 AlarmManager am = (AlarmManager) TimerActivity.this.getSystemService(Context.ALARM_SERVICE);
                 am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+INTERVAL_FIFTEEN_MINUTES, pendingIntent);
                 String[] myParamsArr={"DrugRecord", MainActivity.userID
