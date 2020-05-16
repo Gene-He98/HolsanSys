@@ -9,7 +9,8 @@
         android:id="@+id/navigation_user"
         android:name="com.volcano.holsansys.ui.user.UserFragment"
         android:label="@string/title_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_manage"
@@ -21,6 +22,5 @@
         android:id="@+id/navigation_notifications"
         android:name="com.volcano.holsansys.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" >
-    </fragment>
+        tools:layout="@layout/fragment_notifications" />
 </navigation>

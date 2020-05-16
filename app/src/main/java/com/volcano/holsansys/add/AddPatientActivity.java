@@ -108,7 +108,6 @@ public class AddPatientActivity extends AppCompatActivity {
             myVerifyTask.execute(myParamsArr);
             MainActivity.patientName=patientName;
             MainActivity.refreshPatientFlag =true;
-            System.out.println(MainActivity.patientName);
             AddPatientActivity.this.finish();
         }
     }

@@ -32,12 +32,14 @@ public class NotificationsFragment extends Fragment {
     private Context mContext;
     private NotificationListAdapter mAdapter = null;
     private ListView list_notification;
+    private boolean ifVisible;
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.currentView=1;
         final View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         mContext = getActivity();
+        ifVisible=true;
         if(MainActivity.mode){
             if (MainActivity.patientName.equals("")) {
                 root.findViewById(R.id.if_notification).setVisibility(View.VISIBLE);
@@ -45,7 +47,6 @@ public class NotificationsFragment extends Fragment {
                 (root.findViewById(R.id.listView_notification)).setVisibility(View.GONE);
             } else {
                 list_notification = root.findViewById(R.id.listView_notification);
-                final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
                 list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -56,36 +57,43 @@ public class NotificationsFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+                String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
                 VerifyTask myVerifyTask = new VerifyTask();
                 myVerifyTask.execute(myParamsArr);
             }
-            if(MainActivity.bgThread1==null){
-                MainActivity.bgThread1=new Thread() {
-                    @Override
-                    public void run() {
-                        while (true){
-                            if (MainActivity.refreshNotificationFlag){
-                                list_notification = root.findViewById(R.id.listView_notification);
-                                final String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
-                                list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        Intent intent = new Intent(getContext(), AddNotificationActivity.class);
-                                        intent.putExtra("kind", "change");
-                                        intent.putExtra("NotificationName", ((TextView) view
-                                                .findViewById(R.id.remark_notification)).getText().toString());
-                                        startActivity(intent);
-                                    }
-                                });
-                                VerifyTask myVerifyTask = new VerifyTask();
-                                myVerifyTask.execute(myParamsArr);
-                                MainActivity.refreshNotificationFlag =false;
-                            }
+            Thread refresh=new Thread() {
+                @Override
+                public void run() {
+                    while (ifVisible){
+                        if (MainActivity.refreshNotificationFlag){
+                            String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
+                            VerifyTask myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
+                            MainActivity.refreshNotificationFlag =false;
+                        }
+                        if(MainActivity.mode){
+                            list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Intent intent = new Intent(getContext(), AddNotificationActivity.class);
+                                    intent.putExtra("kind", "change");
+                                    intent.putExtra("NotificationName", ((TextView) view
+                                            .findViewById(R.id.remark_notification)).getText().toString());
+                                    startActivity(intent);
+                                }
+                            });
+                        }else {
+                            list_notification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                }
+                            });
                         }
                     }
-                };
-                MainActivity.bgThread1.start();
-            }
+                }
+            };
+            refresh.start();
             return root;
 
         }else {
@@ -100,6 +108,14 @@ public class NotificationsFragment extends Fragment {
         }
 
     }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ifVisible =false;
+    }
+
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
 
@@ -143,11 +159,13 @@ public class NotificationsFragment extends Fragment {
                         Map<String,String> myMap=myList.get(i);
                         String dayNotification = myMap.get("DayNotification");
                         String notificationName = myMap.get("NotificationName");
-                        mData.add(new Notification(dayNotification, notificationName));
+                        String switchNotification = myMap.get("Switch");
+                        mData.add(new Notification(dayNotification, notificationName, switchNotification));
                     }
 
                     mAdapter = new NotificationListAdapter((LinkedList<Notification>) mData, mContext);
                     list_notification.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
                 }
                 catch (Exception ex){}
             }

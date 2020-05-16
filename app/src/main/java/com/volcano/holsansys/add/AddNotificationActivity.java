@@ -364,6 +364,7 @@ public class AddNotificationActivity extends AppCompatActivity {
     public void addNotification(View view) {
         if (isReady()){
             insertOperation("add");
+            MainActivity.refreshNotificationFlag =true;
             this.finish();
         }
     }
@@ -371,6 +372,7 @@ public class AddNotificationActivity extends AppCompatActivity {
     public void changeNotification(View view) {
         if(isReady()){
             insertOperation("change");
+            MainActivity.refreshNotificationFlag =true;
             this.finish();
         }
     }
@@ -531,7 +533,6 @@ public class AddNotificationActivity extends AppCompatActivity {
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
         }else {
-            System.out.println(oriNotificationName);
             String[] myParamsArr={"ChangeNotification", MainActivity.userID
                     ,nameNotification.getText().toString(),notificationDayTime
                     ,weekNotification,notificationWay, pictureSrc.toString(),pictureText.toString()
@@ -617,7 +618,6 @@ public class AddNotificationActivity extends AppCompatActivity {
             //查询结果为成功，则跳转到主页面
             if(myResult.equals("[{\"msg\":\"ok\"}]")){
                 //AddNotificationActivity.this.finish();
-                MainActivity.refreshNotificationFlag =true;
             }
             else if (myResult.equals("[{\"msg\":\"error\"}]")){
                 if (mToast == null) {
@@ -645,9 +645,9 @@ public class AddNotificationActivity extends AppCompatActivity {
                     String detailDayNotification=myMap.get("DayNotification");
                     dayTp.setHour(Integer.parseInt(detailDayNotification.split(":")[0]));
                     dayTp.setMinute(Integer.parseInt(detailDayNotification.split(":")[1]));
-                    String[] detailWeekNotificaction=myMap.get("WeekNotificaction").split(",");
-                    for(int i=0;i<detailWeekNotificaction.length;i++){
-                        switch (detailWeekNotificaction[i]){
+                    String[] detailWeekNotification=myMap.get("WeekNotification").split(",");
+                    for(int i=0;i<detailWeekNotification.length;i++){
+                        switch (detailWeekNotification[i]){
                             case "一" :
                                 ((CheckBox)findViewById(R.id.week_mon)).setChecked(true);
                                 break;
@@ -731,7 +731,6 @@ public class AddNotificationActivity extends AppCompatActivity {
                     }
                     String detailTinkleSrc=myMap.get("TinkleSrc");
                     mTinkleUri=file2Uri(new File(detailTinkleSrc));
-                    System.out.println(mTinkleUri);
                     ((TextView) findViewById(R.id.tinkle_title))
                             .setText(getVoiceTitle(mTinkleUri));
                     String detailNotificationVibrate=myMap.get("NotificationVibrate");

@@ -10,12 +10,16 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -37,6 +41,7 @@ import com.volcano.holsansys.tools.AlarmReceiver;
 import com.volcano.holsansys.tools.WebServiceAPI;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -50,9 +55,6 @@ import static android.Manifest.permission_group.STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static Thread bgThread1;
-    public static Thread bgThread2;
-    public static Thread bgThread3;
     public static boolean admin_flag;
     public static String userID;
     public static String userName;
@@ -62,9 +64,16 @@ public class MainActivity extends AppCompatActivity {
     public static boolean refreshPatientFlag =false;
     public static boolean refreshNotificationFlag =false;
     public static boolean refreshManageFlag =false;
-    private boolean kind;
+    public static boolean switchState;
+    public static String switchNotification;
+    private Thread switchThread;
+    public static boolean switchChange;
     private Timer timer;
     private TimerTask alarmTask;
+    private Map<String,Integer> alarmIdMap=new HashMap<>();
+    private TimeCount emerCount;
+    private Toast countToast;
+    private boolean countFlag=true;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -76,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if(checkSelfPermission(STORAGE)==PackageManager.PERMISSION_DENIED
                 ||checkSelfPermission(LOCATION)==PackageManager.PERMISSION_DENIED
                 ||checkSelfPermission(SMS)==PackageManager.PERMISSION_DENIED
@@ -92,6 +100,22 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             initial();
         }
+        switchThread =new Thread(){
+            @Override
+            public void run() {
+                while (true){
+                    if(switchChange){
+                        if(!switchState){
+                            deleteTheAlarm(switchNotification);
+                        }else {
+                            addAllAlarm();
+                        }
+                        switchChange=false;
+                    }
+                }
+            }
+        };
+        switchThread.start();
     }
 
     @Override
@@ -103,11 +127,11 @@ public class MainActivity extends AppCompatActivity {
                 if (!MainActivity.patientName.equals("") && mode){
                     menu.findItem(R.id.add_patient_item).setVisible(false);
                     menu.findItem(R.id.add_medicine_item).setVisible(false);
-                    addAlarm();
+                    addAllAlarm();
                 }else {
                     menu.findItem(R.id.add_patient_item).setVisible(true);
                     menu.findItem(R.id.add_medicine_item).setVisible(true);
-                    deleteAlarm();
+                    deleteAllAlarm();
                 }
                 return false;
             }
@@ -138,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 findViewById(R.id.add_bt).setVisibility(View.GONE);
                                 findViewById(R.id.notification_bt_emer).setVisibility(View.VISIBLE);
+                                refreshNotificationFlag=true;
                                 break;
                             case 2:
                                 findViewById(R.id.manage_bt_emer).setVisibility(View.VISIBLE);
@@ -149,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
                                 findViewById(R.id.back_main).setVisibility(View.GONE);
                                 break;
                         }
-
                         timer=new Timer();
                         alarmTask=new AlarmTask();
                         //30分钟后每30分钟执行该任务一次
@@ -206,6 +230,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this,
                 navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+        emerCount=new TimeCount(3000,1000);
+        countToast=Toast.makeText(MainActivity.this,
+                        "紧急求救",Toast.LENGTH_SHORT);
+        TextView v = (TextView) countToast.getView().findViewById(android.R.id.message);
+        v.setTextSize(40);
+        v.setTextAppearance(R.style.emerCountStyle);
+        countToast.setGravity(Gravity.CENTER, 0, -100);
     }
 
     private void isAdmin() {
@@ -275,7 +306,15 @@ public class MainActivity extends AppCompatActivity {
                     , 2);
         }
         else{
-            getAddress();
+            if(countFlag){
+                countFlag=false;
+                emerCount.start();
+            }else {
+                countFlag=true;
+                countToast.cancel();
+                emerCount.cancel();
+                emerCount.reset();
+            }
         }
     }
 
@@ -392,26 +431,52 @@ public class MainActivity extends AppCompatActivity {
                     normalDialog.setCancelable(false);
                     // 显示
                     normalDialog.show();
-                }else
-                    getAddress();
+                }else{
+                    if(countFlag){
+                        countFlag=false;
+                        emerCount.start();
+                    }else {
+                        countFlag=true;
+                        countToast.cancel();
+                        emerCount.cancel();
+                        emerCount.reset();
+                    }
+                }
                 break;
 
         }
     }
 
     //添加提醒
-    public void addAlarm(){
-        kind=true;
+    public void addAllAlarm(){
         String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
         VerifyTask myVerifyTask = new VerifyTask();
         myVerifyTask.execute(myParamsArr);
     }
 
-    public void deleteAlarm(){
-        kind=false;
-        String[] myParamsArr = {"NotificationInfo", MainActivity.userID, MainActivity.patientName};
-        VerifyTask myVerifyTask = new VerifyTask();
-        myVerifyTask.execute(myParamsArr);
+    public void deleteAllAlarm(){
+        for(int i=0;i<alarmIdMap.size();i++){
+            Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+            AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent
+                    .getBroadcast(MainActivity.this, i, intent, 0);
+            am.cancel(pendingIntent);
+            for(int j=1;j<=7;j++){
+                PendingIntent pendingIntentWeekDay = PendingIntent
+                        .getBroadcast(MainActivity.this, i*1000+j, intent, 0);
+                am.cancel(pendingIntentWeekDay);
+            }
+        }
+    }
+
+    public void deleteTheAlarm(String notificationName){
+        Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+        for(int i=1;i<=7;i++){
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this
+                    , alarmIdMap.get(notificationName)*1000+i, intent, 0);
+            am.cancel(pendingIntent);
+        }
     }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {
@@ -448,37 +513,128 @@ public class MainActivity extends AppCompatActivity {
         {
             if(!myResult.equals("[]") && !myResult.equals("{\"msg\":\"ok\"}")){
                 Gson myGson = new Gson();
-                List<Map<String,String>> myList=myGson.fromJson(myResult, new TypeToken<List<Map<String,String>>>(){}.getType());
+                List<Map<String,String>> myList=myGson.fromJson(myResult
+                        , new TypeToken<List<Map<String,String>>>(){}.getType());
                 try {
+                    alarmIdMap.clear();
                     for (int i=0;i<myList.size();i++){
                         Map<String,String> myMap=myList.get(i);
                         String dayNotification = myMap.get("DayNotification");
                         String notificationName = myMap.get("NotificationName");
                         String tinkleSrc =myMap.get("TinkleSrc");
                         String notificationVibrate=myMap.get("NotificationVibrate");
-
-                        Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+                        String switchNotification=myMap.get("Switch");
+                        String weekNotification=myMap.get("WeekNotification");
+                        alarmIdMap.put(notificationName,i);
+                        Intent intent = new Intent(MainActivity.this
+                                , AlarmReceiver.class);
                         intent.putExtra("NotificationName",notificationName);
                         intent.putExtra("TinkleSrc",tinkleSrc);
                         intent.putExtra("NotificationVibrate",notificationVibrate);
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-                        AlarmManager am = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
-                        if(kind){
+
+
+                        //测试使用，10秒后提醒
+                        AlarmManager test = (AlarmManager) MainActivity.this
+                                .getSystemService(Context.ALARM_SERVICE);
+                        PendingIntent testpi = PendingIntent
+                                .getBroadcast(MainActivity.this, 56666, intent, 0);
+                        test.setRepeating(AlarmManager.RTC_WAKEUP,
+                                System.currentTimeMillis()+10000,24*3600*1000
+                                , testpi);
+
+
+                        if(switchNotification.equals("1")){
                             Calendar calendar = Calendar.getInstance();
+                            int nowWeekDay=calendar.get(Calendar.DAY_OF_WEEK);
                             calendar.setTimeInMillis(System.currentTimeMillis());
-                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dayNotification.split(":")[0]));
-                            calendar.set(Calendar.MINUTE, Integer.parseInt(dayNotification.split(":")[1]));
+                            calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(dayNotification
+                                    .split(":")[0]));
+                            calendar.set(Calendar.MINUTE, Integer.parseInt(dayNotification
+                                    .split(":")[1]));
                             calendar.set(Calendar.SECOND, 0);
                             calendar.set(Calendar.MILLISECOND, 0);
-                            //获取系统进程
-                            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000, (24*60*60*1000), pendingIntent);
-                        }else {
-                            am.cancel(pendingIntent);
+                            //周重复设置闹钟
+                            if(!weekNotification.equals("")){
+                                String[] dayOfWeekString=weekNotification.split(",");
+                                int[] dayOfWeek=new int[dayOfWeekString.length];
+                                for(int j=0;j<dayOfWeekString.length;j++){
+                                    switch (dayOfWeekString[j]){
+                                        case "一":
+                                            dayOfWeek[j]=Integer.parseInt("1");
+                                            break;
+                                        case "二":
+                                            dayOfWeek[j]=Integer.parseInt("2");
+                                            break;
+                                        case "三":
+                                            dayOfWeek[j]=Integer.parseInt("3");
+                                            break;
+                                        case "四":
+                                            dayOfWeek[j]=Integer.parseInt("4");
+                                            break;
+                                        case "五":
+                                            dayOfWeek[j]=Integer.parseInt("5");
+                                            break;
+                                        case "六":
+                                            dayOfWeek[j]=Integer.parseInt("6");
+                                            break;
+                                        case "日":
+                                            dayOfWeek[j]=Integer.parseInt("7");
+                                            break;
+                                    }
+
+                                    AlarmManager amWeekDay=(AlarmManager) MainActivity.this
+                                            .getSystemService(Context.ALARM_SERVICE);
+                                    PendingIntent piWeekDay = PendingIntent
+                                            .getBroadcast(MainActivity.this, i*1000+dayOfWeek[i], intent, 0);
+
+                                    if (dayOfWeek[i] == nowWeekDay) {
+                                        if (calendar.getTimeInMillis() > System.currentTimeMillis()) {
+                                            amWeekDay.setRepeating(AlarmManager.RTC_WAKEUP,
+                                                    calendar.getTimeInMillis()
+                                                    , (7*24*60*60*1000), piWeekDay);
+                                        } else {
+                                            amWeekDay.setRepeating(AlarmManager.RTC_WAKEUP
+                                                    , calendar.getTimeInMillis()
+                                                            +7*24*3600*1000
+                                                    , (7*24*60*60*1000), piWeekDay);
+                                        }
+                                    } else if (dayOfWeek[i] > nowWeekDay) {
+                                        amWeekDay.setRepeating(AlarmManager.RTC_WAKEUP,
+                                                calendar.getTimeInMillis()
+                                                        +(dayOfWeek[i]-nowWeekDay)*7*24*3600*1000
+                                                , (7*24*60*60*1000), piWeekDay);
+                                    } else if (dayOfWeek[i] < nowWeekDay) {
+                                        amWeekDay.setRepeating(AlarmManager.RTC_WAKEUP,
+                                                calendar.getTimeInMillis()
+                                                        +(dayOfWeek[i]-nowWeekDay+7)*24*3600*1000
+                                                , (7*24*60*60*1000), piWeekDay);
+                                    }
+                                }
+                            }
+                            //每天重复提醒闹钟
+                            else {
+                                AlarmManager amDay=(AlarmManager) MainActivity.this
+                                        .getSystemService(Context.ALARM_SERVICE);
+                                PendingIntent piDay = PendingIntent
+                                        .getBroadcast(MainActivity.this, i, intent, 0);
+
+                                if (calendar.getTimeInMillis() > System.currentTimeMillis()) {
+                                    amDay.setRepeating(AlarmManager.RTC_WAKEUP,
+                                            calendar.getTimeInMillis()
+                                            , (24*60*60*1000), piDay);
+                                } else {
+                                    amDay.setRepeating(AlarmManager.RTC_WAKEUP
+                                            , calendar.getTimeInMillis()
+                                                    +24*3600*1000
+                                            , (24*60*60*1000), piDay);
+                                }
+                            }
                         }
                     }
                 }
-                catch (Exception ex){}
+                catch (Exception ex){
+
+                }
             }
         }
     }
@@ -509,5 +665,35 @@ public class MainActivity extends AppCompatActivity {
             (new WebServiceAPI()).ConnectingWebService(myParamsArr);
         }
     }
+
+    class TimeCount extends CountDownTimer {
+
+        private int count=4;
+
+        public void reset(){
+            this.count=4;
+        }
+
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            countToast.setText(("\n              "+--count)+"\n\n再次点击取消");
+            countToast.setDuration(Toast.LENGTH_SHORT);
+            countToast.show();
+        }
+
+        @Override
+        public void onFinish() {
+            getAddress();
+            count=0;
+            countFlag=true;
+            reset();
+            countToast.cancel();
+        }
+    }
+
 }
 

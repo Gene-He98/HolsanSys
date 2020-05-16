@@ -64,7 +64,7 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("newNotificationName", webservice[2]));
                 myParamList.add(ParamListInit("newDayNotification", webservice[3]));
-                myParamList.add(ParamListInit("newWeekNotificaction", webservice[4]));
+                myParamList.add(ParamListInit("newWeekNotification", webservice[4]));
                 myParamList.add(ParamListInit("newNotificationWay", webservice[5]));
                 myParamList.add(ParamListInit("newPictureSrc", webservice[6]));
                 myParamList.add(ParamListInit("newPictureText", webservice[7]));
@@ -110,6 +110,16 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("newCautions",webservice[6]));
                 myParamList.add(ParamListInit("newValidity",webservice[7]));
                 break;
+            case "ChangeMedicine" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("newMedicineName", webservice[2]));
+                myParamList.add(ParamListInit("newMedicineAnotherName", webservice[3]));
+                myParamList.add(ParamListInit("newUsage",webservice[4]));
+                myParamList.add(ParamListInit("newDosage",webservice[5]));
+                myParamList.add(ParamListInit("newCautions",webservice[6]));
+                myParamList.add(ParamListInit("newValidity",webservice[7]));
+                myParamList.add(ParamListInit("oriMedicineName",webservice[8]));
+                break;
             case "DeleteMedicine" :
             case "MedicineDetail" :
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
@@ -119,6 +129,12 @@ public class WebServiceAPI {
                 myParamList.add(ParamListInit("myUserID", webservice[1]));
                 myParamList.add(ParamListInit("myPatientName", webservice[2]));
                 myParamList.add(ParamListInit("newLocation", webservice[3]));
+                break;
+            case "ChangeNotificationSwitch" :
+                myParamList.add(ParamListInit("myUserID", webservice[1]));
+                myParamList.add(ParamListInit("myPatientName", webservice[2]));
+                myParamList.add(ParamListInit("newSwitch", webservice[3]));
+                myParamList.add(ParamListInit("myNotificationName", webservice[4]));
                 break;
         }
 

@@ -34,10 +34,12 @@ public class ManageFragment extends Fragment {
     private MedicineListAdapter medicineAdapter = null;
     private ListView list_record;
     private ListView list_medicine;
+    private boolean ifVisible;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MainActivity.currentView=2;
+        ifVisible=true;
         final View root = inflater.inflate(R.layout.fragment_manage, container, false);
         if (MainActivity.mode){
             if (MainActivity.patientName.equals("")) {
@@ -74,33 +76,38 @@ public class ManageFragment extends Fragment {
             VerifyTask myVerifyTask = new VerifyTask();
             myVerifyTask.execute(myParamsArr);
         }
-        if(MainActivity.bgThread2==null){
-            MainActivity.bgThread2=new Thread() {
-                @Override
-                public void run() {
-                    while (true){
-                        if(MainActivity.refreshManageFlag){
-                            if(MainActivity.patientName.equals("")){
-                                mContext = getActivity();
-                                list_medicine = root.findViewById(R.id.listView_manage);
-                                String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
-                                VerifyTask myVerifyTask = new VerifyTask();
-                                myVerifyTask.execute(myParamsArr);
-                            }else {
-                                String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
-                                VerifyTask myVerifyTask = new VerifyTask();
-                                myVerifyTask.execute(myParamsArr);
-                            }
-                            MainActivity.refreshManageFlag =false;
+        Thread refresh=new Thread() {
+            @Override
+            public void run() {
+                while (ifVisible){
+                    if(MainActivity.refreshManageFlag){
+                        if(MainActivity.patientName.equals("")){
+                            mContext = getActivity();
+                            list_medicine = root.findViewById(R.id.listView_manage);
+                            String[] myParamsArr = {"MedicineInfo", MainActivity.userID};
+                            VerifyTask myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
+                        }else {
+                            String[] myParamsArr = {"DrugRecordInfo", MainActivity.userID, MainActivity.patientName};
+                            VerifyTask myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
                         }
+                        MainActivity.refreshManageFlag =false;
                     }
                 }
-            };
-            MainActivity.bgThread2.start();
-        }
+            }
+        };
+        refresh.start();
 
         return root;
 
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ifVisible =false;
     }
 
     class VerifyTask extends AsyncTask<String, Integer, String> {

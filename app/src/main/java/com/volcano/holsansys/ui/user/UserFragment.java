@@ -40,6 +40,14 @@ public class UserFragment extends Fragment {
     private LinearLayout userContent;
     private ScrollView patientContent;
     private VerifyTask myVerifyTask;
+    private TextView me_name;
+    private TextView me_user_age;
+    private TextView me_sex;
+    private TextView me_area;
+    private TextView me_blood;
+    private TextView me_medi;
+    private TextView me_allergy;
+    private boolean ifVisible;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +55,15 @@ public class UserFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_user, container, false);
         userContent= root.findViewById(R.id.user_information);
         patientContent= root.findViewById(R.id.patients_information);
+        me_name=root.findViewById(R.id.me_name);
+        me_user_age=root.findViewById(R.id.me_user_age);
+        me_sex=root.findViewById(R.id.me_sex);
+        me_area=root.findViewById(R.id.me_area);
+        me_blood=root.findViewById(R.id.me_blood);
+        me_medi=root.findViewById(R.id.me_medi);
+        me_allergy=root.findViewById(R.id.me_allergy);
         mContext =getActivity();
+        ifVisible=true;
         if(MainActivity.mode){
             if(MainActivity.patientName.equals("")){
                 //提醒界面数据更新
@@ -66,30 +82,34 @@ public class UserFragment extends Fragment {
             root.findViewById(R.id.delete_patient).setVisibility(View.GONE);
             root.findViewById(R.id.back_main).setVisibility(View.GONE);
         }
-        if(MainActivity.bgThread3==null){
-            MainActivity.bgThread3=new Thread() {
-                @Override
-                public void run() {
-                    while (true){
-                        if(MainActivity.refreshPatientFlag){
-                            if(MainActivity.patientName.equals("")){
-                                String[] myParamsArr={"UserInfo",MainActivity.userID};
-                                myVerifyTask = new VerifyTask();
-                                myVerifyTask.execute(myParamsArr);
-                            }else {
-                                String[] myParamsArr ={"PatientInfo",MainActivity.userID,MainActivity.patientName};
-                                myVerifyTask = new VerifyTask();
-                                myVerifyTask.execute(myParamsArr);
-                            }
-                            MainActivity.refreshPatientFlag =false;
+        Thread refresh =new Thread() {
+            @Override
+            public void run() {
+                while (ifVisible) {
+                    if (MainActivity.refreshPatientFlag) {
+                        if (MainActivity.patientName.equals("")) {
+                            String[] myParamsArr = {"UserInfo", MainActivity.userID};
+                            myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
+                        } else {
+                            String[] myParamsArr = {"PatientInfo", MainActivity.userID, MainActivity.patientName};
+                            myVerifyTask = new VerifyTask();
+                            myVerifyTask.execute(myParamsArr);
                         }
+                        MainActivity.refreshPatientFlag = false;
                     }
                 }
-            };
-            MainActivity.bgThread3.start();
-        }
-
+            }
+        };
+        refresh.start();
         return root;
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ifVisible =false;
     }
 
     private void updatePatient() {
@@ -205,7 +225,6 @@ public class UserFragment extends Fragment {
             switch (kind){
                 case 0 :
                     if(myResult.equals("[{\"msg\":\"ok\"}]")){
-
                     }
                     else {
                         if(!myResult.equals("[]")){
@@ -239,15 +258,13 @@ public class UserFragment extends Fragment {
                             String patientBloodType = myMap.get("PatientBloodType");
                             String patientMedicalHistory = myMap.get("PatientMedicalHistory");
                             String patientAllergy = myMap.get("PatientAllergy");
-
-                            ((TextView)getView().findViewById(R.id.me_name)).setText(patientName);
-                            ((TextView)getView().findViewById(R.id.me_user_age)).setText(patientAge);
-                            ((TextView)getView().findViewById(R.id.me_sex)).setText(patientSex);
-                            ((TextView)getView().findViewById(R.id.me_area)).setText(patientAddress);
-                            ((TextView)getView().findViewById(R.id.me_blood)).setText(patientBloodType);
-                            ((TextView)getView().findViewById(R.id.me_medi)).setText(patientMedicalHistory);
-                            ((TextView)getView().findViewById(R.id.me_allergy)).setText(patientAllergy);
-
+                            me_name.setText(patientName);
+                            me_user_age.setText(patientAge);
+                            me_sex.setText(patientSex);
+                            me_area.setText(patientAddress);
+                            me_blood.setText(patientBloodType);
+                            me_medi.setText(patientMedicalHistory);
+                            me_allergy.setText(patientAllergy);
                         }
                         catch (Exception ex){}
                     }

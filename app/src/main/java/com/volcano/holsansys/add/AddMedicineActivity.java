@@ -104,9 +104,35 @@ public class AddMedicineActivity extends AppCompatActivity {
             }
             mToast.show();
         }else {
-            Delete_Medicine(view);
-            Add_Medicine(view);
-            MainActivity.refreshPatientFlag =true;
+            String medicineName = ((TextView)findViewById(R.id.add_medicine_name))
+                    .getText().toString();
+            String medicineAnotherName = ((TextView)findViewById(R.id.add_medicine_another_name))
+                    .getText().toString();
+            String medicineUsage = ((TextView)findViewById(R.id.add_medicine_usage))
+                    .getText().toString();
+            String medicineDosage = ((TextView)findViewById(R.id.add_medicine_dosage))
+                    .getText().toString();
+            String medicineCautions = ((TextView)findViewById(R.id.add_medicine_cautions))
+                    .getText().toString();
+            DatePicker validity = findViewById(R.id.add_medicine_validity);
+            String medicineValidity =validity.getYear()+"-"+(validity.getMonth()+1)+"-"+validity.getDayOfMonth();
+            if(medicineAnotherName.equals("")){
+                medicineAnotherName="无";
+            }
+            if(medicineUsage.equals("")){
+                medicineUsage="未填写";
+            }
+            if(medicineDosage.equals("")){
+                medicineDosage="未填写";
+            }
+            if(medicineCautions.equals("")){
+                medicineCautions="未填写";
+            }
+            String[] myParamsArr={"ChangeMedicine",MainActivity.userID,medicineName,medicineAnotherName,
+                    medicineUsage,medicineDosage,medicineCautions,medicineValidity,oriMedicineName};
+            VerifyTask myVerifyTask = new VerifyTask();
+            myVerifyTask.execute(myParamsArr);
+            MainActivity.refreshManageFlag =true;
             AddMedicineActivity.this.finish();
         }
     }
